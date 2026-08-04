@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FormController;
 use App\Http\Controllers\Api\QuestionController;
@@ -12,6 +13,9 @@ Route::post('/forms/{form}/responses', [ResponseController::class, 'store']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'me']);
+
+    Route::get('/admins', [AdminController::class, 'index']);
+    Route::post('/admins', [AdminController::class, 'store']);
 
     Route::apiResource('forms', FormController::class)->except(['show'])->parameters(['forms' => 'form']);
     Route::get('/forms/{form}', [FormController::class, 'show']);

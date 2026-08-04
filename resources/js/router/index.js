@@ -15,6 +15,12 @@ const routes = [
         meta: { requiresAuth: true },
     },
     {
+        path: '/admin/users',
+        name: 'admin.users',
+        component: () => import('../views/AdminUsersList.vue'),
+        meta: { requiresAuth: true },
+    },
+    {
         path: '/admin/forms/:id/edit',
         name: 'admin.forms.edit',
         component: () => import('../views/FormBuilder.vue'),
@@ -36,7 +42,7 @@ const routes = [
     },
     {
         path: '/',
-        redirect: '/admin',
+        redirect: '/forms/1',
     },
 ];
 

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('title');
             $table->boolean('is_required')->default(false);
             $table->unsignedInteger('order')->default(0);
-            $table->jsonb('options')->nullable();
+            $table->json('options')->nullable();
             $table->boolean('is_archived')->default(false);
             $table->timestamps();
 

@@ -28,9 +28,9 @@ watch(
 
 const saveStatusLabel = computed(() => ({
     idle: '',
-    saving: 'Saving…',
-    saved: 'All changes saved',
-    error: 'Failed to save',
+    saving: '保存中…',
+    saved: 'すべての変更を保存しました',
+    error: '保存に失敗しました',
 }[formsStore.saveStatus]));
 
 function onDragEnd() {
@@ -44,46 +44,47 @@ function addQuestion() {
 
 <template>
     <div v-if="formsStore.currentForm" class="max-w-3xl mx-auto px-4 py-8">
-        <div class="flex items-center justify-between mb-6">
-            <router-link :to="{ name: 'admin.forms' }" class="text-sm text-gray-500 hover:text-gray-700">
-                ← Back to forms
+        <div class="flex items-center justify-between mb-8">
+            <router-link :to="{ name: 'admin.forms' }" class="text-base text-gray-500 hover:text-gray-700">
+                ← フォーム一覧に戻る
             </router-link>
-            <span class="text-sm text-gray-400">{{ saveStatusLabel }}</span>
+            <span class="text-base text-gray-400">{{ saveStatusLabel }}</span>
         </div>
 
-        <div class="bg-white border border-gray-200 rounded-lg p-4 mb-6 space-y-3">
+        <div class="bg-white border border-gray-200 rounded-lg p-6 mb-8 space-y-4">
             <input
                 :value="formsStore.currentForm.title"
                 type="text"
-                placeholder="Form title"
-                class="w-full text-xl font-semibold border-b border-gray-200 focus:border-gray-400 outline-none py-1"
+                placeholder="フォームタイトル"
+                class="w-full text-2xl font-semibold border-b border-gray-200 focus:border-gray-400 outline-none py-1.5"
                 @input="formsStore.updateFormMetaLocal({ title: $event.target.value })"
             >
             <textarea
                 :value="formsStore.currentForm.description"
-                placeholder="Form description"
+                placeholder="フォームの説明"
                 rows="2"
-                class="w-full text-sm text-gray-600 border-b border-gray-200 focus:border-gray-400 outline-none py-1 resize-none"
+                class="w-full text-base text-gray-600 border-b border-gray-200 focus:border-gray-400 outline-none py-1.5 resize-none"
                 @input="formsStore.updateFormMetaLocal({ description: $event.target.value })"
             ></textarea>
 
             <div class="flex items-center justify-between pt-2">
-                <label class="flex items-center gap-2 text-sm text-gray-600">
+                <label class="flex items-center gap-2 text-base text-gray-600">
                     <input
                         type="checkbox"
                         :checked="formsStore.currentForm.is_published"
                         @change="formsStore.togglePublish"
+                        class="w-4 h-4"
                     >
-                    Published (accepts responses)
+                    公開する（回答を受け付ける）
                 </label>
 
                 <router-link
                     v-if="formsStore.currentForm.is_published"
                     :to="{ name: 'public.form', params: { id: formsStore.currentForm.id } }"
                     target="_blank"
-                    class="text-sm text-blue-600 hover:text-blue-800"
+                    class="text-base text-blue-600 hover:text-blue-800"
                 >
-                    View public form ↗
+                    公開フォームを見る ↗
                 </router-link>
             </div>
         </div>
@@ -106,10 +107,10 @@ function addQuestion() {
 
         <button
             type="button"
-            class="mt-4 w-full border border-dashed border-gray-300 rounded-lg py-3 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-700"
+            class="mt-4 w-full border border-dashed border-gray-300 rounded-lg py-3.5 text-base text-gray-500 hover:border-gray-400 hover:text-gray-700"
             @click="addQuestion"
         >
-            + Add question
+            + 質問を追加
         </button>
     </div>
 </template>

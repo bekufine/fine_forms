@@ -49,7 +49,7 @@ const chartOptions = {
         legend: { display: false },
         tooltip: {
             callbacks: {
-                label: (context) => `${context.parsed.y} response${context.parsed.y === 1 ? '' : 's'}`,
+                label: (context) => `${context.parsed.y} 件の回答`,
             },
         },
     },
@@ -70,9 +70,9 @@ const chartOptions = {
 </script>
 
 <template>
-    <div class="bg-white border border-gray-200 rounded-lg p-4">
-        <h3 class="text-sm font-medium text-gray-900 mb-1">{{ stat.title }}</h3>
-        <p class="text-xs text-gray-500 mb-3">{{ stat.total_answers }} answers</p>
+    <div class="bg-white border border-gray-200 rounded-lg p-5">
+        <h3 class="text-base font-medium text-gray-900 mb-1">{{ stat.title }}</h3>
+        <p class="text-sm text-gray-500 mb-3">{{ stat.total_answers }} 件の回答</p>
         <div class="h-56">
             <Bar :data="chartData" :options="chartOptions" />
         </div>

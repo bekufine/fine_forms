@@ -1,6 +1,8 @@
 <script setup>
-import { onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import http from '../api/http';
+import { useAuthStore } from '../stores/auth';
+import { DEFAULT_LOCALE, JA_SCALE, LANGUAGES, TRANSLATIONS } from '../i18n/surveyTranslations';
 
 const props = defineProps({
     id: {
@@ -9,14 +11,38 @@ const props = defineProps({
     },
 });
 
+const authStore = useAuthStore();
+
 const form = ref(null);
-const loadError = ref('');
+const loadErrorCode = ref('');
 const answers = reactive({});
 const errors = reactive({});
-const respondentEmail = ref('');
 const submitting = ref(false);
 const submitted = ref(false);
 const submitError = ref('');
+
+const locale = ref(localStorage.getItem('surveyLocale') || DEFAULT_LOCALE);
+const t = computed(() => TRANSLATIONS[locale.value] ?? TRANSLATIONS[DEFAULT_LOCALE]);
+
+function setLocale(code) {
+    locale.value = code;
+    localStorage.setItem('surveyLocale', code);
+}
+
+function questionLabel(question) {
+    return t.value.questions[question.order] ?? question.title;
+}
+
+function optionLabel(option) {
+    const index = JA_SCALE.indexOf(option);
+    return index === -1 ? option : t.value.scale[index];
+}
+
+const loadError = computed(() => {
+    if (loadErrorCode.value === 'notFound') return t.value.notAvailable;
+    if (loadErrorCode.value === 'failed') return t.value.loadFailed;
+    return '';
+});
 
 onMounted(async () => {
     try {
@@ -26,9 +52,7 @@ onMounted(async () => {
             answers[question.id] = question.type === 'checkbox' ? [] : '';
         }
     } catch (e) {
-        loadError.value = e.response?.status === 404
-            ? 'This form is not available.'
-            : 'Failed to load the form.';
+        loadErrorCode.value = e.response?.status === 404 ? 'notFound' : 'failed';
     }
 });
 
@@ -43,7 +67,7 @@ function validate() {
         errors[question.id] = '';
 
         if (question.is_required && isEmpty(answers[question.id])) {
-            errors[question.id] = 'This question is required.';
+            errors[question.id] = t.value.required;
             valid = false;
         }
     }
@@ -67,7 +91,7 @@ async function submit() {
 
     try {
         await http.post(`/forms/${props.id}/responses`, {
-            respondent_email: respondentEmail.value || null,
+            respondent_email: null,
             answers: form.value.questions.map((question) => ({
                 question_id: question.id,
                 value: answers[question.id],
@@ -75,7 +99,7 @@ async function submit() {
         });
         submitted.value = true;
     } catch (e) {
-        submitError.value = e.response?.data?.message || 'Failed to submit your response. Please try again.';
+        submitError.value = e.response?.data?.message || t.value.submitFailed;
     } finally {
         submitting.value = false;
     }
@@ -84,38 +108,50 @@ async function submit() {
 
 <template>
     <div class="min-h-screen bg-gray-50 px-4 py-8">
-        <div class="max-w-xl mx-auto">
-            <p v-if="loadError" class="bg-white border border-gray-200 rounded-lg p-6 text-center text-gray-600">
+        <div class="max-w-2xl mx-auto">
+            <div class="flex justify-end items-center gap-3 mb-3">
+                <label class="sr-only" :for="'locale-select'">{{ t.languageLabel }}</label>
+                <select
+                    id="locale-select"
+                    :value="locale"
+                    class="text-base text-gray-600 border border-gray-300 rounded-md px-3 py-2 bg-white"
+                    @change="setLocale($event.target.value)"
+                >
+                    <option v-for="lang in LANGUAGES" :key="lang.code" :value="lang.code">
+                        {{ lang.label }}
+                    </option>
+                </select>
+
+                <router-link
+                    :to="authStore.isAuthenticated ? '/admin' : '/login'"
+                    class="text-base text-gray-500 border border-gray-300 rounded-md px-4 py-2 hover:bg-white hover:text-gray-700"
+                >
+                    {{ authStore.isAuthenticated ? t.adminPanel : t.adminLogin }}
+                </router-link>
+            </div>
+
+            <p v-if="loadError" class="bg-white border border-gray-200 rounded-lg p-6 text-center text-lg text-gray-600">
                 {{ loadError }}
             </p>
 
-            <div v-else-if="submitted" class="bg-white border border-gray-200 rounded-lg p-6 text-center">
-                <h1 class="text-lg font-semibold text-gray-900 mb-1">Thanks!</h1>
-                <p class="text-sm text-gray-500">Your response has been recorded.</p>
+            <div v-else-if="submitted" class="bg-white border border-gray-200 rounded-lg p-8 text-center">
+                <h1 class="text-2xl font-semibold text-gray-900 mb-2">{{ t.thanksTitle }}</h1>
+                <p class="text-lg text-gray-500">{{ t.thanksBody }}</p>
             </div>
 
             <form v-else-if="form" class="space-y-4" @submit.prevent="submit">
-                <div class="bg-white border border-gray-200 rounded-lg p-6">
-                    <h1 class="text-xl font-semibold text-gray-900">{{ form.title }}</h1>
-                    <p v-if="form.description" class="text-sm text-gray-600 mt-1">{{ form.description }}</p>
-                </div>
-
-                <div class="bg-white border border-gray-200 rounded-lg p-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Your email (optional)</label>
-                    <input
-                        v-model="respondentEmail"
-                        type="email"
-                        class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-                    >
+                <div class="bg-white border border-gray-200 rounded-lg p-8">
+                    <h1 class="text-3xl font-semibold text-gray-900">{{ t.title }}</h1>
+                    <p class="text-lg text-gray-600 mt-2">{{ t.description }}</p>
                 </div>
 
                 <div
                     v-for="question in form.questions"
                     :key="question.id"
-                    class="bg-white border border-gray-200 rounded-lg p-6"
+                    class="bg-white border border-gray-200 rounded-lg p-8"
                 >
-                    <label class="block text-sm font-medium text-gray-900 mb-3">
-                        {{ question.title }}
+                    <label class="block text-lg font-medium text-gray-900 mb-4">
+                        {{ questionLabel(question) }}
                         <span v-if="question.is_required" class="text-red-500">*</span>
                     </label>
 
@@ -123,64 +159,66 @@ async function submit() {
                         v-if="question.type === 'text'"
                         v-model="answers[question.id]"
                         type="text"
-                        class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                        class="w-full rounded-md border border-gray-300 px-4 py-3 text-lg"
                     >
 
                     <textarea
                         v-else-if="question.type === 'textarea'"
                         v-model="answers[question.id]"
                         rows="4"
-                        class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm resize-none"
+                        class="w-full rounded-md border border-gray-300 px-4 py-3 text-lg resize-none"
                     ></textarea>
 
-                    <div v-else-if="question.type === 'radio'" class="space-y-2">
+                    <div v-else-if="question.type === 'radio'" class="space-y-3">
                         <label
                             v-for="option in question.options"
                             :key="option"
-                            class="flex items-center gap-2 text-sm text-gray-700"
+                            class="flex items-center gap-3 text-lg text-gray-700"
                         >
                             <input
                                 v-model="answers[question.id]"
                                 type="radio"
                                 :name="`question-${question.id}`"
                                 :value="option"
+                                class="w-5 h-5"
                             >
-                            {{ option }}
+                            {{ optionLabel(option) }}
                         </label>
                     </div>
 
-                    <div v-else-if="question.type === 'checkbox'" class="space-y-2">
+                    <div v-else-if="question.type === 'checkbox'" class="space-y-3">
                         <label
                             v-for="option in question.options"
                             :key="option"
-                            class="flex items-center gap-2 text-sm text-gray-700"
+                            class="flex items-center gap-3 text-lg text-gray-700"
                         >
                             <input
                                 type="checkbox"
                                 :checked="(answers[question.id] ?? []).includes(option)"
                                 @change="toggleCheckbox(question.id, option, $event.target.checked)"
+                                class="w-5 h-5"
                             >
-                            {{ option }}
+                            {{ optionLabel(option) }}
                         </label>
                     </div>
 
                     <select
                         v-else-if="question.type === 'select'"
                         v-model="answers[question.id]"
-                        class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                        class="w-full rounded-md border border-gray-300 px-4 py-3 text-lg"
                     >
-                        <option value="" disabled>Select an option</option>
+                        <option value="" disabled>{{ t.selectPlaceholder }}</option>
                         <option v-for="option in question.options" :key="option" :value="option">
-                            {{ option }}
+                            {{ optionLabel(option) }}
                         </option>
                     </select>
 
-                    <div v-else-if="question.type === 'scale'" class="flex flex-wrap gap-2">
+                    <div v-else-if="question.type === 'scale'" class="flex flex-wrap gap-3">
                         <button
                             v-for="n in 5"
                             :key="n"
                             type="button"
-                            class="w-10 h-10 rounded-full border text-sm"
+                            class="w-12 h-12 rounded-full border text-lg"
                             :class="answers[question.id] === String(n)
                                 ? 'bg-gray-900 text-white border-gray-900'
                                 : 'border-gray-300 text-gray-700 hover:border-gray-400'"
@@ -194,20 +232,20 @@ async function submit() {
                         v-else-if="question.type === 'date'"
                         v-model="answers[question.id]"
                         type="date"
-                        class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                        class="w-full rounded-md border border-gray-300 px-4 py-3 text-lg"
                     >
 
-                    <p v-if="errors[question.id]" class="text-sm text-red-600 mt-2">{{ errors[question.id] }}</p>
+                    <p v-if="errors[question.id]" class="text-base text-red-600 mt-3">{{ errors[question.id] }}</p>
                 </div>
 
-                <p v-if="submitError" class="text-sm text-red-600">{{ submitError }}</p>
+                <p v-if="submitError" class="text-base text-red-600">{{ submitError }}</p>
 
                 <button
                     type="submit"
                     :disabled="submitting"
-                    class="w-full bg-gray-900 text-white rounded-md py-2.5 text-sm font-medium hover:bg-black disabled:opacity-50"
+                    class="w-full bg-gray-900 text-white rounded-md py-3.5 text-lg font-medium hover:bg-black disabled:opacity-50"
                 >
-                    Submit
+                    {{ t.submit }}
                 </button>
             </form>
         </div>
