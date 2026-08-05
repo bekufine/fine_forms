@@ -77,13 +77,33 @@ export const useFormsStore = defineStore('forms', {
         async addQuestion(payload) {
             const { data } = await http.post(`/forms/${this.currentForm.id}/questions`, {
                 type: 'text',
-                title: 'Untitled question',
+                title: '無題の質問',
                 is_required: false,
                 order: this.questions.length,
                 ...payload,
             });
             this.questions.push(data);
             return data;
+        },
+
+        async duplicateQuestion(questionId) {
+            const source = this.questions.find((question) => question.id === questionId);
+            if (!source) return;
+
+            const sourceIndex = this.questions.findIndex((question) => question.id === questionId);
+
+            const { data } = await http.post(`/forms/${this.currentForm.id}/questions`, {
+                type: source.type,
+                title: `${source.title}（コピー）`,
+                is_required: source.is_required,
+                options: source.options,
+                order: sourceIndex + 1,
+            });
+
+            this.questions.splice(sourceIndex + 1, 0, data);
+
+            const order = this.questions.map((question, index) => ({ id: question.id, order: index }));
+            await http.patch(`/forms/${this.currentForm.id}/questions/reorder`, { order });
         },
 
         updateQuestionLocal(questionId, patch) {

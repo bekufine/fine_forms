@@ -40,6 +40,10 @@ function onDragEnd() {
 function addQuestion() {
     formsStore.addQuestion({});
 }
+
+function addFreeTextQuestion() {
+    formsStore.addQuestion({ type: 'textarea', title: '自由記述' });
+}
 </script>
 
 <template>
@@ -101,16 +105,26 @@ function addQuestion() {
                     :question="element"
                     @update="(patch) => formsStore.updateQuestionLocal(element.id, patch)"
                     @remove="formsStore.deleteQuestion(element.id)"
+                    @duplicate="formsStore.duplicateQuestion(element.id)"
                 />
             </template>
         </draggable>
 
-        <button
-            type="button"
-            class="mt-4 w-full border border-dashed border-gray-300 rounded-lg py-3.5 text-base text-gray-500 hover:border-gray-400 hover:text-gray-700"
-            @click="addQuestion"
-        >
-            + 質問を追加
-        </button>
+        <div class="mt-4 flex gap-3">
+            <button
+                type="button"
+                class="flex-1 border border-dashed border-gray-300 rounded-lg py-3.5 text-base text-gray-500 hover:border-gray-400 hover:text-gray-700"
+                @click="addQuestion"
+            >
+                + 質問を追加
+            </button>
+            <button
+                type="button"
+                class="flex-1 border border-dashed border-gray-300 rounded-lg py-3.5 text-base text-gray-500 hover:border-gray-400 hover:text-gray-700"
+                @click="addFreeTextQuestion"
+            >
+                + 自由記述を追加
+            </button>
+        </div>
     </div>
 </template>

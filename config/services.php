@@ -35,4 +35,14 @@ return [
         ],
     ],
 
+    'anthropic' => [
+        'api_key' => env('ANTHROPIC_API_KEY'),
+    ],
+
+    'admin' => [
+        'email' => env('ADMIN_EMAIL', 'test@example.com'),
+        'name' => env('ADMIN_NAME', 'Test User'),
+        'password' => env('ADMIN_PASSWORD', 'password'),
+    ],
+
 ];

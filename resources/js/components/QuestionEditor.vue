@@ -8,7 +8,7 @@ const props = defineProps({
     },
 });
 
-const emit = defineEmits(['update', 'remove']);
+const emit = defineEmits(['update', 'remove', 'duplicate']);
 
 const QUESTION_TYPES = [
     { value: 'text', label: '記述式（短文）' },
@@ -122,14 +122,24 @@ function onTypeChange(event) {
                 </div>
             </div>
 
-            <button
-                type="button"
-                class="text-gray-400 hover:text-red-600 text-lg shrink-0"
-                title="質問を削除"
-                @click="emit('remove')"
-            >
-                🗑
-            </button>
+            <div class="flex items-center gap-3 shrink-0">
+                <button
+                    type="button"
+                    class="text-gray-400 hover:text-gray-700 text-lg"
+                    title="質問を複製"
+                    @click="emit('duplicate')"
+                >
+                    ⧉
+                </button>
+                <button
+                    type="button"
+                    class="text-gray-400 hover:text-red-600 text-lg"
+                    title="質問を削除"
+                    @click="emit('remove')"
+                >
+                    🗑
+                </button>
+            </div>
         </div>
     </div>
 </template>

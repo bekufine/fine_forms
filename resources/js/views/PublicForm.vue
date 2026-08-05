@@ -2,7 +2,8 @@
 import { computed, onMounted, reactive, ref } from 'vue';
 import http from '../api/http';
 import { useAuthStore } from '../stores/auth';
-import { DEFAULT_LOCALE, JA_SCALE, LANGUAGES, TRANSLATIONS } from '../i18n/surveyTranslations';
+import { DEFAULT_LOCALE, LANGUAGES, TRANSLATIONS } from '../i18n/surveyTranslations';
+import { LOCATION_REVIEW_LINKS } from '../config/locationReviewLinks';
 
 const props = defineProps({
     id: {
@@ -24,18 +25,34 @@ const submitError = ref('');
 const locale = ref(localStorage.getItem('surveyLocale') || DEFAULT_LOCALE);
 const t = computed(() => TRANSLATIONS[locale.value] ?? TRANSLATIONS[DEFAULT_LOCALE]);
 
+const reviewLink = computed(() => {
+    const locationQuestion = form.value?.questions?.[0];
+    if (!locationQuestion) return null;
+    return LOCATION_REVIEW_LINKS[answers[locationQuestion.id]] ?? null;
+});
+
+async function fetchForm() {
+    loadErrorCode.value = '';
+
+    try {
+        const { data } = await http.get(`/public/forms/${props.id}`, {
+            params: { lang: locale.value },
+        });
+        form.value = data;
+        for (const question of data.questions) {
+            if (!(question.id in answers)) {
+                answers[question.id] = question.type === 'checkbox' ? [] : '';
+            }
+        }
+    } catch (e) {
+        loadErrorCode.value = e.response?.status === 404 ? 'notFound' : 'failed';
+    }
+}
+
 function setLocale(code) {
     locale.value = code;
     localStorage.setItem('surveyLocale', code);
-}
-
-function questionLabel(question) {
-    return t.value.questions[question.order] ?? question.title;
-}
-
-function optionLabel(option) {
-    const index = JA_SCALE.indexOf(option);
-    return index === -1 ? option : t.value.scale[index];
+    fetchForm();
 }
 
 const loadError = computed(() => {
@@ -44,17 +61,7 @@ const loadError = computed(() => {
     return '';
 });
 
-onMounted(async () => {
-    try {
-        const { data } = await http.get(`/public/forms/${props.id}`);
-        form.value = data;
-        for (const question of data.questions) {
-            answers[question.id] = question.type === 'checkbox' ? [] : '';
-        }
-    } catch (e) {
-        loadErrorCode.value = e.response?.status === 404 ? 'notFound' : 'failed';
-    }
-});
+onMounted(fetchForm);
 
 function isEmpty(value) {
     return value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0);
@@ -137,12 +144,31 @@ async function submit() {
             <div v-else-if="submitted" class="bg-white border border-gray-200 rounded-lg p-8 text-center">
                 <h1 class="text-2xl font-semibold text-gray-900 mb-2">{{ t.thanksTitle }}</h1>
                 <p class="text-lg text-gray-500">{{ t.thanksBody }}</p>
+
+                <div v-if="reviewLink" class="mt-6 pt-6 border-t border-gray-200">
+                    <p class="text-lg font-medium text-gray-900 mb-3">{{ t.reviewInviteTitle }}</p>
+                    <p
+                        v-for="(paragraph, index) in t.reviewInviteBody"
+                        :key="index"
+                        class="text-base text-gray-500 mb-2 last:mb-4"
+                    >
+                        {{ paragraph }}
+                    </p>
+                    <a
+                        :href="reviewLink"
+                        target="_blank"
+                        rel="noopener"
+                        class="inline-block bg-gray-900 text-white rounded-md px-6 py-3 text-lg font-medium hover:bg-black"
+                    >
+                        {{ t.reviewButtonLabel }}
+                    </a>
+                </div>
             </div>
 
             <form v-else-if="form" class="space-y-4" @submit.prevent="submit">
                 <div class="bg-white border border-gray-200 rounded-lg p-8">
-                    <h1 class="text-3xl font-semibold text-gray-900">{{ t.title }}</h1>
-                    <p class="text-lg text-gray-600 mt-2">{{ t.description }}</p>
+                    <h1 class="text-3xl font-semibold text-gray-900">{{ form.display_title }}</h1>
+                    <p v-if="form.display_description" class="text-lg text-gray-600 mt-2">{{ form.display_description }}</p>
                 </div>
 
                 <div
@@ -151,7 +177,7 @@ async function submit() {
                     class="bg-white border border-gray-200 rounded-lg p-8"
                 >
                     <label class="block text-lg font-medium text-gray-900 mb-4">
-                        {{ questionLabel(question) }}
+                        {{ question.display_title }}
                         <span v-if="question.is_required" class="text-red-500">*</span>
                     </label>
 
@@ -171,7 +197,7 @@ async function submit() {
 
                     <div v-else-if="question.type === 'radio'" class="space-y-3">
                         <label
-                            v-for="option in question.options"
+                            v-for="(option, index) in question.options"
                             :key="option"
                             class="flex items-center gap-3 text-lg text-gray-700"
                         >
@@ -182,13 +208,13 @@ async function submit() {
                                 :value="option"
                                 class="w-5 h-5"
                             >
-                            {{ optionLabel(option) }}
+                            {{ question.display_options?.[index] ?? option }}
                         </label>
                     </div>
 
                     <div v-else-if="question.type === 'checkbox'" class="space-y-3">
                         <label
-                            v-for="option in question.options"
+                            v-for="(option, index) in question.options"
                             :key="option"
                             class="flex items-center gap-3 text-lg text-gray-700"
                         >
@@ -198,7 +224,7 @@ async function submit() {
                                 @change="toggleCheckbox(question.id, option, $event.target.checked)"
                                 class="w-5 h-5"
                             >
-                            {{ optionLabel(option) }}
+                            {{ question.display_options?.[index] ?? option }}
                         </label>
                     </div>
 
@@ -208,8 +234,8 @@ async function submit() {
                         class="w-full rounded-md border border-gray-300 px-4 py-3 text-lg"
                     >
                         <option value="" disabled>{{ t.selectPlaceholder }}</option>
-                        <option v-for="option in question.options" :key="option" :value="option">
-                            {{ optionLabel(option) }}
+                        <option v-for="(option, index) in question.options" :key="option" :value="option">
+                            {{ question.display_options?.[index] ?? option }}
                         </option>
                     </select>
 

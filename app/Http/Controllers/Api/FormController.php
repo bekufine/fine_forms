@@ -7,6 +7,7 @@ use App\Http\Requests\StoreFormRequest;
 use App\Http\Requests\UpdateFormRequest;
 use App\Http\Resources\FormResource;
 use App\Models\Form;
+use App\Services\FormTranslator;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -56,7 +57,7 @@ class FormController extends Controller
         return response()->noContent();
     }
 
-    public function showPublic(Form $form)
+    public function showPublic(Request $request, Form $form, FormTranslator $translator)
     {
         if (! $form->is_published) {
             throw new NotFoundHttpException;
@@ -64,6 +65,31 @@ class FormController extends Controller
 
         $form->load(['questions' => fn ($query) => $query->active()]);
 
-        return new FormResource($form);
+        $lang = $request->query('lang');
+        $translation = ($lang && $lang !== 'ja') ? $translator->translate($form, $lang) : null;
+
+        return response()->json([
+            'id' => $form->id,
+            'title' => $form->title,
+            'display_title' => $translation['title'] ?? $form->title,
+            'description' => $form->description,
+            'display_description' => $translation['description'] ?? $form->description,
+            'questions' => $form->questions->map(function ($question) use ($translation) {
+                $questionTranslation = $translation['questions'][$question->id] ?? null;
+
+                return [
+                    'id' => $question->id,
+                    'form_id' => $question->form_id,
+                    'type' => $question->type,
+                    'title' => $question->title,
+                    'display_title' => $questionTranslation['title'] ?? $question->title,
+                    'is_required' => $question->is_required,
+                    'order' => $question->order,
+                    'options' => $question->options,
+                    'display_options' => $questionTranslation['options'] ?? $question->options,
+                    'is_archived' => $question->is_archived,
+                ];
+            }),
+        ]);
     }
 }

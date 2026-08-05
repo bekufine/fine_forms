@@ -22,6 +22,35 @@ const CHOICE_TYPES = ['radio', 'checkbox', 'select', 'scale'];
 const chartStats = computed(() => (stats.value?.questions ?? []).filter((s) => CHOICE_TYPES.includes(s.type)));
 const textStats = computed(() => (stats.value?.questions ?? []).filter((s) => !CHOICE_TYPES.includes(s.type)));
 
+const copiedStatId = ref(null);
+const copiedTable = ref(false);
+
+async function copyStatValues(stat) {
+    await navigator.clipboard.writeText(stat.values.join('\n'));
+    copiedStatId.value = stat.question_id;
+    setTimeout(() => {
+        if (copiedStatId.value === stat.question_id) copiedStatId.value = null;
+    }, 1500);
+}
+
+async function copyTableAsTsv() {
+    const header = ['送信日時', 'メールアドレス', ...form.value.questions.map((q) => q.title)];
+    const rows = responses.value.map((response) => [
+        new Date(response.submitted_at).toLocaleString(),
+        response.respondent_email ?? '',
+        ...form.value.questions.map((question) => {
+            const answer = response.answers.find((a) => a.question_id === question.id);
+            if (!answer || answer.value === null || answer.value === undefined) return '';
+            return Array.isArray(answer.value) ? answer.value.join(', ') : String(answer.value);
+        }),
+    ]);
+
+    const tsv = [header, ...rows].map((row) => row.join('\t')).join('\n');
+    await navigator.clipboard.writeText(tsv);
+    copiedTable.value = true;
+    setTimeout(() => (copiedTable.value = false), 1500);
+}
+
 onMounted(async () => {
     try {
         const [formRes, responsesRes, statsRes] = await Promise.all([
@@ -84,7 +113,17 @@ onMounted(async () => {
                     :key="stat.question_id"
                     class="bg-white border border-gray-200 rounded-lg p-5"
                 >
-                    <h3 class="text-base font-medium text-gray-900 mb-1">{{ stat.title }}</h3>
+                    <div class="flex items-center justify-between mb-1">
+                        <h3 class="text-base font-medium text-gray-900">{{ stat.title }}</h3>
+                        <button
+                            v-if="stat.values.length"
+                            type="button"
+                            class="text-sm text-blue-600 hover:text-blue-800"
+                            @click="copyStatValues(stat)"
+                        >
+                            {{ copiedStatId === stat.question_id ? 'コピーしました' : '回答をコピー' }}
+                        </button>
+                    </div>
                     <p class="text-sm text-gray-500 mb-3">{{ stat.total_answers }} 件の回答</p>
                     <ul v-if="stat.values.length" class="space-y-1 max-h-64 overflow-y-auto">
                         <li
@@ -99,7 +138,18 @@ onMounted(async () => {
                 </div>
             </div>
 
-            <ResponsesTable v-else :questions="form.questions" :responses="responses" />
+            <template v-else>
+                <div class="flex justify-end mb-3">
+                    <button
+                        type="button"
+                        class="text-sm text-blue-600 hover:text-blue-800"
+                        @click="copyTableAsTsv"
+                    >
+                        {{ copiedTable ? 'コピーしました' : '表としてコピー' }}
+                    </button>
+                </div>
+                <ResponsesTable :questions="form.questions" :responses="responses" />
+            </template>
         </template>
     </div>
 </template>
