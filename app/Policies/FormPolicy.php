@@ -14,7 +14,7 @@ class FormPolicy
 
     public function view(User $user, Form $form): bool
     {
-        return $user->id === $form->user_id;
+        return true;
     }
 
     public function create(User $user): bool
@@ -24,16 +24,16 @@ class FormPolicy
 
     public function update(User $user, Form $form): bool
     {
-        return $user->id === $form->user_id;
+        return true;
     }
 
     public function delete(User $user, Form $form): bool
     {
-        return $user->id === $form->user_id;
+        return true;
     }
 
     public function viewResponses(User $user, Form $form): bool
     {
-        return $user->id === $form->user_id;
+        return true;
     }
 }

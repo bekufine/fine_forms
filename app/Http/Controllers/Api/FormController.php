@@ -9,14 +9,15 @@ use App\Http\Resources\FormResource;
 use App\Models\Form;
 use App\Services\FormTranslator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class FormController extends Controller
 {
     public function index(Request $request)
     {
-        $forms = $request->user()
-            ->forms()
+        $forms = Form::query()
+            ->with('user')
             ->withCount('responses')
             ->latest()
             ->get();
@@ -35,7 +36,7 @@ class FormController extends Controller
     {
         $this->authorize('view', $form);
 
-        $form->load(['questions' => fn ($query) => $query->active()])
+        $form->load(['questions' => fn ($query) => $query->active(), 'user'])
             ->loadCount('responses');
 
         return new FormResource($form);
@@ -55,6 +56,33 @@ class FormController extends Controller
         $form->delete();
 
         return response()->noContent();
+    }
+
+    public function duplicate(Request $request, Form $form)
+    {
+        $this->authorize('view', $form);
+
+        $duplicate = DB::transaction(function () use ($request, $form) {
+            $copy = $request->user()->forms()->create([
+                'title' => "{$form->title}（コピー）",
+                'description' => $form->description,
+                'is_published' => false,
+            ]);
+
+            foreach ($form->questions()->active()->get() as $question) {
+                $copy->questions()->create([
+                    'type' => $question->type,
+                    'title' => $question->title,
+                    'is_required' => $question->is_required,
+                    'order' => $question->order,
+                    'options' => $question->options,
+                ]);
+            }
+
+            return $copy;
+        });
+
+        return (new FormResource($duplicate->load(['questions', 'user'])))->response()->setStatusCode(201);
     }
 
     public function showPublic(Request $request, Form $form, FormTranslator $translator)

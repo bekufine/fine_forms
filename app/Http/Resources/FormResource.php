@@ -17,6 +17,11 @@ class FormResource extends JsonResource
             'is_published' => $this->is_published,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'owner' => $this->whenLoaded('user', fn () => [
+                'id' => $this->user->id,
+                'name' => $this->user->name,
+                'email' => $this->user->email,
+            ]),
             'questions' => QuestionResource::collection($this->whenLoaded('questions')),
             'responses_count' => $this->whenCounted('responses'),
         ];

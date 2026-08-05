@@ -36,6 +36,12 @@ export const useFormsStore = defineStore('forms', {
             this.forms = this.forms.filter((form) => form.id !== formId);
         },
 
+        async duplicateForm(formId) {
+            const { data } = await http.post(`/forms/${formId}/duplicate`);
+            this.forms.unshift(data);
+            return data;
+        },
+
         async fetchForm(formId) {
             this.loading = true;
             try {

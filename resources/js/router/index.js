@@ -21,6 +21,12 @@ const routes = [
         meta: { requiresAuth: true },
     },
     {
+        path: '/admin/profile',
+        name: 'admin.profile',
+        component: () => import('../views/Profile.vue'),
+        meta: { requiresAuth: true },
+    },
+    {
         path: '/admin/forms/:id/edit',
         name: 'admin.forms.edit',
         component: () => import('../views/FormBuilder.vue'),

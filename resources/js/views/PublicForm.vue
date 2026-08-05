@@ -2,7 +2,7 @@
 import { computed, onMounted, reactive, ref } from 'vue';
 import http from '../api/http';
 import { useAuthStore } from '../stores/auth';
-import { DEFAULT_LOCALE, LANGUAGES, TRANSLATIONS } from '../i18n/surveyTranslations';
+import { DEFAULT_LOCALE, JA_SCALE, LANGUAGES, TRANSLATIONS } from '../i18n/surveyTranslations';
 import { LOCATION_REVIEW_LINKS } from '../config/locationReviewLinks';
 
 const props = defineProps({
@@ -31,13 +31,35 @@ const reviewLink = computed(() => {
     return LOCATION_REVIEW_LINKS[answers[locationQuestion.id]] ?? null;
 });
 
+const displayTitle = computed(() => {
+    if (!form.value) return '';
+    return form.value.title === TRANSLATIONS.ja.title ? t.value.title : form.value.title;
+});
+
+const displayDescription = computed(() => {
+    if (!form.value?.description) return '';
+    return form.value.description === TRANSLATIONS.ja.description ? t.value.description : form.value.description;
+});
+
+function translateQuestionTitle(jaTitle) {
+    if (jaTitle === TRANSLATIONS.ja.locationQuestionTitle) return t.value.locationQuestionTitle;
+
+    const index = TRANSLATIONS.ja.questions.indexOf(jaTitle);
+    return index !== -1 ? (t.value.questions[index] ?? jaTitle) : jaTitle;
+}
+
+function translateOption(jaOption) {
+    const scaleIndex = JA_SCALE.indexOf(jaOption);
+    if (scaleIndex !== -1) return t.value.scale[scaleIndex] ?? jaOption;
+
+    return t.value.locations?.[jaOption] ?? jaOption;
+}
+
 async function fetchForm() {
     loadErrorCode.value = '';
 
     try {
-        const { data } = await http.get(`/public/forms/${props.id}`, {
-            params: { lang: locale.value },
-        });
+        const { data } = await http.get(`/public/forms/${props.id}`);
         form.value = data;
         for (const question of data.questions) {
             if (!(question.id in answers)) {
@@ -52,7 +74,6 @@ async function fetchForm() {
 function setLocale(code) {
     locale.value = code;
     localStorage.setItem('surveyLocale', code);
-    fetchForm();
 }
 
 const loadError = computed(() => {
@@ -167,8 +188,8 @@ async function submit() {
 
             <form v-else-if="form" class="space-y-4" @submit.prevent="submit">
                 <div class="bg-white border border-gray-200 rounded-lg p-8">
-                    <h1 class="text-3xl font-semibold text-gray-900">{{ form.display_title }}</h1>
-                    <p v-if="form.display_description" class="text-lg text-gray-600 mt-2">{{ form.display_description }}</p>
+                    <h1 class="text-3xl font-semibold text-gray-900">{{ displayTitle }}</h1>
+                    <p v-if="displayDescription" class="text-lg text-gray-600 mt-2">{{ displayDescription }}</p>
                 </div>
 
                 <div
@@ -177,7 +198,7 @@ async function submit() {
                     class="bg-white border border-gray-200 rounded-lg p-8"
                 >
                     <label class="block text-lg font-medium text-gray-900 mb-4">
-                        {{ question.display_title }}
+                        {{ translateQuestionTitle(question.title) }}
                         <span v-if="question.is_required" class="text-red-500">*</span>
                     </label>
 
@@ -197,7 +218,7 @@ async function submit() {
 
                     <div v-else-if="question.type === 'radio'" class="space-y-3">
                         <label
-                            v-for="(option, index) in question.options"
+                            v-for="option in question.options"
                             :key="option"
                             class="flex items-center gap-3 text-lg text-gray-700"
                         >
@@ -208,13 +229,13 @@ async function submit() {
                                 :value="option"
                                 class="w-5 h-5"
                             >
-                            {{ question.display_options?.[index] ?? option }}
+                            {{ translateOption(option) }}
                         </label>
                     </div>
 
                     <div v-else-if="question.type === 'checkbox'" class="space-y-3">
                         <label
-                            v-for="(option, index) in question.options"
+                            v-for="option in question.options"
                             :key="option"
                             class="flex items-center gap-3 text-lg text-gray-700"
                         >
@@ -224,7 +245,7 @@ async function submit() {
                                 @change="toggleCheckbox(question.id, option, $event.target.checked)"
                                 class="w-5 h-5"
                             >
-                            {{ question.display_options?.[index] ?? option }}
+                            {{ translateOption(option) }}
                         </label>
                     </div>
 
@@ -234,8 +255,8 @@ async function submit() {
                         class="w-full rounded-md border border-gray-300 px-4 py-3 text-lg"
                     >
                         <option value="" disabled>{{ t.selectPlaceholder }}</option>
-                        <option v-for="(option, index) in question.options" :key="option" :value="option">
-                            {{ question.display_options?.[index] ?? option }}
+                        <option v-for="option in question.options" :key="option" :value="option">
+                            {{ translateOption(option) }}
                         </option>
                     </select>
 

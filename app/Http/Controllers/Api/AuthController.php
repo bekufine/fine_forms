@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,5 +53,21 @@ class AuthController extends Controller
     public function me(Request $request)
     {
         return response()->json(['user' => $request->user()]);
+    }
+
+    public function updateProfile(UpdateProfileRequest $request)
+    {
+        $user = $request->user();
+
+        $user->name = $request->validated('name');
+        $user->email = $request->validated('email');
+
+        if ($request->validated('password')) {
+            $user->password = Hash::make($request->validated('password'));
+        }
+
+        $user->save();
+
+        return response()->json(['user' => $user]);
     }
 }

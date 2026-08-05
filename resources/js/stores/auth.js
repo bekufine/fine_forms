@@ -41,5 +41,11 @@ export const useAuthStore = defineStore('auth', {
             await http.post('/logout');
             this.user = null;
         },
+
+        async updateProfile(payload) {
+            const { data } = await http.patch('/user', payload);
+            this.user = data.user;
+            return data.user;
+        },
     },
 });

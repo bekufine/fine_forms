@@ -19,6 +19,11 @@ async function removeForm(form) {
     if (!window.confirm(`「${form.title}」を削除しますか？この操作は取り消せません。`)) return;
     await formsStore.deleteForm(form.id);
 }
+
+async function duplicateForm(form) {
+    const copy = await formsStore.duplicateForm(form.id);
+    router.push({ name: 'admin.forms.edit', params: { id: copy.id } });
+}
 </script>
 
 <template>
@@ -61,7 +66,10 @@ async function removeForm(form) {
                             {{ form.is_published ? '公開中' : '下書き' }}
                         </span>
                     </div>
-                    <p class="text-base text-gray-500">{{ form.responses_count ?? 0 }} 件の回答</p>
+                    <p class="text-base text-gray-500">
+                        {{ form.responses_count ?? 0 }} 件の回答
+                        <span v-if="form.owner"> · 作成者: {{ form.owner.name }}</span>
+                    </p>
                 </div>
 
                 <div class="flex items-center gap-5 text-base">
@@ -77,6 +85,9 @@ async function removeForm(form) {
                     >
                         回答
                     </router-link>
+                    <button type="button" class="text-gray-600 hover:text-gray-900" @click="duplicateForm(form)">
+                        コピー
+                    </button>
                     <button type="button" class="text-red-600 hover:text-red-800" @click="removeForm(form)">
                         削除
                     </button>

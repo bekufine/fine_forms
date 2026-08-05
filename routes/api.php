@@ -13,12 +13,14 @@ Route::post('/forms/{form}/responses', [ResponseController::class, 'store']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'me']);
+    Route::patch('/user', [AuthController::class, 'updateProfile']);
 
     Route::get('/admins', [AdminController::class, 'index']);
     Route::post('/admins', [AdminController::class, 'store']);
 
     Route::apiResource('forms', FormController::class)->except(['show'])->parameters(['forms' => 'form']);
     Route::get('/forms/{form}', [FormController::class, 'show']);
+    Route::post('/forms/{form}/duplicate', [FormController::class, 'duplicate']);
 
     Route::get('/forms/{form}/questions', [QuestionController::class, 'index']);
     Route::post('/forms/{form}/questions', [QuestionController::class, 'store']);
