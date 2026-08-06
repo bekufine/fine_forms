@@ -28,7 +28,7 @@ class SalesOfficeVisitSurveySeeder extends Seeder
 
         $questions = [
             ['type' => 'select', 'title' => '会場を選択してください', 'is_required' => true, 'options' => [
-                '関東支社', '中部支社', '天神営業所', '梅田営業所', '神戸営業所', '熊本営業所', '京都営業所',
+                '関東支社', '中部支社', '天神営業所', '梅田営業所', '神戸営業所', '京都営業所', '熊本営業所',
             ]],
             ['type' => 'radio', 'title' => '1．担当者の対応はいかがでしたか。', 'is_required' => true, 'options' => [
                 'とても良い', '良い', '普通', 'あまり良くない', '良くない',

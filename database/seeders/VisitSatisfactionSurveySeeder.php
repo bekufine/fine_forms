@@ -30,7 +30,7 @@ class VisitSatisfactionSurveySeeder extends Seeder
 
         $questions = [
             ['type' => 'select', 'title' => '会場を選択してください', 'is_required' => true, 'options' => [
-                '関東支社', '中部支社', '天神営業所', '梅田営業所', '神戸営業所', '熊本営業所', '京都営業所',
+                '関東支社', '中部支社', '天神営業所', '梅田営業所', '神戸営業所', '京都営業所', '熊本営業所',
             ]],
             ['type' => 'radio', 'title' => '1．受付やお声がけの対応はいかがでしたか？', 'is_required' => true, 'options' => $scale],
             ['type' => 'radio', 'title' => '2．担当者の応対はいかがでしたか', 'is_required' => true, 'options' => $scale],
