@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(VisitSatisfactionSurveySeeder::class);
         $this->call(SalesOfficeVisitSurveySeeder::class);
+        $this->call(FreshFishFreeSampleSurveySeeder::class);
     }
 }

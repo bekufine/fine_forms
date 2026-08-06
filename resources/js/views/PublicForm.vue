@@ -1,7 +1,6 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue';
 import http from '../api/http';
-import { useAuthStore } from '../stores/auth';
 import { DEFAULT_LOCALE, JA_CLARITY_SCALE, JA_SATISFACTION_SCALE, JA_SCALE, LANGUAGES, TRANSLATIONS } from '../i18n/surveyTranslations';
 import { LOCATION_REVIEW_LINKS } from '../config/locationReviewLinks';
 
@@ -11,8 +10,6 @@ const props = defineProps({
         required: true,
     },
 });
-
-const authStore = useAuthStore();
 
 const form = ref(null);
 const loadErrorCode = ref('');
@@ -35,6 +32,7 @@ const displayTitle = computed(() => {
     if (!form.value) return '';
     if (form.value.title === TRANSLATIONS.ja.title) return t.value.title;
     if (form.value.title === TRANSLATIONS.ja.officeTitle) return t.value.officeTitle;
+    if (form.value.title === TRANSLATIONS.ja.fishTitle) return t.value.fishTitle ?? form.value.title;
     return form.value.title;
 });
 
@@ -42,6 +40,7 @@ const displayDescription = computed(() => {
     if (!form.value?.description) return '';
     if (form.value.description === TRANSLATIONS.ja.description) return t.value.description;
     if (form.value.description === TRANSLATIONS.ja.officeDescription) return t.value.officeDescription;
+    if (form.value.description === TRANSLATIONS.ja.fishDescription) return t.value.fishDescription ?? form.value.description;
     return form.value.description;
 });
 
@@ -52,7 +51,10 @@ function translateQuestionTitle(jaTitle) {
     if (index !== -1) return t.value.questions[index] ?? jaTitle;
 
     index = TRANSLATIONS.ja.officeQuestions.indexOf(jaTitle);
-    return index !== -1 ? (t.value.officeQuestions[index] ?? jaTitle) : jaTitle;
+    if (index !== -1) return t.value.officeQuestions[index] ?? jaTitle;
+
+    index = TRANSLATIONS.ja.fishQuestions.indexOf(jaTitle);
+    return index !== -1 ? (t.value.fishQuestions?.[index] ?? jaTitle) : jaTitle;
 }
 
 function translateOption(jaOption) {
@@ -65,7 +67,7 @@ function translateOption(jaOption) {
     index = JA_SATISFACTION_SCALE.indexOf(jaOption);
     if (index !== -1) return t.value.satisfactionScale[index] ?? jaOption;
 
-    return t.value.locations?.[jaOption] ?? jaOption;
+    return t.value.locations?.[jaOption] ?? t.value.fishOptions?.[jaOption] ?? jaOption;
 }
 
 async function fetchForm() {
@@ -162,13 +164,6 @@ async function submit() {
                         {{ lang.label }}
                     </option>
                 </select>
-
-                <router-link
-                    :to="authStore.isAuthenticated ? '/admin' : '/login'"
-                    class="text-base text-gray-500 border border-gray-300 rounded-md px-4 py-2 hover:bg-white hover:text-gray-700"
-                >
-                    {{ authStore.isAuthenticated ? t.adminPanel : t.adminLogin }}
-                </router-link>
             </div>
 
             <p v-if="loadError" class="bg-white border border-gray-200 rounded-lg p-6 text-center text-lg text-gray-600">
