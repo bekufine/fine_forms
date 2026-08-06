@@ -19,6 +19,8 @@ const loading = ref(true);
 
 const CHOICE_TYPES = ['radio', 'checkbox', 'select', 'scale'];
 
+const exportUrl = computed(() => `/api/forms/${props.id}/responses/export`);
+
 const chartStats = computed(() => (stats.value?.questions ?? []).filter((s) => CHOICE_TYPES.includes(s.type)));
 const textStats = computed(() => (stats.value?.questions ?? []).filter((s) => !CHOICE_TYPES.includes(s.type)));
 
@@ -92,7 +94,7 @@ onMounted(async () => {
                     <p class="text-base text-gray-500">{{ stats.total_responses }} 件の回答</p>
                 </div>
 
-                <div class="flex gap-2 text-base">
+                <div class="flex items-center gap-2 text-base">
                     <button
                         type="button"
                         class="px-4 py-2 rounded-md"
@@ -109,6 +111,12 @@ onMounted(async () => {
                     >
                         個別の回答
                     </button>
+                    <a
+                        :href="exportUrl"
+                        class="px-4 py-2 rounded-md text-gray-600 hover:bg-gray-100 border border-gray-300"
+                    >
+                        Excelでダウンロード
+                    </a>
                 </div>
             </div>
 
