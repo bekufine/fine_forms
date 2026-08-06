@@ -22,6 +22,9 @@ async function handleLogout() {
                     Fine Forms
                 </router-link>
                 <div class="flex items-center gap-5 text-base">
+                    <router-link :to="{ name: 'admin.forms' }" class="text-gray-600 hover:text-gray-900">
+                        フォーム一覧
+                    </router-link>
                     <router-link :to="{ name: 'admin.users' }" class="text-gray-600 hover:text-gray-900">
                         管理者一覧
                     </router-link>

@@ -13,6 +13,8 @@ export const LANGUAGES = [
 export const DEFAULT_LOCALE = 'ja';
 
 export const JA_SCALE = ['とても良い', '良い', '普通', 'あまり良くない', '良くない'];
+export const JA_CLARITY_SCALE = ['とても分かりやすい', '分かりやすい', '普通', 'やや分かりにくい', '分かりにくい'];
+export const JA_SATISFACTION_SCALE = ['とても満足', '満足', '普通', 'やや不満', '不満'];
 
 export const TRANSLATIONS = {
     ja: {
@@ -28,6 +30,18 @@ export const TRANSLATIONS = {
             '7．お気づきの点やご意見がございましたら、ご自由にご記入ください。',
         ],
         scale: JA_SCALE,
+        officeTitle: 'ご来社アンケート(営業所向け)',
+        officeDescription: '本日はご来社いただき、誠にありがとうございました。\n\n今後のサービス向上のため、簡単なアンケートにご協力をお願いいたします。\n回答時間の目安は約1分です。',
+        officeQuestions: [
+            '1．担当者の対応はいかがでしたか。',
+            '2．お仕事に関する説明は分かりやすかったですか。',
+            '3．会場の雰囲気や清潔感はいかがでしたか。',
+            '4．今後の流れ（お仕事のご紹介から就業開始まで）は分かりやすかったですか。',
+            '5．本日の総合的な満足度を教えてください。',
+            '6．お気づきの点やご意見がございましたら、ご自由にお書きください。',
+        ],
+        clarityScale: JA_CLARITY_SCALE,
+        satisfactionScale: JA_SATISFACTION_SCALE,
         locationQuestionTitle: '会場を選択してください',
         locations: {
             '関東支社': '関東支社',
@@ -69,6 +83,18 @@ export const TRANSLATIONS = {
             '7. Please feel free to share any comments or feedback.',
         ],
         scale: ['Very good', 'Good', 'Average', 'Not very good', 'Not good'],
+        officeTitle: 'Office Visit Survey (For Sales Offices)',
+        officeDescription: 'Thank you very much for visiting us today.\n\nTo help us improve our service, please take a moment to complete this short survey.\nIt should take about 1 minute.',
+        officeQuestions: [
+            '1. How was the response from the staff member in charge?',
+            '2. Was the explanation about the job easy to understand?',
+            '3. How was the atmosphere and cleanliness of the venue?',
+            '4. Were the next steps (from job introduction to starting work) easy to understand?',
+            '5. Please rate your overall satisfaction with today’s visit.',
+            '6. Please feel free to write any comments or feedback.',
+        ],
+        clarityScale: ['Very easy to understand', 'Easy to understand', 'Average', 'A bit hard to understand', 'Hard to understand'],
+        satisfactionScale: ['Very satisfied', 'Satisfied', 'Average', 'A bit dissatisfied', 'Dissatisfied'],
         locationQuestionTitle: 'Please select the venue',
         locations: {
             '関東支社': 'Kanto Branch',
@@ -110,6 +136,18 @@ export const TRANSLATIONS = {
             '7．如有其他意见或建议，请自由填写。',
         ],
         scale: ['非常好', '好', '一般', '不太好', '不好'],
+        officeTitle: '来访问卷调查（营业所专用）',
+        officeDescription: '非常感谢您今日的到访。\n\n为了今后能够提供更好的服务，请您抽空填写以下简短问卷。\n预计填写时间约为1分钟。',
+        officeQuestions: [
+            '1．负责人员的应对如何？',
+            '2．关于工作内容的说明是否容易理解？',
+            '3．会场的氛围和整洁程度如何？',
+            '4．今后的流程（从工作介绍到开始工作）是否容易理解？',
+            '5．请告诉我们您对今天的总体满意度。',
+            '6．如有其他意见或建议，请自由填写。',
+        ],
+        clarityScale: ['非常容易理解', '容易理解', '一般', '不太容易理解', '不容易理解'],
+        satisfactionScale: ['非常满意', '满意', '一般', '不太满意', '不满意'],
         locationQuestionTitle: '请选择会场',
         locations: {
             '関東支社': '关东分公司',
@@ -151,6 +189,18 @@ export const TRANSLATIONS = {
             '၇။ သတိပြုမိသည့်အချက်များ သို့မဟုတ် သဘောထားမှတ်ချက်များ ရှိပါက လွတ်လပ်စွာ ရေးသားပေးပါ။',
         ],
         scale: ['အရမ်းကောင်း', 'ကောင်း', 'သာမန်', 'သိပ်မကောင်း', 'မကောင်း'],
+        officeTitle: 'ရုံးလာရောက်မှု စစ်တမ်း (ရောင်းချရေးရုံးများအတွက်)',
+        officeDescription: 'ယနေ့ ကျွန်ုပ်တို့ထံ လာရောက်ပေးသည့်အတွက် အထူးကျေးဇူးတင်ပါသည်။\n\nဝန်ဆောင်မှု ပိုမိုကောင်းမွန်အောင် ဆောင်ရွက်နိုင်ရန် ဤစစ်တမ်းတိုကို ဖြေဆိုပေးပါရန် လေးစားစွာ တောင်းဆိုပါသည်။\nဖြေဆိုရန် ခန့်မှန်း ၁ မိနစ်ခန့် ကြာမြင့်ပါမည်။',
+        officeQuestions: [
+            '၁။ တာဝန်ခံဝန်ထမ်း၏ တုံ့ပြန်မှုက ဘယ်လိုရှိပါသလဲ။',
+            '၂။ အလုပ်နှင့်ပတ်သက်သည့် ရှင်းလင်းချက်ကို နားလည်ရလွယ်ကူပါသလား။',
+            '၃။ ရုံးခန်း၏ ပတ်ဝန်းကျင်နှင့် သန့်ရှင်းမှုက ဘယ်လိုရှိပါသလဲ။',
+            '၄။ နောင်လာမည့် အဆင့်များ (အလုပ်မိတ်ဆက်မှုမှ အလုပ်စတင်ချိန်အထိ) ကို နားလည်ရလွယ်ကူပါသလား။',
+            '၅။ ယနေ့၏ စုစုပေါင်း ကျေနပ်မှုအဆင့်ကို ကျေးဇူးပြု၍ဖော်ပြပေးပါ။',
+            '၆။ သတိပြုမိသည့်အချက်များ သို့မဟုတ် သဘောထားမှတ်ချက်များ ရှိပါက လွတ်လပ်စွာ ရေးသားပေးပါ။',
+        ],
+        clarityScale: ['အလွန်နားလည်ရလွယ်ကူသည်', 'နားလည်ရလွယ်ကူသည်', 'သာမန်', 'အနည်းငယ် နားလည်ရခက်သည်', 'နားလည်ရခက်သည်'],
+        satisfactionScale: ['အလွန်ကျေနပ်သည်', 'ကျေနပ်သည်', 'သာမန်', 'အနည်းငယ် မကျေနပ်', 'မကျေနပ်'],
         locationQuestionTitle: 'ကျေးဇူးပြု၍ ရုံးတည်နေရာကို ရွေးချယ်ပါ။',
         locations: {
             '関東支社': 'Kanto ဌာနခွဲ',
@@ -192,6 +242,18 @@ export const TRANSLATIONS = {
             '7. Xin vui lòng chia sẻ thêm ý kiến hoặc nhận xét của quý khách.',
         ],
         scale: ['Rất tốt', 'Tốt', 'Bình thường', 'Không tốt lắm', 'Không tốt'],
+        officeTitle: 'Khảo Sát Chuyến Thăm Văn Phòng (Dành Cho Văn Phòng Kinh Doanh)',
+        officeDescription: 'Cảm ơn quý khách đã đến thăm chúng tôi hôm nay.\n\nĐể cải thiện dịch vụ tốt hơn, kính mong quý khách dành chút thời gian trả lời khảo sát ngắn dưới đây.\nThời gian trả lời dự kiến khoảng 1 phút.',
+        officeQuestions: [
+            '1. Thái độ phục vụ của nhân viên phụ trách như thế nào?',
+            '2. Phần giải thích về công việc có dễ hiểu không?',
+            '3. Bầu không khí và mức độ sạch sẽ của địa điểm như thế nào?',
+            '4. Các bước tiếp theo (từ giới thiệu công việc đến khi bắt đầu làm việc) có dễ hiểu không?',
+            '5. Xin cho biết mức độ hài lòng tổng thể của quý khách về hôm nay.',
+            '6. Xin vui lòng chia sẻ thêm ý kiến hoặc nhận xét của quý khách.',
+        ],
+        clarityScale: ['Rất dễ hiểu', 'Dễ hiểu', 'Bình thường', 'Hơi khó hiểu', 'Khó hiểu'],
+        satisfactionScale: ['Rất hài lòng', 'Hài lòng', 'Bình thường', 'Hơi không hài lòng', 'Không hài lòng'],
         locationQuestionTitle: 'Vui lòng chọn địa điểm',
         locations: {
             '関東支社': 'Chi nhánh Kanto',
@@ -233,6 +295,18 @@ export const TRANSLATIONS = {
             '7. ඔබට යම් අදහසක් හෝ අත්දැකීමක් තිබේ නම් කරුණාකර නිදහසේ සඳහන් කරන්න.',
         ],
         scale: ['ඉතා හොඳයි', 'හොඳයි', 'සාමාන්‍යයි', 'එතරම් හොඳ නැත', 'හොඳ නැත'],
+        officeTitle: 'කාර්යාල පැමිණීමේ සමීක්ෂණය (විකුණුම් කාර්යාල සඳහා)',
+        officeDescription: 'අද අප ආයතනයට පැමිණීම පිළිබඳව ඉතා ස්තුතියි.\n\nඅපගේ සේවාව වඩාත් දියුණු කිරීම සඳහා, කරුණාකර මෙම කෙටි සමීක්ෂණයට පිළිතුරු සපයන්න.\nපිළිතුරු දීමට විනාඩියක් පමණ ගතවේ.',
+        officeQuestions: [
+            '1. වගකිව යුතු නිලධාරියාගේ ප්‍රතිචාරය කෙසේද?',
+            '2. රැකියාව පිළිබඳ පැහැදිලි කිරීම තේරුම් ගැනීමට පහසු වීද?',
+            '3. ස්ථානයේ පරිසරය සහ පිරිසිදුකම කෙසේද?',
+            '4. ඉදිරි පියවර (රැකියා හඳුන්වාදීමේ සිට රැකියාව ආරම්භය දක්වා) තේරුම් ගැනීමට පහසු වීද?',
+            '5. අද දිනයේ ඔබේ සමස්ත තෘප්තිය කරුණාකර සඳහන් කරන්න.',
+            '6. ඔබට යම් අදහසක් හෝ අත්දැකීමක් තිබේ නම් කරුණාකර නිදහසේ සඳහන් කරන්න.',
+        ],
+        clarityScale: ['ඉතා පහසුයි තේරුම් ගැනීමට', 'තේරුම් ගැනීමට පහසුයි', 'සාමාන්‍යයි', 'තරමක් අපහසුයි', 'තේරුම් ගැනීමට අපහසුයි'],
+        satisfactionScale: ['ඉතා තෘප්තිමත්', 'තෘප්තිමත්', 'සාමාන්‍යයි', 'තරමක් අතෘප්තිමත්', 'අතෘප්තිමත්'],
         locationQuestionTitle: 'කරුණාකර ස්ථානය තෝරන්න',
         locations: {
             '関東支社': 'Kanto ශාඛාව',
@@ -274,6 +348,18 @@ export const TRANSLATIONS = {
             '৭। আপনার কোনো মতামত বা মন্তব্য থাকলে অনুগ্রহ করে লিখুন।',
         ],
         scale: ['খুব ভালো', 'ভালো', 'মোটামুটি', 'খুব ভালো না', 'ভালো না'],
+        officeTitle: 'অফিস পরিদর্শন জরিপ (বিক্রয় অফিসের জন্য)',
+        officeDescription: 'আজ আমাদের অফিসে আসার জন্য আন্তরিক ধন্যবাদ।\n\nআমাদের সেবার মান উন্নত করার জন্য অনুগ্রহ করে এই সংক্ষিপ্ত জরিপটি পূরণ করুন।\nপূরণ করতে প্রায় ১ মিনিট সময় লাগবে।',
+        officeQuestions: [
+            '১। দায়িত্বরত কর্মীর আচরণ কেমন ছিল?',
+            '২। কাজ সম্পর্কিত ব্যাখ্যা বোঝা সহজ ছিল কি?',
+            '৩। স্থানের পরিবেশ ও পরিচ্ছন্নতা কেমন ছিল?',
+            '৪। পরবর্তী ধাপগুলো (কাজের পরিচিতি থেকে কাজ শুরু পর্যন্ত) বোঝা সহজ ছিল কি?',
+            '৫। আজকের সামগ্রিক সন্তুষ্টি সম্পর্কে জানান।',
+            '৬। আপনার কোনো মতামত বা মন্তব্য থাকলে অনুগ্রহ করে লিখুন।',
+        ],
+        clarityScale: ['খুব সহজবোধ্য', 'সহজবোধ্য', 'মোটামুটি', 'কিছুটা কঠিন', 'কঠিন'],
+        satisfactionScale: ['খুব সন্তুষ্ট', 'সন্তুষ্ট', 'মোটামুটি', 'কিছুটা অসন্তুষ্ট', 'অসন্তুষ্ট'],
         locationQuestionTitle: 'অনুগ্রহ করে স্থান নির্বাচন করুন',
         locations: {
             '関東支社': 'কান্তো শাখা',
@@ -315,6 +401,18 @@ export const TRANSLATIONS = {
             '7. Silakan sampaikan komentar atau masukan Anda dengan bebas.',
         ],
         scale: ['Sangat baik', 'Baik', 'Biasa saja', 'Kurang baik', 'Tidak baik'],
+        officeTitle: 'Survei Kunjungan Kantor (Untuk Kantor Penjualan)',
+        officeDescription: 'Terima kasih banyak telah berkunjung ke kantor kami hari ini.\n\nUntuk membantu kami meningkatkan layanan, mohon luangkan waktu untuk mengisi survei singkat berikut.\nWaktu yang dibutuhkan sekitar 1 menit.',
+        officeQuestions: [
+            '1. Bagaimana respons dari petugas yang menangani Anda?',
+            '2. Apakah penjelasan mengenai pekerjaan mudah dipahami?',
+            '3. Bagaimana suasana dan kebersihan tempat ini?',
+            '4. Apakah langkah selanjutnya (dari pengenalan pekerjaan hingga mulai bekerja) mudah dipahami?',
+            '5. Mohon beri tahu tingkat kepuasan Anda secara keseluruhan hari ini.',
+            '6. Silakan sampaikan komentar atau masukan Anda dengan bebas.',
+        ],
+        clarityScale: ['Sangat mudah dipahami', 'Mudah dipahami', 'Biasa saja', 'Agak sulit dipahami', 'Sulit dipahami'],
+        satisfactionScale: ['Sangat puas', 'Puas', 'Biasa saja', 'Agak tidak puas', 'Tidak puas'],
         locationQuestionTitle: 'Silakan pilih lokasi',
         locations: {
             '関東支社': 'Cabang Kanto',
@@ -356,6 +454,18 @@ export const TRANSLATIONS = {
             '७. कुनै धारणा वा सुझाव भए कृपया स्वतन्त्र रूपमा लेख्नुहोस्।',
         ],
         scale: ['धेरै राम्रो', 'राम्रो', 'सामान्य', 'त्यति राम्रो छैन', 'राम्रो छैन'],
+        officeTitle: 'कार्यालय भ्रमण सर्वेक्षण (बिक्री कार्यालयका लागि)',
+        officeDescription: 'आज हाम्रो कार्यालयमा पधारेकोमा हार्दिक धन्यवाद।\n\nहाम्रो सेवा थप सुधार गर्न कृपया यो छोटो सर्वेक्षण भर्नुहोस्।\nभर्न लगभग १ मिनेट लाग्नेछ।',
+        officeQuestions: [
+            '१. जिम्मेवार कर्मचारीको व्यवहार कस्तो थियो?',
+            '२. काम सम्बन्धी व्याख्या बुझ्न सजिलो थियो?',
+            '३. स्थानको वातावरण र सरसफाइ कस्तो थियो?',
+            '४. अबका चरणहरू (काम परिचयदेखि काम सुरु हुनेसम्म) बुझ्न सजिलो थियो?',
+            '५. आजको समग्र सन्तुष्टि कृपया बताउनुहोस्।',
+            '६. कुनै धारणा वा सुझाव भए कृपया स्वतन्त्र रूपमा लेख्नुहोस्।',
+        ],
+        clarityScale: ['धेरै बुझ्न सजिलो', 'बुझ्न सजिलो', 'सामान्य', 'अलि बुझ्न गाह्रो', 'बुझ्न गाह्रो'],
+        satisfactionScale: ['धेरै सन्तुष्ट', 'सन्तुष्ट', 'सामान्य', 'अलि असन्तुष्ट', 'असन्तुष्ट'],
         locationQuestionTitle: 'कृपया स्थान छान्नुहोस्',
         locations: {
             '関東支社': 'कान्तो शाखा',

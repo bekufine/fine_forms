@@ -2,7 +2,7 @@
 import { computed, onMounted, reactive, ref } from 'vue';
 import http from '../api/http';
 import { useAuthStore } from '../stores/auth';
-import { DEFAULT_LOCALE, JA_SCALE, LANGUAGES, TRANSLATIONS } from '../i18n/surveyTranslations';
+import { DEFAULT_LOCALE, JA_CLARITY_SCALE, JA_SATISFACTION_SCALE, JA_SCALE, LANGUAGES, TRANSLATIONS } from '../i18n/surveyTranslations';
 import { LOCATION_REVIEW_LINKS } from '../config/locationReviewLinks';
 
 const props = defineProps({
@@ -33,24 +33,37 @@ const reviewLink = computed(() => {
 
 const displayTitle = computed(() => {
     if (!form.value) return '';
-    return form.value.title === TRANSLATIONS.ja.title ? t.value.title : form.value.title;
+    if (form.value.title === TRANSLATIONS.ja.title) return t.value.title;
+    if (form.value.title === TRANSLATIONS.ja.officeTitle) return t.value.officeTitle;
+    return form.value.title;
 });
 
 const displayDescription = computed(() => {
     if (!form.value?.description) return '';
-    return form.value.description === TRANSLATIONS.ja.description ? t.value.description : form.value.description;
+    if (form.value.description === TRANSLATIONS.ja.description) return t.value.description;
+    if (form.value.description === TRANSLATIONS.ja.officeDescription) return t.value.officeDescription;
+    return form.value.description;
 });
 
 function translateQuestionTitle(jaTitle) {
     if (jaTitle === TRANSLATIONS.ja.locationQuestionTitle) return t.value.locationQuestionTitle;
 
-    const index = TRANSLATIONS.ja.questions.indexOf(jaTitle);
-    return index !== -1 ? (t.value.questions[index] ?? jaTitle) : jaTitle;
+    let index = TRANSLATIONS.ja.questions.indexOf(jaTitle);
+    if (index !== -1) return t.value.questions[index] ?? jaTitle;
+
+    index = TRANSLATIONS.ja.officeQuestions.indexOf(jaTitle);
+    return index !== -1 ? (t.value.officeQuestions[index] ?? jaTitle) : jaTitle;
 }
 
 function translateOption(jaOption) {
-    const scaleIndex = JA_SCALE.indexOf(jaOption);
-    if (scaleIndex !== -1) return t.value.scale[scaleIndex] ?? jaOption;
+    let index = JA_SCALE.indexOf(jaOption);
+    if (index !== -1) return t.value.scale[index] ?? jaOption;
+
+    index = JA_CLARITY_SCALE.indexOf(jaOption);
+    if (index !== -1) return t.value.clarityScale[index] ?? jaOption;
+
+    index = JA_SATISFACTION_SCALE.indexOf(jaOption);
+    if (index !== -1) return t.value.satisfactionScale[index] ?? jaOption;
 
     return t.value.locations?.[jaOption] ?? jaOption;
 }
