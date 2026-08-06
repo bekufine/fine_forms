@@ -29,5 +29,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/forms/{form}/questions/{question}', [QuestionController::class, 'destroy']);
 
     Route::get('/forms/{form}/responses', [ResponseController::class, 'index']);
+    Route::delete('/forms/{form}/responses/{response}', [ResponseController::class, 'destroy']);
     Route::get('/forms/{form}/stats', [StatsController::class, 'show']);
 });

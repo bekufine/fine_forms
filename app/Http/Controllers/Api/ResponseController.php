@@ -6,11 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreResponseRequest;
 use App\Http\Resources\ResponseResource;
 use App\Models\Form;
+use App\Models\Response;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ResponseController extends Controller
 {
+    private function ensureBelongsToForm(Form $form, Response $response): void
+    {
+        if ($response->form_id !== $form->id) {
+            throw new NotFoundHttpException;
+        }
+    }
+
     public function index(Form $form)
     {
         $this->authorize('view', $form);
@@ -46,5 +54,15 @@ class ResponseController extends Controller
         });
 
         return (new ResponseResource($response->load('answers')))->response()->setStatusCode(201);
+    }
+
+    public function destroy(Form $form, Response $response)
+    {
+        $this->authorize('update', $form);
+        $this->ensureBelongsToForm($form, $response);
+
+        $response->delete();
+
+        return response()->noContent();
     }
 }

@@ -33,6 +33,15 @@ async function copyStatValues(stat) {
     }, 1500);
 }
 
+async function deleteResponse(responseId) {
+    await http.delete(`/forms/${props.id}/responses/${responseId}`);
+
+    responses.value = responses.value.filter((response) => response.id !== responseId);
+
+    const statsRes = await http.get(`/forms/${props.id}/stats`);
+    stats.value = statsRes.data;
+}
+
 async function copyTableAsTsv() {
     const header = ['送信日時', 'メールアドレス', ...form.value.questions.map((q) => q.title)];
     const rows = responses.value.map((response) => [
@@ -148,7 +157,7 @@ onMounted(async () => {
                         {{ copiedTable ? 'コピーしました' : '表としてコピー' }}
                     </button>
                 </div>
-                <ResponsesTable :questions="form.questions" :responses="responses" />
+                <ResponsesTable :questions="form.questions" :responses="responses" @delete="deleteResponse" />
             </template>
         </template>
     </div>
