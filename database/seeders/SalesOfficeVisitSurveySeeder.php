@@ -39,7 +39,7 @@ class SalesOfficeVisitSurveySeeder extends Seeder
             ['type' => 'radio', 'title' => '3．会場の雰囲気や清潔感はいかがでしたか。', 'is_required' => true, 'options' => [
                 'とても良い', '良い', '普通', 'あまり良くない', '良くない',
             ]],
-            ['type' => 'radio', 'title' => '4．今後の流れ（お仕事のご紹介から就業開始まで）は分かりやすかったですか。', 'is_required' => true, 'options' => [
+            ['type' => 'radio', 'title' => '4．今後の流れ（お仕事のご紹介から検討開始まで）は分かりやすかったですか。', 'is_required' => true, 'options' => [
                 'とても分かりやすい', '分かりやすい', '普通', 'やや分かりにくい', '分かりにくい',
             ]],
             ['type' => 'radio', 'title' => '5．本日の総合的な満足度を教えてください。', 'is_required' => true, 'options' => [
