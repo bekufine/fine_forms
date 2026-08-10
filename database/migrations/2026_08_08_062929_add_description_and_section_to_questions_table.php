@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -12,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('questions', function (Blueprint $table) {
-            $table->text('description')->nullable()->after('title');
-        });
+        if (! Schema::hasColumn('questions', 'description')) {
+            Schema::table('questions', function (Blueprint $table) {
+                $table->text('description')->nullable()->after('title');
+            });
+        }
 
-        DB::statement("ALTER TABLE questions MODIFY type ENUM('text', 'textarea', 'radio', 'checkbox', 'select', 'scale', 'date', 'section') NOT NULL");
+        Schema::table('questions', function (Blueprint $table) {
+            $table->enum('type', ['text', 'textarea', 'radio', 'checkbox', 'select', 'scale', 'date', 'section'])->change();
+        });
     }
 
     /**
@@ -24,10 +27,14 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement("ALTER TABLE questions MODIFY type ENUM('text', 'textarea', 'radio', 'checkbox', 'select', 'scale', 'date') NOT NULL");
-
         Schema::table('questions', function (Blueprint $table) {
-            $table->dropColumn('description');
+            $table->enum('type', ['text', 'textarea', 'radio', 'checkbox', 'select', 'scale', 'date'])->change();
         });
+
+        if (Schema::hasColumn('questions', 'description')) {
+            Schema::table('questions', function (Blueprint $table) {
+                $table->dropColumn('description');
+            });
+        }
     }
 };
