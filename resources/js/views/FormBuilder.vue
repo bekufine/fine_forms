@@ -44,6 +44,10 @@ function addQuestion() {
 function addFreeTextQuestion() {
     formsStore.addQuestion({ type: 'textarea', title: '自由記述' });
 }
+
+function addSection() {
+    formsStore.addQuestion({ type: 'section', title: '新しいセクション', is_required: false, options: null });
+}
 </script>
 
 <template>
@@ -124,6 +128,13 @@ function addFreeTextQuestion() {
                 @click="addFreeTextQuestion"
             >
                 + 自由記述を追加
+            </button>
+            <button
+                type="button"
+                class="flex-1 border border-dashed border-gray-300 rounded-lg py-3.5 text-base text-gray-500 hover:border-gray-400 hover:text-gray-700"
+                @click="addSection"
+            >
+                + セクションを追加
             </button>
         </div>
     </div>

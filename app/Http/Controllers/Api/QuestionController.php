@@ -33,8 +33,14 @@ class QuestionController extends Controller
     {
         $order = $request->validated('order') ?? $form->questions()->max('order') + 1;
 
+        $data = $request->validated();
+        if ($data['type'] === 'section') {
+            $data['is_required'] = false;
+            $data['options'] = null;
+        }
+
         $question = $form->questions()->create([
-            ...$request->validated(),
+            ...$data,
             'order' => $order,
         ]);
 
@@ -45,7 +51,13 @@ class QuestionController extends Controller
     {
         $this->ensureBelongsToForm($form, $question);
 
-        $question->update($request->validated());
+        $data = $request->validated();
+        if (($data['type'] ?? $question->type) === 'section') {
+            $data['is_required'] = false;
+            $data['options'] = null;
+        }
+
+        $question->update($data);
 
         return new QuestionResource($question);
     }

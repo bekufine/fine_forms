@@ -13,7 +13,7 @@ class StatsController extends Controller
     {
         $this->authorize('view', $form);
 
-        $questions = $form->questions()->active()->with('answers')->get();
+        $questions = $form->questions()->active()->where('type', '!=', 'section')->with('answers')->get();
 
         $stats = $questions->map(function ($question) {
             $values = $question->answers->pluck('value')->filter(fn ($value) => $value !== null && $value !== '');

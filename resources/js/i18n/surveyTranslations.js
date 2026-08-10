@@ -102,6 +102,7 @@ export const TRANSLATIONS = {
         submitFailed: '送信に失敗しました。もう一度お試しください。',
         languageLabel: '言語',
         selectPlaceholder: '選択してください',
+        otherPlaceholder: 'その他の内容をご記入ください',
     },
     en: {
         title: 'Visit Satisfaction Survey',
@@ -240,6 +241,7 @@ export const TRANSLATIONS = {
         submitFailed: 'Failed to submit your response. Please try again.',
         languageLabel: 'Language',
         selectPlaceholder: 'Select an option',
+        otherPlaceholder: 'Please specify',
     },
     zh: {
         title: '来访满意度调查',
@@ -291,6 +293,7 @@ export const TRANSLATIONS = {
         submitFailed: '提交失败，请重试。',
         languageLabel: '语言',
         selectPlaceholder: '请选择',
+        otherPlaceholder: '请填写其他内容',
     },
     my: {
         title: 'လာရောက်မှု စိတ်ကျေနပ်မှု စစ်တမ်း',
@@ -342,6 +345,7 @@ export const TRANSLATIONS = {
         submitFailed: 'ပေးပို့ခြင်း မအောင်မြင်ပါ။ ကျေးဇူးပြု၍ ထပ်ကြိုးစားပါ။',
         languageLabel: 'ဘာသာစကား',
         selectPlaceholder: 'ရွေးချယ်ပါ',
+        otherPlaceholder: 'အခြားအကြောင်းအရာကို ကျေးဇူးပြု၍ ဖြည့်စွက်ပေးပါ',
     },
     vi: {
         title: 'Khảo Sát Mức Độ Hài Lòng Khi Đến Thăm',
@@ -393,6 +397,7 @@ export const TRANSLATIONS = {
         submitFailed: 'Gửi phản hồi thất bại. Vui lòng thử lại.',
         languageLabel: 'Ngôn ngữ',
         selectPlaceholder: 'Vui lòng chọn',
+        otherPlaceholder: 'Vui lòng ghi rõ nội dung khác',
     },
     si: {
         title: 'පැමිණීමේ තෘප්තිමත් සමීක්ෂණය',
@@ -444,6 +449,7 @@ export const TRANSLATIONS = {
         submitFailed: 'ඔබේ පිළිතුර යැවීමට අසමත් විය. නැවත උත්සාහ කරන්න.',
         languageLabel: 'භාෂාව',
         selectPlaceholder: 'කරුණාකර තෝරන්න',
+        otherPlaceholder: 'කරුණාකර වෙනත් විස්තර සඳහන් කරන්න',
     },
     bn: {
         title: 'পরিদর্শন সন্তুষ্টি জরিপ',
@@ -495,6 +501,7 @@ export const TRANSLATIONS = {
         submitFailed: 'উত্তর জমা দিতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন।',
         languageLabel: 'ভাষা',
         selectPlaceholder: 'অনুগ্রহ করে নির্বাচন করুন',
+        otherPlaceholder: 'অনুগ্রহ করে অন্যান্য বিবরণ লিখুন',
     },
     id: {
         title: 'Survei Kepuasan Kunjungan',
@@ -546,6 +553,7 @@ export const TRANSLATIONS = {
         submitFailed: 'Gagal mengirim jawaban Anda. Silakan coba lagi.',
         languageLabel: 'Bahasa',
         selectPlaceholder: 'Silakan pilih',
+        otherPlaceholder: 'Silakan jelaskan',
     },
     ne: {
         title: 'भ्रमण सन्तुष्टि सर्वेक्षण',
@@ -597,5 +605,6 @@ export const TRANSLATIONS = {
         submitFailed: 'जवाफ पेश गर्न असफल भयो। कृपया फेरि प्रयास गर्नुहोस्।',
         languageLabel: 'भाषा',
         selectPlaceholder: 'कृपया छान्नुहोस्',
+        otherPlaceholder: 'कृपया अन्य विवरण लेख्नुहोस्',
     },
 };

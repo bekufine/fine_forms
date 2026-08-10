@@ -62,7 +62,7 @@ class ResponseController extends Controller
     {
         $this->authorize('view', $form);
 
-        $form->load(['questions' => fn ($query) => $query->active()]);
+        $form->load(['questions' => fn ($query) => $query->active()->where('type', '!=', 'section')]);
         $responses = $form->responses()->with('answers')->latest('submitted_at')->get();
 
         $spreadsheet = new Spreadsheet;

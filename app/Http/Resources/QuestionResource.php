@@ -14,6 +14,7 @@ class QuestionResource extends JsonResource
             'form_id' => $this->form_id,
             'type' => $this->type,
             'title' => $this->title,
+            'description' => $this->description,
             'is_required' => $this->is_required,
             'order' => $this->order,
             'options' => $this->options,

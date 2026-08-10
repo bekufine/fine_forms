@@ -21,6 +21,8 @@ const CHOICE_TYPES = ['radio', 'checkbox', 'select', 'scale'];
 
 const exportUrl = computed(() => `/api/forms/${props.id}/responses/export`);
 
+const answerableQuestions = computed(() => (form.value?.questions ?? []).filter((q) => q.type !== 'section'));
+
 const chartStats = computed(() => (stats.value?.questions ?? []).filter((s) => CHOICE_TYPES.includes(s.type)));
 const textStats = computed(() => (stats.value?.questions ?? []).filter((s) => !CHOICE_TYPES.includes(s.type)));
 
@@ -45,11 +47,11 @@ async function deleteResponse(responseId) {
 }
 
 async function copyTableAsTsv() {
-    const header = ['送信日時', 'メールアドレス', ...form.value.questions.map((q) => q.title)];
+    const header = ['送信日時', 'メールアドレス', ...answerableQuestions.value.map((q) => q.title)];
     const rows = responses.value.map((response) => [
         new Date(response.submitted_at).toLocaleString(),
         response.respondent_email ?? '',
-        ...form.value.questions.map((question) => {
+        ...answerableQuestions.value.map((question) => {
             const answer = response.answers.find((a) => a.question_id === question.id);
             if (!answer || answer.value === null || answer.value === undefined) return '';
             return Array.isArray(answer.value) ? answer.value.join(', ') : String(answer.value);
@@ -165,7 +167,7 @@ onMounted(async () => {
                         {{ copiedTable ? 'コピーしました' : '表としてコピー' }}
                     </button>
                 </div>
-                <ResponsesTable :questions="form.questions" :responses="responses" @delete="deleteResponse" />
+                <ResponsesTable :questions="answerableQuestions" :responses="responses" @delete="deleteResponse" />
             </template>
         </template>
     </div>

@@ -11,9 +11,12 @@ const props = defineProps({
     },
 });
 
+const OTHER_OPTION = 'その他';
+
 const form = ref(null);
 const loadErrorCode = ref('');
 const answers = reactive({});
+const otherTexts = reactive({});
 const errors = reactive({});
 const submitting = ref(false);
 const submitted = ref(false);
@@ -77,6 +80,7 @@ async function fetchForm() {
         const { data } = await http.get(`/public/forms/${props.id}`);
         form.value = data;
         for (const question of data.questions) {
+            if (question.type === 'section') continue;
             if (!(question.id in answers)) {
                 answers[question.id] = question.type === 'checkbox' ? [] : '';
             }
@@ -107,6 +111,8 @@ function validate() {
     let valid = true;
 
     for (const question of form.value.questions) {
+        if (question.type === 'section') continue;
+
         errors[question.id] = '';
 
         if (question.is_required && isEmpty(answers[question.id])) {
@@ -125,6 +131,21 @@ function toggleCheckbox(questionId, option, checked) {
         : current.filter((value) => value !== option);
 }
 
+function answerValue(question) {
+    const raw = answers[question.id];
+    const other = (otherTexts[question.id] ?? '').trim();
+
+    if (question.type === 'checkbox' && Array.isArray(raw)) {
+        return raw.map((value) => (value === OTHER_OPTION && other ? `${OTHER_OPTION}：${other}` : value));
+    }
+
+    if ((question.type === 'radio' || question.type === 'select') && raw === OTHER_OPTION && other) {
+        return `${OTHER_OPTION}：${other}`;
+    }
+
+    return raw;
+}
+
 async function submit() {
     submitError.value = '';
 
@@ -135,10 +156,12 @@ async function submit() {
     try {
         await http.post(`/forms/${props.id}/responses`, {
             respondent_email: null,
-            answers: form.value.questions.map((question) => ({
-                question_id: question.id,
-                value: answers[question.id],
-            })),
+            answers: form.value.questions
+                .filter((question) => question.type !== 'section')
+                .map((question) => ({
+                    question_id: question.id,
+                    value: answerValue(question),
+                })),
         });
         submitted.value = true;
     } catch (e) {
@@ -203,12 +226,23 @@ async function submit() {
                 <div
                     v-for="question in form.questions"
                     :key="question.id"
-                    class="bg-white border border-gray-200 rounded-lg p-8"
+                    :class="question.type === 'section'
+                        ? 'pt-6 pb-1 first:pt-0'
+                        : 'bg-white border border-gray-200 rounded-lg p-8'"
                 >
-                    <label class="block text-lg font-medium text-gray-900 mb-4">
-                        {{ translateQuestionTitle(question.title) }}
-                        <span v-if="question.is_required" class="text-red-500">*</span>
-                    </label>
+                    <template v-if="question.type === 'section'">
+                        <h2 class="text-2xl font-semibold text-gray-900">{{ translateQuestionTitle(question.title) }}</h2>
+                        <p v-if="question.description" class="text-base text-gray-500 mt-2 whitespace-pre-line">{{ question.description }}</p>
+                    </template>
+
+                    <template v-else>
+                    <div class="mb-4">
+                        <label class="block text-lg font-medium text-gray-900">
+                            {{ translateQuestionTitle(question.title) }}
+                            <span v-if="question.is_required" class="text-red-500">*</span>
+                        </label>
+                        <p v-if="question.description" class="text-base text-gray-500 mt-1 whitespace-pre-line">{{ question.description }}</p>
+                    </div>
 
                     <input
                         v-if="question.type === 'text'"
@@ -239,6 +273,13 @@ async function submit() {
                             >
                             {{ translateOption(option) }}
                         </label>
+                        <input
+                            v-if="answers[question.id] === 'その他'"
+                            v-model="otherTexts[question.id]"
+                            type="text"
+                            :placeholder="t.otherPlaceholder ?? 'その他の内容をご記入ください'"
+                            class="w-full rounded-md border border-gray-300 px-4 py-3 text-lg mt-1"
+                        >
                     </div>
 
                     <div v-else-if="question.type === 'checkbox'" class="space-y-3">
@@ -255,18 +296,33 @@ async function submit() {
                             >
                             {{ translateOption(option) }}
                         </label>
+                        <input
+                            v-if="(answers[question.id] ?? []).includes('その他')"
+                            v-model="otherTexts[question.id]"
+                            type="text"
+                            :placeholder="t.otherPlaceholder ?? 'その他の内容をご記入ください'"
+                            class="w-full rounded-md border border-gray-300 px-4 py-3 text-lg mt-1"
+                        >
                     </div>
 
-                    <select
-                        v-else-if="question.type === 'select'"
-                        v-model="answers[question.id]"
-                        class="w-full rounded-md border border-gray-300 px-4 py-3 text-lg"
-                    >
-                        <option value="" disabled>{{ t.selectPlaceholder }}</option>
-                        <option v-for="option in question.options" :key="option" :value="option">
-                            {{ translateOption(option) }}
-                        </option>
-                    </select>
+                    <template v-else-if="question.type === 'select'">
+                        <select
+                            v-model="answers[question.id]"
+                            class="w-full rounded-md border border-gray-300 px-4 py-3 text-lg"
+                        >
+                            <option value="" disabled>{{ t.selectPlaceholder }}</option>
+                            <option v-for="option in question.options" :key="option" :value="option">
+                                {{ translateOption(option) }}
+                            </option>
+                        </select>
+                        <input
+                            v-if="answers[question.id] === 'その他'"
+                            v-model="otherTexts[question.id]"
+                            type="text"
+                            :placeholder="t.otherPlaceholder ?? 'その他の内容をご記入ください'"
+                            class="w-full rounded-md border border-gray-300 px-4 py-3 text-lg mt-3"
+                        >
+                    </template>
 
                     <div v-else-if="question.type === 'scale'" class="flex flex-wrap gap-3">
                         <button
@@ -291,6 +347,7 @@ async function submit() {
                     >
 
                     <p v-if="errors[question.id]" class="text-base text-red-600 mt-3">{{ errors[question.id] }}</p>
+                    </template>
                 </div>
 
                 <p v-if="submitError" class="text-base text-red-600">{{ submitError }}</p>

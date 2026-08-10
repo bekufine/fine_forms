@@ -17,8 +17,9 @@ class UpdateQuestionRequest extends FormRequest
         $optionsRequired = in_array($type, ['radio', 'checkbox', 'select'], true);
 
         return [
-            'type' => ['sometimes', 'required', 'in:text,textarea,radio,checkbox,select,scale,date'],
+            'type' => ['sometimes', 'required', 'in:text,textarea,radio,checkbox,select,scale,date,section'],
             'title' => ['sometimes', 'required', 'string', 'max:255'],
+            'description' => ['sometimes', 'nullable', 'string'],
             'is_required' => ['sometimes', 'boolean'],
             'order' => ['sometimes', 'integer', 'min:0'],
             'options' => [$optionsRequired ? 'required' : 'nullable', 'array'],

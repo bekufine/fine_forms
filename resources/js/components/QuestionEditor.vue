@@ -18,9 +18,11 @@ const QUESTION_TYPES = [
     { value: 'select', label: 'プルダウン' },
     { value: 'scale', label: '均等目盛' },
     { value: 'date', label: '日付' },
+    { value: 'section', label: 'セクション（見出し）' },
 ];
 
 const hasOptions = computed(() => ['radio', 'checkbox', 'select'].includes(props.question.type));
+const isSection = computed(() => props.question.type === 'section');
 
 function update(patch) {
     emit('update', patch);
@@ -51,6 +53,11 @@ function onTypeChange(event) {
         patch.options = ['オプション1'];
     }
 
+    if (type === 'section') {
+        patch.is_required = false;
+        patch.options = null;
+    }
+
     update(patch);
 }
 </script>
@@ -64,10 +71,18 @@ function onTypeChange(event) {
                 <input
                     :value="question.title"
                     type="text"
-                    placeholder="質問のタイトル"
+                    :placeholder="isSection ? 'セクションのタイトル' : '質問のタイトル'"
                     class="w-full text-lg font-medium border-b border-gray-200 focus:border-gray-400 outline-none py-1.5"
                     @input="update({ title: $event.target.value })"
                 >
+
+                <textarea
+                    :value="question.description"
+                    placeholder="説明（任意・質問の下に表示されます）"
+                    rows="2"
+                    class="w-full text-base text-gray-500 border-b border-gray-200 focus:border-gray-400 outline-none py-1.5 resize-none"
+                    @input="update({ description: $event.target.value })"
+                ></textarea>
 
                 <div class="flex flex-wrap items-center gap-4">
                     <select
@@ -80,7 +95,7 @@ function onTypeChange(event) {
                         </option>
                     </select>
 
-                    <label class="flex items-center gap-2 text-base text-gray-600">
+                    <label v-if="!isSection" class="flex items-center gap-2 text-base text-gray-600">
                         <input
                             :checked="question.is_required"
                             type="checkbox"

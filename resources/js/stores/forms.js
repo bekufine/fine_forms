@@ -101,6 +101,7 @@ export const useFormsStore = defineStore('forms', {
             const { data } = await http.post(`/forms/${this.currentForm.id}/questions`, {
                 type: source.type,
                 title: `${source.title}（コピー）`,
+                description: source.description,
                 is_required: source.is_required,
                 options: source.options,
                 order: sourceIndex + 1,
@@ -127,6 +128,7 @@ export const useFormsStore = defineStore('forms', {
                     await http.patch(`/forms/${this.currentForm.id}/questions/${questionId}`, {
                         type: question.type,
                         title: question.title,
+                        description: question.description,
                         is_required: question.is_required,
                         options: question.options,
                     });
