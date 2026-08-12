@@ -18,7 +18,7 @@ class AuthController extends Controller
     {
         $user = User::create([
             'name' => $request->validated('name'),
-            'email' => $request->validated('email'),
+            'login_id' => $request->validated('login_id'),
             'password' => Hash::make($request->validated('password')),
         ]);
 
@@ -31,7 +31,7 @@ class AuthController extends Controller
     {
         if (! Auth::attempt($request->validated())) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+                'login_id' => ['The provided credentials are incorrect.'],
             ]);
         }
 

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, onUnmounted, reactive, ref, watchEffect } from 'vue';
 import http from '../api/http';
 import { DEFAULT_LOCALE, JA_CLARITY_SCALE, JA_SATISFACTION_SCALE, JA_SCALE, LANGUAGES, TRANSLATIONS } from '../i18n/surveyTranslations';
 import { LOCATION_REVIEW_LINKS } from '../config/locationReviewLinks';
@@ -102,6 +102,16 @@ const loadError = computed(() => {
 });
 
 onMounted(fetchForm);
+
+const defaultTitle = document.title;
+
+watchEffect(() => {
+    document.title = displayTitle.value || defaultTitle;
+});
+
+onUnmounted(() => {
+    document.title = defaultTitle;
+});
 
 function isEmpty(value) {
     return value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0);

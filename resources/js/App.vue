@@ -31,7 +31,7 @@ async function handleLogout() {
                     <router-link :to="{ name: 'admin.profile' }" class="text-gray-600 hover:text-gray-900">
                         プロフィール
                     </router-link>
-                    <span class="text-gray-500">{{ user.email }}</span>
+                    <span class="text-gray-500">{{ user.login_id ?? user.email }}</span>
                     <button
                         type="button"
                         class="text-gray-600 hover:text-gray-900"
