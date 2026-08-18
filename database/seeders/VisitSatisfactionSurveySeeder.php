@@ -29,7 +29,10 @@ class VisitSatisfactionSurveySeeder extends Seeder
         );
 
         $questions = [
-            ['type' => 'select', 'title' => '会場を選択してください', 'is_required' => true, 'options' => [
+            // Archived: this form now always links to the head office review page
+            // (see resources/js/config/locationReviewLinks.js FORM_REVIEW_LINKS) instead
+            // of resolving a review link per selected location.
+            ['type' => 'select', 'title' => '会場を選択してください', 'is_required' => true, 'is_archived' => true, 'options' => [
                 '関東支社', '中部支社', '天神営業所', '梅田営業所', '神戸営業所', '京都営業所', '熊本営業所',
             ]],
             ['type' => 'radio', 'title' => '1．受付やお声がけの対応はいかがでしたか？', 'is_required' => true, 'options' => $scale],

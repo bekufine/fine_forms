@@ -7,3 +7,9 @@ export const LOCATION_REVIEW_LINKS = {
     '熊本営業所': 'https://g.page/r/CdQMH8YEDBGSEAE/review',
     '京都営業所': 'https://g.page/r/CVvXwcO58tkzEAE/review',
 };
+
+// Form-specific override: always show this review link after submission,
+// regardless of which office the respondent selected.
+export const FORM_REVIEW_LINKS = {
+    1: 'https://g.page/r/CfYPZMDXRtL1EAE/review',
+};

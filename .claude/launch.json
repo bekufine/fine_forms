@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "planning",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/user/planning", "run", "dev"],
+      "autoPort": true,
+      "port": 5173
+    }
+  ]
+}

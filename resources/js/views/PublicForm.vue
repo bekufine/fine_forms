@@ -2,7 +2,7 @@
 import { computed, onMounted, onUnmounted, reactive, ref, watchEffect } from 'vue';
 import http from '../api/http';
 import { DEFAULT_LOCALE, JA_CLARITY_SCALE, JA_SATISFACTION_SCALE, JA_SCALE, LANGUAGES, TRANSLATIONS } from '../i18n/surveyTranslations';
-import { LOCATION_REVIEW_LINKS } from '../config/locationReviewLinks';
+import { FORM_REVIEW_LINKS, LOCATION_REVIEW_LINKS } from '../config/locationReviewLinks';
 
 const props = defineProps({
     id: {
@@ -26,6 +26,8 @@ const locale = ref(localStorage.getItem('surveyLocale') || DEFAULT_LOCALE);
 const t = computed(() => TRANSLATIONS[locale.value] ?? TRANSLATIONS[DEFAULT_LOCALE]);
 
 const reviewLink = computed(() => {
+    if (form.value && form.value.id in FORM_REVIEW_LINKS) return FORM_REVIEW_LINKS[form.value.id];
+
     const locationQuestion = form.value?.questions?.[0];
     if (!locationQuestion) return null;
     return LOCATION_REVIEW_LINKS[answers[locationQuestion.id]] ?? null;
