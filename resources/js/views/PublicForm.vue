@@ -26,7 +26,7 @@ const locale = ref(localStorage.getItem('surveyLocale') || DEFAULT_LOCALE);
 const t = computed(() => TRANSLATIONS[locale.value] ?? TRANSLATIONS[DEFAULT_LOCALE]);
 
 const reviewLink = computed(() => {
-    if (form.value && form.value.id in FORM_REVIEW_LINKS) return FORM_REVIEW_LINKS[form.value.id];
+    if (form.value && form.value.title in FORM_REVIEW_LINKS) return FORM_REVIEW_LINKS[form.value.title];
 
     const locationQuestion = form.value?.questions?.[0];
     if (!locationQuestion) return null;

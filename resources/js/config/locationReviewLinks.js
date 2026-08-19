@@ -10,6 +10,8 @@ export const LOCATION_REVIEW_LINKS = {
 
 // Form-specific override: always show this review link after submission,
 // regardless of which office the respondent selected.
+// Keyed by form title (not id) — seeders use firstOrCreate, so the same form
+// can end up with a different auto-increment id in each environment.
 export const FORM_REVIEW_LINKS = {
-    1: 'https://g.page/r/CfYPZMDXRtL1EAE/review',
+    'ご来社アンケート': 'https://g.page/r/CfYPZMDXRtL1EAE/review',
 };
