@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Middleware\NoStoreHtml;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('api')->group(function () {
@@ -9,6 +10,6 @@ Route::prefix('api')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 });
 
-Route::view('/login', 'app')->name('login');
+Route::view('/login', 'app')->name('login')->middleware(NoStoreHtml::class);
 
-Route::view('/{any}', 'app')->where('any', '.*');
+Route::view('/{any}', 'app')->where('any', '.*')->middleware(NoStoreHtml::class);
