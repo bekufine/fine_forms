@@ -15,7 +15,7 @@ class StoreAdminRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'login_id' => ['required', 'string', 'max:255', 'unique:users,login_id'],
             'password' => ['required', 'string', 'min:8'],
         ];
     }

@@ -11,21 +11,21 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return User::query()->select('id', 'name', 'email', 'created_at')->orderBy('created_at')->get();
+        return User::query()->select('id', 'name', 'login_id', 'created_at')->orderBy('created_at')->get();
     }
 
     public function store(StoreAdminRequest $request)
     {
         $admin = User::create([
             'name' => $request->validated('name'),
-            'email' => $request->validated('email'),
+            'login_id' => $request->validated('login_id'),
             'password' => Hash::make($request->validated('password')),
         ]);
 
         return response()->json([
             'id' => $admin->id,
             'name' => $admin->name,
-            'email' => $admin->email,
+            'login_id' => $admin->login_id,
             'created_at' => $admin->created_at,
         ])->setStatusCode(201);
     }

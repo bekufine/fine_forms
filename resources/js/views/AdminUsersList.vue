@@ -6,8 +6,10 @@ const admins = ref([]);
 const loading = ref(true);
 const submitting = ref(false);
 const error = ref('');
+const successMessage = ref('');
+let successTimeout = null;
 
-const form = reactive({ name: '', email: '', password: '' });
+const form = reactive({ name: '', login_id: '', password: '' });
 
 async function fetchAdmins() {
     loading.value = true;
@@ -23,9 +25,13 @@ async function createAdmin() {
     try {
         await http.post('/admins', { ...form });
         form.name = '';
-        form.email = '';
+        form.login_id = '';
         form.password = '';
         await fetchAdmins();
+
+        successMessage.value = 'ユーザーを作成しました。';
+        clearTimeout(successTimeout);
+        successTimeout = setTimeout(() => { successMessage.value = ''; }, 3000);
     } catch (e) {
         error.value = e.response?.data?.message || '管理者の作成に失敗しました。もう一度お試しください。';
     } finally {
@@ -44,6 +50,13 @@ onMounted(fetchAdmins);
 
         <h1 class="text-2xl font-semibold text-gray-900 mt-4 mb-8">管理者一覧</h1>
 
+        <p
+            v-if="successMessage"
+            class="bg-green-50 border border-green-200 text-green-700 text-base rounded-md px-4 py-3 mb-6"
+        >
+            {{ successMessage }}
+        </p>
+
         <form class="bg-white border border-gray-200 rounded-lg p-8 space-y-5 mb-8" @submit.prevent="createAdmin">
             <h2 class="text-base font-medium text-gray-900">管理者を追加</h2>
 
@@ -58,10 +71,10 @@ onMounted(fetchAdmins);
             </div>
 
             <div>
-                <label class="block text-base font-medium text-gray-700 mb-1.5">メールアドレス</label>
+                <label class="block text-base font-medium text-gray-700 mb-1.5">ユーザー名</label>
                 <input
-                    v-model="form.email"
-                    type="email"
+                    v-model="form.login_id"
+                    type="text"
                     required
                     class="w-full rounded-md border border-gray-300 px-4 py-3 text-lg focus:outline-none focus:ring focus:border-blue-300"
                 >
@@ -99,7 +112,7 @@ onMounted(fetchAdmins);
             >
                 <div>
                     <p class="text-lg font-medium text-gray-900">{{ admin.name }}</p>
-                    <p class="text-base text-gray-500">{{ admin.email }}</p>
+                    <p class="text-base text-gray-500">{{ admin.login_id }}</p>
                 </div>
             </li>
         </ul>
