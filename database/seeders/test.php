@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\Form;
@@ -63,7 +62,5 @@ class FreshFishFreeSampleSurveySeeder extends Seeder
         foreach ($questions as $order => $question) {
             $form->questions()->updateOrCreate(['order' => $order], $question);
         }
-
-        $form->questions()->where('order', '>=', count($questions))->where('type', '!=', 'section')->delete();
     }
 }
