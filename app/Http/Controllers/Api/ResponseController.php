@@ -83,7 +83,7 @@ class ResponseController extends Controller
             });
 
             return [
-                $response->submitted_at?->format('Y-m-d H:i:s'),
+                $response->submitted_at?->clone()->setTimezone('Asia/Tokyo')->format('Y-m-d H:i:s'),
                 $response->respondent_email,
                 ...$answers,
             ];

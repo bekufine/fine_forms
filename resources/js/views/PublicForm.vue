@@ -38,6 +38,7 @@ const displayTitle = computed(() => {
     if (form.value.title === TRANSLATIONS.ja.title) return t.value.title;
     if (form.value.title === TRANSLATIONS.ja.officeTitle) return t.value.officeTitle;
     if (form.value.title === TRANSLATIONS.ja.fishTitle) return t.value.fishTitle ?? form.value.title;
+    if (form.value.title === TRANSLATIONS.ja.postUseTitle) return t.value.postUseTitle ?? form.value.title;
     return form.value.title;
 });
 
@@ -46,7 +47,35 @@ const displayDescription = computed(() => {
     if (form.value.description === TRANSLATIONS.ja.description) return t.value.description;
     if (form.value.description === TRANSLATIONS.ja.officeDescription) return t.value.officeDescription;
     if (form.value.description === TRANSLATIONS.ja.fishDescription) return t.value.fishDescription ?? form.value.description;
+    if (form.value.description === TRANSLATIONS.ja.postUseDescription) return t.value.postUseDescription ?? form.value.description;
     return form.value.description;
+});
+
+const isOfficeVenueForm = computed(() => form.value?.title === TRANSLATIONS.ja.officeTitle);
+
+const displayThanksTitle = computed(() => {
+    if (form.value?.title === TRANSLATIONS.ja.fishTitle) return t.value.fishThanksTitle ?? t.value.thanksTitle;
+    return t.value.thanksTitle;
+});
+
+const displayThanksBody = computed(() => {
+    if (isOfficeVenueForm.value) return t.value.officeThanksBody ?? '';
+    return t.value.thanksBody;
+});
+
+const displayReviewInviteBody = computed(() => {
+    if (isOfficeVenueForm.value) return t.value.officeReviewInviteBody ?? [];
+    return t.value.reviewInviteBody;
+});
+
+const displaySubmitLabel = computed(() => {
+    if (isOfficeVenueForm.value) return t.value.officeSubmitLabel ?? t.value.submit;
+    return t.value.submit;
+});
+
+const displayReviewButtonLabel = computed(() => {
+    if (isOfficeVenueForm.value) return t.value.officeReviewButtonLabel ?? t.value.reviewButtonLabel;
+    return t.value.reviewButtonLabel;
 });
 
 function translateQuestionTitle(jaTitle) {
@@ -59,7 +88,10 @@ function translateQuestionTitle(jaTitle) {
     if (index !== -1) return t.value.officeQuestions[index] ?? jaTitle;
 
     index = TRANSLATIONS.ja.fishQuestions.indexOf(jaTitle);
-    return index !== -1 ? (t.value.fishQuestions?.[index] ?? jaTitle) : jaTitle;
+    if (index !== -1) return t.value.fishQuestions?.[index] ?? jaTitle;
+
+    index = TRANSLATIONS.ja.postUseQuestions.indexOf(jaTitle);
+    return index !== -1 ? (t.value.postUseQuestions?.[index] ?? jaTitle) : jaTitle;
 }
 
 function translateOption(jaOption) {
@@ -72,7 +104,7 @@ function translateOption(jaOption) {
     index = JA_SATISFACTION_SCALE.indexOf(jaOption);
     if (index !== -1) return t.value.satisfactionScale[index] ?? jaOption;
 
-    return t.value.locations?.[jaOption] ?? t.value.fishOptions?.[jaOption] ?? jaOption;
+    return t.value.locations?.[jaOption] ?? t.value.fishOptions?.[jaOption] ?? t.value.postUseOptions?.[jaOption] ?? jaOption;
 }
 
 async function fetchForm() {
@@ -206,13 +238,13 @@ async function submit() {
             </p>
 
             <div v-else-if="submitted" class="bg-white border border-gray-200 rounded-lg p-8 text-center">
-                <h1 class="text-2xl font-semibold text-gray-900 mb-2">{{ t.thanksTitle }}</h1>
-                <p class="text-lg text-gray-500">{{ t.thanksBody }}</p>
+                <h1 :class="isOfficeVenueForm ? 'text-2xl font-semibold text-gray-900 mb-6' : 'text-2xl font-semibold text-gray-900 mb-2'">{{ displayThanksTitle }}</h1>
+                <p v-if="displayThanksBody" class="text-lg text-gray-500">{{ displayThanksBody }}</p>
 
                 <div v-if="reviewLink" class="mt-6 pt-6 border-t border-gray-200">
                     <p class="text-lg font-medium text-gray-900 mb-3">{{ t.reviewInviteTitle }}</p>
                     <p
-                        v-for="(paragraph, index) in t.reviewInviteBody"
+                        v-for="(paragraph, index) in displayReviewInviteBody"
                         :key="index"
                         class="text-base text-gray-500 mb-2 last:mb-4"
                     >
@@ -224,7 +256,7 @@ async function submit() {
                         rel="noopener"
                         class="inline-block bg-gray-900 text-white rounded-md px-6 py-3 text-lg font-medium hover:bg-black"
                     >
-                        {{ t.reviewButtonLabel }}
+                        {{ displayReviewButtonLabel }}
                     </a>
                 </div>
             </div>
@@ -369,7 +401,7 @@ async function submit() {
                     :disabled="submitting"
                     class="w-full bg-gray-900 text-white rounded-md py-3.5 text-lg font-medium hover:bg-black disabled:opacity-50"
                 >
-                    {{ t.submit }}
+                    {{ displaySubmitLabel }}
                 </button>
             </form>
         </div>

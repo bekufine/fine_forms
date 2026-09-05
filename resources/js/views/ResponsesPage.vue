@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue';
 import http from '../api/http';
 import ResponsesTable from '../components/ResponsesTable.vue';
 import ResponsesChart from '../components/ResponsesChart.vue';
+import { formatJstDateTime } from '../utils/formatJstDateTime';
 
 const props = defineProps({
     id: {
@@ -49,7 +50,7 @@ async function deleteResponse(responseId) {
 async function copyTableAsTsv() {
     const header = ['送信日時', 'メールアドレス', ...answerableQuestions.value.map((q) => q.title)];
     const rows = responses.value.map((response) => [
-        new Date(response.submitted_at).toLocaleString(),
+        formatJstDateTime(response.submitted_at),
         response.respondent_email ?? '',
         ...answerableQuestions.value.map((question) => {
             const answer = response.answers.find((a) => a.question_id === question.id);

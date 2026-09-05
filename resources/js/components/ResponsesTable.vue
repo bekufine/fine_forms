@@ -1,4 +1,6 @@
 <script setup>
+import { formatJstDateTime } from '../utils/formatJstDateTime';
+
 defineProps({
     questions: {
         type: Array,
@@ -54,7 +56,7 @@ function confirmDelete(response) {
                     class="border-b border-gray-100 last:border-0"
                 >
                     <td class="px-4 py-3 whitespace-nowrap text-gray-500">
-                        {{ new Date(response.submitted_at).toLocaleString() }}
+                        {{ formatJstDateTime(response.submitted_at) }}
                     </td>
                     <td class="px-4 py-3 whitespace-nowrap text-gray-500">
                         {{ response.respondent_email ?? '—' }}
