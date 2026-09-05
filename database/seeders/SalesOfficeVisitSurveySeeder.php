@@ -18,7 +18,7 @@ class SalesOfficeVisitSurveySeeder extends Seeder
             ]
         );
 
-        $description = "本日はご来社いただき、誠にありがとうございました。\n\n今後のサービス向上のため、ぜひ皆さまのお声をお聞かせください。\n\n「スタッフの対応」「会場の雰囲気」「清潔さ」「説明のわかりやすさ」など、本日感じられたことを、Googleマップの口コミにてお聞かせいただけますと幸いです。\n\n簡単なご感想だけでも構いません。\n皆さまの率直なご意見をお待ちしております。";
+        $description = "本日はご来社いただき、誠にありがとうございました。\n\n今後のサービス向上のため、簡単なアンケートにご協力をお願いいたします。\n回答時間の目安は約1分です。";
 
         $form = Form::firstOrCreate(
             ['user_id' => $user->id, 'title' => 'ご来社アンケート(営業所向け)'],
@@ -34,6 +34,22 @@ class SalesOfficeVisitSurveySeeder extends Seeder
             ['type' => 'select', 'title' => '会場を選択してください', 'is_required' => true, 'options' => [
                 '関東支社', '中部支社', '天神営業所', '梅田営業所', '神戸営業所', '京都営業所', '熊本営業所',
             ]],
+            ['type' => 'radio', 'title' => '1．担当者の対応はいかがでしたか。', 'is_required' => true, 'options' => [
+                'とても良い', '良い', '普通', 'あまり良くない', '良くない',
+            ]],
+            ['type' => 'radio', 'title' => '2．お仕事に関する説明は分かりやすかったですか。', 'is_required' => true, 'options' => [
+                'とても分かりやすい', '分かりやすい', '普通', 'やや分かりにくい', '分かりにくい',
+            ]],
+            ['type' => 'radio', 'title' => '3．会場の雰囲気や清潔感はいかがでしたか。', 'is_required' => true, 'options' => [
+                'とても良い', '良い', '普通', 'あまり良くない', '良くない',
+            ]],
+            ['type' => 'radio', 'title' => '4．今後の流れ（お仕事のご紹介から検討開始まで）は分かりやすかったですか。', 'is_required' => true, 'options' => [
+                'とても分かりやすい', '分かりやすい', '普通', 'やや分かりにくい', '分かりにくい',
+            ]],
+            ['type' => 'radio', 'title' => '5．本日の総合的な満足度を教えてください。', 'is_required' => true, 'options' => [
+                'とても満足', '満足', '普通', 'やや不満', '不満',
+            ]],
+            ['type' => 'textarea', 'title' => '6．お気づきの点やご意見がございましたら、ご自由にお書きください。', 'is_required' => false, 'options' => null],
         ];
 
         foreach ($questions as $order => $question) {

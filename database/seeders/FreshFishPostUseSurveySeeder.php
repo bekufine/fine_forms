@@ -51,7 +51,7 @@ class FreshFishPostUseSurveySeeder extends Seeder
                 '赤甘鯛', 'のどぐろ', '真穴子', '剣先イカ', '煮穴子', '真鯛', 'シマアジ', 'ヒラメ', 'ウニ', '冷凍寿司',
             ]],
 
-            ['type' => 'section', 'title' => '商品全体について、5段階で評価してください（5：非常に良い／4：良い／3：普通／2：やや不満／1：不満）', 'is_required' => false, 'options' => null],
+            ['type' => 'section', 'title' => '【3】商品全体について、5段階で評価してください（5：非常に良い／4：良い／3：普通／2：やや不満／1：不満）', 'is_required' => false, 'options' => null],
             ['type' => 'radio', 'title' => '味・品質', 'is_required' => true, 'options' => ['5', '4', '3', '2', '1']],
             ['type' => 'radio', 'title' => '商品の状態', 'is_required' => true, 'options' => ['5', '4', '3', '2', '1']],
             ['type' => 'radio', 'title' => '使いやすさ', 'is_required' => true, 'options' => ['5', '4', '3', '2', '1']],

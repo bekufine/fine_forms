@@ -38,6 +38,7 @@ const displayTitle = computed(() => {
     if (!form.value) return '';
     if (form.value.title === TRANSLATIONS.ja.title) return t.value.title;
     if (form.value.title === TRANSLATIONS.ja.officeTitle) return t.value.officeTitle;
+    if (form.value.title === TRANSLATIONS.ja.quickReviewTitle) return t.value.quickReviewTitle ?? form.value.title;
     if (form.value.title === TRANSLATIONS.ja.fishTitle) return t.value.fishTitle ?? form.value.title;
     if (form.value.title === TRANSLATIONS.ja.postUseTitle) return t.value.postUseTitle ?? form.value.title;
     return form.value.title;
@@ -47,12 +48,13 @@ const displayDescription = computed(() => {
     if (!form.value?.description) return '';
     if (form.value.description === TRANSLATIONS.ja.description) return t.value.description;
     if (form.value.description === TRANSLATIONS.ja.officeDescription) return t.value.officeDescription;
+    if (form.value.description === TRANSLATIONS.ja.quickReviewDescription) return t.value.quickReviewDescription ?? form.value.description;
     if (form.value.description === TRANSLATIONS.ja.fishDescription) return t.value.fishDescription ?? form.value.description;
     if (form.value.description === TRANSLATIONS.ja.postUseDescription) return t.value.postUseDescription ?? form.value.description;
     return form.value.description;
 });
 
-const isOfficeVenueForm = computed(() => form.value?.title === TRANSLATIONS.ja.officeTitle);
+const isQuickReviewForm = computed(() => form.value?.title === TRANSLATIONS.ja.quickReviewTitle);
 const isPostUseForm = computed(() => form.value?.title === TRANSLATIONS.ja.postUseTitle);
 const showConfirmModal = ref(false);
 
@@ -65,23 +67,23 @@ const displayThanksTitle = computed(() => {
 });
 
 const displayThanksBody = computed(() => {
-    if (isOfficeVenueForm.value) return t.value.officeThanksBody ?? '';
+    if (isQuickReviewForm.value) return t.value.quickReviewThanksBody ?? '';
     if (isPostUseForm.value) return t.value.postUseThanksBody ?? '';
     return t.value.thanksBody;
 });
 
 const displayReviewInviteBody = computed(() => {
-    if (isOfficeVenueForm.value) return t.value.officeReviewInviteBody ?? [];
+    if (isQuickReviewForm.value) return t.value.quickReviewInviteBody ?? [];
     return t.value.reviewInviteBody;
 });
 
 const displaySubmitLabel = computed(() => {
-    if (isOfficeVenueForm.value) return t.value.officeSubmitLabel ?? t.value.submit;
+    if (isQuickReviewForm.value) return t.value.quickReviewSubmitLabel ?? t.value.submit;
     return t.value.submit;
 });
 
 const displayReviewButtonLabel = computed(() => {
-    if (isOfficeVenueForm.value) return t.value.officeReviewButtonLabel ?? t.value.reviewButtonLabel;
+    if (isQuickReviewForm.value) return t.value.quickReviewButtonLabel ?? t.value.reviewButtonLabel;
     return t.value.reviewButtonLabel;
 });
 
@@ -293,7 +295,7 @@ async function performSubmit() {
             <div v-else-if="submitted" class="bg-white border border-gray-200 rounded-lg p-8 text-center">
                 <h1
                     class="text-2xl font-semibold text-gray-900 whitespace-pre-line"
-                    :class="isOfficeVenueForm ? 'mb-6' : 'mb-2'"
+                    :class="isQuickReviewForm ? 'mb-6' : 'mb-2'"
                 >{{ displayThanksTitle }}</h1>
                 <p v-if="displayThanksBody" class="text-lg text-gray-500">{{ displayThanksBody }}</p>
 
