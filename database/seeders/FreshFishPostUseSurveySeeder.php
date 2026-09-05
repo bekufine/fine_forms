@@ -57,10 +57,9 @@ class FreshFishPostUseSurveySeeder extends Seeder
             ['type' => 'radio', 'title' => '使いやすさ', 'is_required' => true, 'options' => ['5', '4', '3', '2', '1']],
             ['type' => 'radio', 'title' => '価格・価値', 'is_required' => true, 'options' => ['5', '4', '3', '2', '1', '判断できない']],
 
-            ['type' => 'section', 'title' => '【3】今後について', 'is_required' => false, 'options' => null],
-            ['type' => 'checkbox', 'title' => '今後、ご希望に近いものを教えてください。（複数選択可）', 'is_required' => false, 'options' => [
-                '価格・取引条件を知りたい', 'さらに商品を試してみたい', '魚種・サイズ・加工方法などを相談したい',
-                '旬の商品や入荷情報を知りたい', '条件が合えば導入を検討したい', '現時点では導入を考えていない',
+            ['type' => 'checkbox', 'title' => 'サブスク小口チルド定期便について', 'is_required' => false, 'options' => [
+                'ぜひ利用したい', '価格が合えば利用したい', '魚種を選べれば利用したい',
+                '希望する加工であれば利用したい', '旬の魚についてもっと知りたい', '現時点では利用を考えていない',
             ]],
 
             ['type' => 'section', 'title' => '【4】ご意見・ご要望', 'is_required' => false, 'options' => null],

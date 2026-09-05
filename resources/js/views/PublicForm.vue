@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onMounted, onUnmounted, reactive, ref, watchEffect } from 'vue';
 import http from '../api/http';
-import { DEFAULT_LOCALE, JA_CLARITY_SCALE, JA_SATISFACTION_SCALE, JA_SCALE, LANGUAGES, TRANSLATIONS } from '../i18n/surveyTranslations';
+import { DEFAULT_LOCALE, JA_CLARITY_SCALE, JA_SATISFACTION_SCALE, JA_SCALE, LANGUAGES, POSTUSE_LANGUAGES, TRANSLATIONS } from '../i18n/surveyTranslations';
 import { FORM_REVIEW_LINKS, LOCATION_REVIEW_LINKS } from '../config/locationReviewLinks';
 
 const props = defineProps({
@@ -22,6 +22,7 @@ const submitting = ref(false);
 const submitted = ref(false);
 const submitError = ref('');
 
+const hasStoredLocale = localStorage.getItem('surveyLocale') !== null;
 const locale = ref(localStorage.getItem('surveyLocale') || DEFAULT_LOCALE);
 const t = computed(() => TRANSLATIONS[locale.value] ?? TRANSLATIONS[DEFAULT_LOCALE]);
 
@@ -52,14 +53,20 @@ const displayDescription = computed(() => {
 });
 
 const isOfficeVenueForm = computed(() => form.value?.title === TRANSLATIONS.ja.officeTitle);
+const isPostUseForm = computed(() => form.value?.title === TRANSLATIONS.ja.postUseTitle);
+const showConfirmModal = ref(false);
+
+const availableLanguages = computed(() => (isPostUseForm.value ? POSTUSE_LANGUAGES : LANGUAGES));
 
 const displayThanksTitle = computed(() => {
     if (form.value?.title === TRANSLATIONS.ja.fishTitle) return t.value.fishThanksTitle ?? t.value.thanksTitle;
+    if (isPostUseForm.value) return t.value.postUseThanksTitle ?? t.value.thanksTitle;
     return t.value.thanksTitle;
 });
 
 const displayThanksBody = computed(() => {
     if (isOfficeVenueForm.value) return t.value.officeThanksBody ?? '';
+    if (isPostUseForm.value) return t.value.postUseThanksBody ?? '';
     return t.value.thanksBody;
 });
 
@@ -113,6 +120,11 @@ async function fetchForm() {
     try {
         const { data } = await http.get(`/public/forms/${props.id}`);
         form.value = data;
+
+        if (!hasStoredLocale && data.title === TRANSLATIONS.ja.postUseTitle) {
+            locale.value = 'en';
+        }
+
         for (const question of data.questions) {
             if (question.type === 'section') continue;
             if (!(question.id in answers)) {
@@ -190,11 +202,52 @@ function answerValue(question) {
     return raw;
 }
 
-async function submit() {
+const reviewItems = computed(() => {
+    if (!form.value) return [];
+
+    return form.value.questions
+        .filter((question) => question.type !== 'section')
+        .map((question) => {
+            const value = answerValue(question);
+            let display;
+
+            if (Array.isArray(value)) {
+                display = value.length ? value.map((v) => translateOption(v)).join('、') : '—';
+            } else if (value === '' || value === null || value === undefined) {
+                display = '—';
+            } else if (['radio', 'select', 'checkbox'].includes(question.type)) {
+                display = translateOption(value);
+            } else {
+                display = value;
+            }
+
+            return { id: question.id, title: translateQuestionTitle(question.title), value: display };
+        });
+});
+
+function submit() {
     submitError.value = '';
 
     if (!validate()) return;
 
+    if (isPostUseForm.value) {
+        showConfirmModal.value = true;
+        return;
+    }
+
+    performSubmit();
+}
+
+function cancelSubmit() {
+    showConfirmModal.value = false;
+}
+
+function confirmSubmit() {
+    showConfirmModal.value = false;
+    performSubmit();
+}
+
+async function performSubmit() {
     submitting.value = true;
 
     try {
@@ -227,7 +280,7 @@ async function submit() {
                     class="text-base text-gray-600 border border-gray-300 rounded-md px-3 py-2 bg-white"
                     @change="setLocale($event.target.value)"
                 >
-                    <option v-for="lang in LANGUAGES" :key="lang.code" :value="lang.code">
+                    <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
                         {{ lang.label }}
                     </option>
                 </select>
@@ -238,7 +291,10 @@ async function submit() {
             </p>
 
             <div v-else-if="submitted" class="bg-white border border-gray-200 rounded-lg p-8 text-center">
-                <h1 :class="isOfficeVenueForm ? 'text-2xl font-semibold text-gray-900 mb-6' : 'text-2xl font-semibold text-gray-900 mb-2'">{{ displayThanksTitle }}</h1>
+                <h1
+                    class="text-2xl font-semibold text-gray-900 whitespace-pre-line"
+                    :class="isOfficeVenueForm ? 'mb-6' : 'mb-2'"
+                >{{ displayThanksTitle }}</h1>
                 <p v-if="displayThanksBody" class="text-lg text-gray-500">{{ displayThanksBody }}</p>
 
                 <div v-if="reviewLink" class="mt-6 pt-6 border-t border-gray-200">
@@ -404,6 +460,42 @@ async function submit() {
                     {{ displaySubmitLabel }}
                 </button>
             </form>
+
+            <div
+                v-if="showConfirmModal"
+                class="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50"
+                @click.self="cancelSubmit"
+            >
+                <div class="bg-white rounded-lg p-6 max-w-lg w-full max-h-[85vh] flex flex-col">
+                    <p class="text-lg font-medium text-gray-900 mb-1 text-center">{{ t.confirmSubmitTitle }}</p>
+                    <p class="text-base text-gray-500 mb-4 text-center">{{ t.confirmSubmitBody }}</p>
+
+                    <div class="overflow-y-auto border-t border-b border-gray-200 divide-y divide-gray-100 mb-4">
+                        <div v-for="item in reviewItems" :key="item.id" class="py-3">
+                            <p class="text-sm text-gray-500">{{ item.title }}</p>
+                            <p class="text-base text-gray-900 whitespace-pre-line">{{ item.value }}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button
+                            type="button"
+                            class="flex-1 rounded-md border border-gray-300 py-3 text-base font-medium text-gray-700 hover:bg-gray-50"
+                            @click="cancelSubmit"
+                        >
+                            {{ t.confirmSubmitCancel }}
+                        </button>
+                        <button
+                            type="button"
+                            :disabled="submitting"
+                            class="flex-1 rounded-md bg-gray-900 text-white py-3 text-base font-medium hover:bg-black disabled:opacity-50"
+                            @click="confirmSubmit"
+                        >
+                            {{ t.confirmSubmitOk }}
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
