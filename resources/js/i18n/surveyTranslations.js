@@ -69,7 +69,7 @@ export const TRANSLATIONS = {
             'この仕組みで提供される魚を、今後取り扱いたいと思いますか？',
         ],
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'この度は、商品をお試しいただき、誠にありがとうございます。\n今後の商品展開の参考にするため、ぜひ率直なご意見をお聞かせください。\n\n所要時間：約3分',
+        postUseDescription: 'この度は、商品をお試しいただき、誠にありがとうございます。\n今後の商品展開の参考にするため、ぜひ率直なご意見をお聞かせください。\n\n所要時間：約3分\n\nFine Atlas https://fineatlas.co.jp/',
         postUseQuestions: [
             '【1】基本情報',
             'レストラン名 / 企業名',
@@ -187,7 +187,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'Do not intend to carry it at this time',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'Thank you very much for trying our products.\nTo help us plan future product offerings, we would be grateful for your honest feedback.\n\nEstimated time: about 3 minutes',
+        postUseDescription: 'Thank you very much for trying our products.\nTo help us plan future product offerings, we would be grateful for your honest feedback.\n\nEstimated time: about 3 minutes\n\nFine Atlas https://fineatlas.co.jp/',
         postUseQuestions: [
             '[1] Basic Information',
             'Restaurant Name / Company Name',
@@ -324,7 +324,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': '目前不打算经营',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: '感谢您试用我们的产品。\n为了今后产品规划的参考，请您畅所欲言，提出坦率的意见。\n\n所需时间：约3分钟',
+        postUseDescription: '感谢您试用我们的产品。\n为了今后产品规划的参考，请您畅所欲言，提出坦率的意见。\n\n所需时间：约3分钟\n\nFine Atlas https://fineatlas.co.jp/',
         postUseQuestions: [
             '【1】基本信息',
             '餐厅名称・公司名称',
@@ -461,7 +461,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'လောလောဆယ် ရောင်းချရန် အစီအစဉ်မရှိပါ',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'ကုန်ပစ္စည်းများကို စမ်းသုံးကြည့်ပေးမှုအတွက် အထူးကျေးဇူးတင်ပါသည်။\nအနာဂတ် ကုန်ပစ္စည်းအစီအစဉ်များအတွက် ကိုးကားနိုင်ရန်၊ ရိုးရိုးသားသား သဘောထားများကို ကျေးဇူးပြု၍ မျှဝေပေးပါ။\n\nခန့်မှန်းချိန်：မိနစ် ၃ ခန့်',
+        postUseDescription: 'ကုန်ပစ္စည်းများကို စမ်းသုံးကြည့်ပေးမှုအတွက် အထူးကျေးဇူးတင်ပါသည်။\nအနာဂတ် ကုန်ပစ္စည်းအစီအစဉ်များအတွက် ကိုးကားနိုင်ရန်၊ ရိုးရိုးသားသား သဘောထားများကို ကျေးဇူးပြု၍ မျှဝေပေးပါ။\n\nခန့်မှန်းချိန်：မိနစ် ၃ ခန့်\n\nFine Atlas https://fineatlas.co.jp/',
         postUseQuestions: [
             '（၁）အခြေခံအချက်အလက်',
             'စားသောက်ဆိုင်အမည် / ကုမ္ပဏီအမည်',
@@ -598,7 +598,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'Hiện tại chưa có ý định kinh doanh',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'Cảm ơn quý khách đã dùng thử sản phẩm của chúng tôi.\nĐể làm tài liệu tham khảo cho việc triển khai sản phẩm trong tương lai, xin vui lòng chia sẻ ý kiến thẳng thắn của quý khách.\n\nThời gian dự kiến: khoảng 3 phút',
+        postUseDescription: 'Cảm ơn quý khách đã dùng thử sản phẩm của chúng tôi.\nĐể làm tài liệu tham khảo cho việc triển khai sản phẩm trong tương lai, xin vui lòng chia sẻ ý kiến thẳng thắn của quý khách.\n\nThời gian dự kiến: khoảng 3 phút\n\nFine Atlas https://fineatlas.co.jp/',
         postUseQuestions: [
             '[1] Thông tin cơ bản',
             'Tên nhà hàng / Tên công ty',
@@ -735,7 +735,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'වර්තමානයේ අලෙවි කිරීමට අදහස් නැත',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'අපගේ නිෂ්පාදන රස බැලීම පිළිබඳව ඉතා ස්තුතියි.\nඅනාගත නිෂ්පාදන සැලසුම් සඳහා යොමුවක් ලෙස, ඔබේ අවංක අදහස් කරුණාකර බෙදාගන්න.\n\nගතවන කාලය：මිනිත්තු 3ක් පමණ',
+        postUseDescription: 'අපගේ නිෂ්පාදන රස බැලීම පිළිබඳව ඉතා ස්තුතියි.\nඅනාගත නිෂ්පාදන සැලසුම් සඳහා යොමුවක් ලෙස, ඔබේ අවංක අදහස් කරුණාකර බෙදාගන්න.\n\nගතවන කාලය：මිනිත්තු 3ක් පමණ\n\nFine Atlas https://fineatlas.co.jp/',
         postUseQuestions: [
             '（1）මූලික තොරතුරු',
             'රෙස්ටුරන්ට් නම / සමාගමේ නම',
@@ -872,7 +872,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'এই মুহূর্তে বিক্রির পরিকল্পনা নেই',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'আমাদের পণ্য চেখে দেখার জন্য আন্তরিক ধন্যবাদ।\nভবিষ্যতের পণ্য পরিকল্পনার জন্য রেফারেন্স হিসেবে, অনুগ্রহ করে আপনার সরাসরি মতামত জানান।\n\nআনুমানিক সময়：প্রায় ৩ মিনিট',
+        postUseDescription: 'আমাদের পণ্য চেখে দেখার জন্য আন্তরিক ধন্যবাদ।\nভবিষ্যতের পণ্য পরিকল্পনার জন্য রেফারেন্স হিসেবে, অনুগ্রহ করে আপনার সরাসরি মতামত জানান।\n\nআনুমানিক সময়：প্রায় ৩ মিনিট\n\nFine Atlas https://fineatlas.co.jp/',
         postUseQuestions: [
             '(১) মৌলিক তথ্য',
             'রেস্তোরাঁর নাম / প্রতিষ্ঠানের নাম',
@@ -1009,7 +1009,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'Saat ini belum berencana menjual',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'Terima kasih banyak telah mencoba produk kami.\nUntuk menjadi referensi pengembangan produk di masa mendatang, mohon berikan pendapat jujur Anda.\n\nWaktu yang dibutuhkan: sekitar 3 menit',
+        postUseDescription: 'Terima kasih banyak telah mencoba produk kami.\nUntuk menjadi referensi pengembangan produk di masa mendatang, mohon berikan pendapat jujur Anda.\n\nWaktu yang dibutuhkan: sekitar 3 menit\n\nFine Atlas https://fineatlas.co.jp/',
         postUseQuestions: [
             '(1) Informasi Dasar',
             'Nama Restoran / Nama Perusahaan',
@@ -1146,7 +1146,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'हाल व्यापार गर्ने योजना छैन',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'हाम्रो उत्पादनहरू चाख्नुभएकोमा हार्दिक धन्यवाद।\nभविष्यको उत्पादन योजनाको सन्दर्भको लागि, कृपया आफ्नो स्पष्ट धारणा साझा गर्नुहोस्।\n\nअनुमानित समय：लगभग ३ मिनेट',
+        postUseDescription: 'हाम्रो उत्पादनहरू चाख्नुभएकोमा हार्दिक धन्यवाद।\nभविष्यको उत्पादन योजनाको सन्दर्भको लागि, कृपया आफ्नो स्पष्ट धारणा साझा गर्नुहोस्।\n\nअनुमानित समय：लगभग ३ मिनेट\n\nFine Atlas https://fineatlas.co.jp/',
         postUseQuestions: [
             '（१） आधारभूत जानकारी',
             'रेस्टुरेन्टको नाम / कम्पनीको नाम',
@@ -1281,7 +1281,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'Şu anda satmayı düşünmüyorum',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'Ürünlerimizi denediğiniz için çok teşekkür ederiz.\nGelecekteki ürün planlamamıza yardımcı olmak için samimi geri bildiriminizi rica ederiz.\n\nTahmini süre: yaklaşık 3 dakika',
+        postUseDescription: 'Ürünlerimizi denediğiniz için çok teşekkür ederiz.\nGelecekteki ürün planlamamıza yardımcı olmak için samimi geri bildiriminizi rica ederiz.\n\nTahmini süre: yaklaşık 3 dakika\n\nFine Atlas https://fineatlas.co.jp/',
         postUseQuestions: [
             '[1] Temel Bilgiler',
             'Restoran Adı / Şirket Adı',
@@ -1416,7 +1416,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'Habe derzeit nicht die Absicht, es zu führen',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'Vielen Dank, dass Sie unsere Produkte probiert haben.\nUm uns bei der Planung zukünftiger Produktangebote zu helfen, wären wir für Ihr ehrliches Feedback dankbar.\n\nGeschätzte Zeit: etwa 3 Minuten',
+        postUseDescription: 'Vielen Dank, dass Sie unsere Produkte probiert haben.\nUm uns bei der Planung zukünftiger Produktangebote zu helfen, wären wir für Ihr ehrliches Feedback dankbar.\n\nGeschätzte Zeit: etwa 3 Minuten\n\nFine Atlas https://fineatlas.co.jp/',
         postUseQuestions: [
             '[1] Grundlegende Informationen',
             'Restaurantname / Firmenname',
@@ -1551,7 +1551,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'Je n\'ai pas l\'intention de le proposer pour le moment',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'Merci beaucoup d\'avoir essayé nos produits.\nAfin de nous aider à planifier nos futures offres de produits, nous vous serions reconnaissants de votre avis sincère.\n\nDurée estimée : environ 3 minutes',
+        postUseDescription: 'Merci beaucoup d\'avoir essayé nos produits.\nAfin de nous aider à planifier nos futures offres de produits, nous vous serions reconnaissants de votre avis sincère.\n\nDurée estimée : environ 3 minutes\n\nFine Atlas https://fineatlas.co.jp/',
         postUseQuestions: [
             '[1] Informations de base',
             'Nom du restaurant / de l\'entreprise',
@@ -1686,7 +1686,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'Al momento non intendo offrirlo',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'Grazie mille per aver provato i nostri prodotti.\nPer aiutarci a pianificare le future offerte di prodotti, vi saremmo grati per un feedback sincero.\n\nTempo stimato: circa 3 minuti',
+        postUseDescription: 'Grazie mille per aver provato i nostri prodotti.\nPer aiutarci a pianificare le future offerte di prodotti, vi saremmo grati per un feedback sincero.\n\nTempo stimato: circa 3 minuti\n\nFine Atlas https://fineatlas.co.jp/',
         postUseQuestions: [
             '[1] Informazioni di base',
             'Nome del ristorante / dell\'azienda',

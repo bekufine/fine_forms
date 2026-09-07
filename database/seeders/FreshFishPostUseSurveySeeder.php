@@ -19,7 +19,7 @@ class FreshFishPostUseSurveySeeder extends Seeder
         );
 
         $title = 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey';
-        $description = "この度は、商品をお試しいただき、誠にありがとうございます。\n今後の商品展開の参考にするため、ぜひ率直なご意見をお聞かせください。\n\n所要時間：約3分";
+        $description = "この度は、商品をお試しいただき、誠にありがとうございます。\n今後の商品展開の参考にするため、ぜひ率直なご意見をお聞かせください。\n\n所要時間：約3分\n\nFine Atlas https://fineatlas.co.jp/";
 
         $form = Form::where('user_id', $user->id)
             ->whereIn('title', ['新鮮魚便 ご利用後アンケート', $title])
