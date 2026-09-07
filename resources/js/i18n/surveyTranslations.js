@@ -68,7 +68,7 @@ export const TRANSLATIONS = {
             '冷凍魚を現地で適切に解凍し、高品質なチルド状態で店舗へ届ける仕組みに魅力を感じますか？',
             'この仕組みで提供される魚を、今後取り扱いたいと思いますか？',
         ],
-        postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
+        postUseTitle: '大規模輸出産地モデル形成等支援事業\nジャパンクオリティ・フローズン 和食輸出協議会 アンケート',
         postUseDescription: 'この度は、商品をお試しいただき、誠にありがとうございます。\n今後の商品展開の参考にするため、ぜひ率直なご意見をお聞かせください。\n\n所要時間：約3分\n\nFine Atlas https://fineatlas.co.jp/',
         postUseQuestions: [
             '【1】基本情報',

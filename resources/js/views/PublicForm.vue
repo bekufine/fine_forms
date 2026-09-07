@@ -335,7 +335,7 @@ async function performSubmit() {
 
             <form v-else-if="form" class="space-y-4" @submit.prevent="submit">
                 <div class="bg-white border border-gray-200 rounded-lg p-8">
-                    <h1 class="text-3xl font-semibold text-gray-900">{{ displayTitle }}</h1>
+                    <h1 class="text-3xl font-semibold text-gray-900 whitespace-pre-line">{{ displayTitle }}</h1>
                     <p v-if="displayDescription" class="text-lg text-gray-600 mt-2 whitespace-pre-line" v-html="displayDescriptionHtml"></p>
                 </div>
 
