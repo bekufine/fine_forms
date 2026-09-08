@@ -16,6 +16,9 @@ const submitting = ref(false);
 const errors = ref({});
 const success = ref(false);
 
+const resending = ref(false);
+const resent = ref(false);
+
 async function submit() {
     submitting.value = true;
     success.value = false;
@@ -31,6 +34,18 @@ async function submit() {
         errors.value = e.response?.data?.errors ?? {};
     } finally {
         submitting.value = false;
+    }
+}
+
+async function resendVerification() {
+    resending.value = true;
+    resent.value = false;
+
+    try {
+        await authStore.resendVerificationEmail();
+        resent.value = true;
+    } finally {
+        resending.value = false;
     }
 }
 </script>
@@ -64,6 +79,27 @@ async function submit() {
                     class="w-full rounded-md border border-gray-300 px-4 py-3 text-lg focus:outline-none focus:ring focus:border-blue-300"
                 >
                 <p v-if="errors.email" class="text-base text-red-600 mt-1">{{ errors.email[0] }}</p>
+
+                <div v-if="authStore.user?.email" class="mt-2 flex items-center gap-3">
+                    <span
+                        v-if="authStore.user?.email_verified_at"
+                        class="inline-flex items-center gap-1 text-sm text-green-700"
+                    >
+                        ✓ 確認済み
+                    </span>
+                    <template v-else>
+                        <span class="text-sm text-amber-600">未確認</span>
+                        <button
+                            type="button"
+                            :disabled="resending"
+                            class="text-sm text-blue-600 hover:underline disabled:opacity-50"
+                            @click="resendVerification"
+                        >
+                            確認メールを再送信
+                        </button>
+                        <span v-if="resent" class="text-sm text-green-600">送信しました</span>
+                    </template>
+                </div>
             </div>
 
             <div class="pt-3 border-t border-gray-200">

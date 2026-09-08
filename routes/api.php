@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\EmailVerificationController;
 use App\Http\Controllers\Api\FormController;
 use App\Http\Controllers\Api\QuestionController;
 use App\Http\Controllers\Api\ResponseController;
@@ -11,9 +12,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/public/forms/{form}', [FormController::class, 'showPublic']);
 Route::post('/forms/{form}/responses', [ResponseController::class, 'store']);
 
+Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
+    ->middleware('throttle:6,1')
+    ->name('api.verification.verify');
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'me']);
     Route::patch('/user', [AuthController::class, 'updateProfile']);
+    Route::post('/email/verification-notification', [EmailVerificationController::class, 'resend'])
+        ->middleware('throttle:6,1');
 
     Route::get('/admins', [AdminController::class, 'index']);
     Route::post('/admins', [AdminController::class, 'store']);

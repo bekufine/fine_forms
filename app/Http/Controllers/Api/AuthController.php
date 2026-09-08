@@ -58,6 +58,7 @@ class AuthController extends Controller
     public function updateProfile(UpdateProfileRequest $request)
     {
         $user = $request->user();
+        $emailChanged = $request->validated('email') !== $user->email;
 
         $user->name = $request->validated('name');
         $user->email = $request->validated('email');
@@ -66,7 +67,15 @@ class AuthController extends Controller
             $user->password = Hash::make($request->validated('password'));
         }
 
+        if ($emailChanged) {
+            $user->email_verified_at = null;
+        }
+
         $user->save();
+
+        if ($emailChanged) {
+            $user->sendEmailVerificationNotification();
+        }
 
         return response()->json(['user' => $user]);
     }

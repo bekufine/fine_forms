@@ -47,5 +47,9 @@ export const useAuthStore = defineStore('auth', {
             this.user = data.user;
             return data.user;
         },
+
+        async resendVerificationEmail() {
+            await http.post('/email/verification-notification');
+        },
     },
 });

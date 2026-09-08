@@ -96,6 +96,7 @@ const availableLanguages = computed(() => (isPostUseForm.value ? POSTUSE_LANGUAG
 const displayThanksTitle = computed(() => {
     if (normalizedTitle.value === TRANSLATIONS.ja.fishTitle) return t.value.fishThanksTitle ?? t.value.thanksTitle;
     if (isPostUseForm.value) return t.value.postUseThanksTitle ?? t.value.thanksTitle;
+    if (isQuickReviewForm.value) return t.value.quickReviewThanksTitle ?? '';
     return t.value.thanksTitle;
 });
 
@@ -327,12 +328,13 @@ async function performSubmit() {
 
             <div v-else-if="submitted" class="bg-white border border-gray-200 rounded-lg p-8 text-center">
                 <h1
+                    v-if="displayThanksTitle"
                     class="text-2xl font-semibold text-gray-900 whitespace-pre-line"
                     :class="isQuickReviewForm ? 'mb-6' : 'mb-2'"
                 >{{ displayThanksTitle }}</h1>
                 <p v-if="displayThanksBody" class="text-lg text-gray-500">{{ displayThanksBody }}</p>
 
-                <div v-if="reviewLink" class="mt-6 pt-6 border-t border-gray-200">
+                <div v-if="reviewLink" :class="displayThanksTitle ? 'mt-6 pt-6 border-t border-gray-200' : ''">
                     <p class="text-lg font-medium text-gray-900 mb-3">{{ t.reviewInviteTitle }}</p>
                     <p
                         v-for="(paragraph, index) in displayReviewInviteBody"

@@ -47,6 +47,11 @@ const routes = [
         props: true,
     },
     {
+        path: '/email/verify',
+        name: 'email.verify',
+        component: () => import('../views/EmailVerify.vue'),
+    },
+    {
         path: '/',
         redirect: '/forms/1',
     },
