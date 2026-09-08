@@ -34,22 +34,33 @@ const reviewLink = computed(() => {
     return LOCATION_REVIEW_LINKS[answers[locationQuestion.id]] ?? null;
 });
 
+const LEADING_DATE_PATTERN = /^\d{4}[\/\-年]\d{1,2}[\/\-月]\d{1,2}日?\s*/;
+
 function stripLeadingDate(text) {
-    // Admins sometimes prepend a date (e.g. "2026/09/14 ") to a form's title
-    // in the builder. Strip it before matching so translations keep working.
-    return (text ?? '').replace(/^\d{4}[\/\-年]\d{1,2}[\/\-月]\d{1,2}日?\s*/, '');
+    // A form's title can carry a leading date (e.g. "2026/09/14 "), set by
+    // admins in the builder. Strip it before matching so translations keep
+    // working regardless of which date is currently set.
+    return (text ?? '').replace(LEADING_DATE_PATTERN, '');
+}
+
+function extractLeadingDate(text) {
+    const match = (text ?? '').match(LEADING_DATE_PATTERN);
+    return match ? match[0] : '';
 }
 
 const normalizedTitle = computed(() => stripLeadingDate(form.value?.title));
+const leadingDate = computed(() => extractLeadingDate(form.value?.title));
 
 const displayTitle = computed(() => {
     if (!form.value) return '';
-    if (normalizedTitle.value === TRANSLATIONS.ja.title) return t.value.title;
-    if (normalizedTitle.value === TRANSLATIONS.ja.officeTitle) return t.value.officeTitle;
-    if (normalizedTitle.value === TRANSLATIONS.ja.quickReviewTitle) return t.value.quickReviewTitle ?? form.value.title;
-    if (normalizedTitle.value === TRANSLATIONS.ja.fishTitle) return t.value.fishTitle ?? form.value.title;
-    if (normalizedTitle.value === TRANSLATIONS.ja.postUseTitle) return t.value.postUseTitle ?? form.value.title;
-    return form.value.title;
+    let base;
+    if (normalizedTitle.value === TRANSLATIONS.ja.title) base = t.value.title;
+    else if (normalizedTitle.value === TRANSLATIONS.ja.officeTitle) base = t.value.officeTitle;
+    else if (normalizedTitle.value === TRANSLATIONS.ja.quickReviewTitle) base = t.value.quickReviewTitle ?? form.value.title;
+    else if (normalizedTitle.value === TRANSLATIONS.ja.fishTitle) base = t.value.fishTitle ?? form.value.title;
+    else if (normalizedTitle.value === TRANSLATIONS.ja.postUseTitle) base = t.value.postUseTitle ?? form.value.title;
+    else return form.value.title;
+    return leadingDate.value + base;
 });
 
 const displayDescription = computed(() => {

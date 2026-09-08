@@ -18,11 +18,12 @@ class FreshFishPostUseSurveySeeder extends Seeder
             ]
         );
 
-        $title = "大規模輸出産地モデル形成等支援事業\nジャパンクオリティ・フローズン 和食輸出協議会 アンケート";
+        $baseTitle = "大規模輸出産地モデル形成等支援事業\nジャパンクオリティ・フローズン 和食輸出協議会 アンケート";
+        $title = "2026/09/14 {$baseTitle}";
         $description = "この度は、商品をお試しいただき、誠にありがとうございます。\n今後の商品展開の参考にするため、ぜひ率直なご意見をお聞かせください。\n\n所要時間：約3分\n\nFine Atlas https://fineatlas.co.jp/";
 
         $form = Form::where('user_id', $user->id)
-            ->whereIn('title', ['新鮮魚便 ご利用後アンケート', 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey', $title])
+            ->whereIn('title', ['新鮮魚便 ご利用後アンケート', 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey', $baseTitle, $title])
             ->first();
 
         if ($form) {
