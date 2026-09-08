@@ -34,13 +34,21 @@ const reviewLink = computed(() => {
     return LOCATION_REVIEW_LINKS[answers[locationQuestion.id]] ?? null;
 });
 
+function stripLeadingDate(text) {
+    // Admins sometimes prepend a date (e.g. "2026/09/14 ") to a form's title
+    // in the builder. Strip it before matching so translations keep working.
+    return (text ?? '').replace(/^\d{4}[\/\-年]\d{1,2}[\/\-月]\d{1,2}日?\s*/, '');
+}
+
+const normalizedTitle = computed(() => stripLeadingDate(form.value?.title));
+
 const displayTitle = computed(() => {
     if (!form.value) return '';
-    if (form.value.title === TRANSLATIONS.ja.title) return t.value.title;
-    if (form.value.title === TRANSLATIONS.ja.officeTitle) return t.value.officeTitle;
-    if (form.value.title === TRANSLATIONS.ja.quickReviewTitle) return t.value.quickReviewTitle ?? form.value.title;
-    if (form.value.title === TRANSLATIONS.ja.fishTitle) return t.value.fishTitle ?? form.value.title;
-    if (form.value.title === TRANSLATIONS.ja.postUseTitle) return t.value.postUseTitle ?? form.value.title;
+    if (normalizedTitle.value === TRANSLATIONS.ja.title) return t.value.title;
+    if (normalizedTitle.value === TRANSLATIONS.ja.officeTitle) return t.value.officeTitle;
+    if (normalizedTitle.value === TRANSLATIONS.ja.quickReviewTitle) return t.value.quickReviewTitle ?? form.value.title;
+    if (normalizedTitle.value === TRANSLATIONS.ja.fishTitle) return t.value.fishTitle ?? form.value.title;
+    if (normalizedTitle.value === TRANSLATIONS.ja.postUseTitle) return t.value.postUseTitle ?? form.value.title;
     return form.value.title;
 });
 
@@ -68,14 +76,14 @@ function linkifyText(text) {
 
 const displayDescriptionHtml = computed(() => linkifyText(displayDescription.value));
 
-const isQuickReviewForm = computed(() => form.value?.title === TRANSLATIONS.ja.quickReviewTitle);
-const isPostUseForm = computed(() => form.value?.title === TRANSLATIONS.ja.postUseTitle);
+const isQuickReviewForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.quickReviewTitle);
+const isPostUseForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.postUseTitle);
 const showConfirmModal = ref(false);
 
 const availableLanguages = computed(() => (isPostUseForm.value ? POSTUSE_LANGUAGES : LANGUAGES));
 
 const displayThanksTitle = computed(() => {
-    if (form.value?.title === TRANSLATIONS.ja.fishTitle) return t.value.fishThanksTitle ?? t.value.thanksTitle;
+    if (normalizedTitle.value === TRANSLATIONS.ja.fishTitle) return t.value.fishThanksTitle ?? t.value.thanksTitle;
     if (isPostUseForm.value) return t.value.postUseThanksTitle ?? t.value.thanksTitle;
     return t.value.thanksTitle;
 });
