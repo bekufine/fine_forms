@@ -296,6 +296,12 @@ async function performSubmit() {
                     value: answerValue(question),
                 })),
         });
+
+        if (isQuickReviewForm.value && reviewLink.value) {
+            window.location.href = reviewLink.value;
+            return;
+        }
+
         submitted.value = true;
     } catch (e) {
         submitError.value = e.response?.data?.message || t.value.submitFailed;
