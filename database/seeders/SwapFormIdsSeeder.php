@@ -7,66 +7,43 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
- * One-off utility: makes sure two specific forms end up with specific ids,
- * regardless of what id they currently hold in a given environment
- * (dev/staging/prod all seed independently and can diverge).
- *
- * Desired state:
- *   - 'ご来社アンケート(営業所向け)'                 -> id 9
- *   - title containing '大規模輸出産地モデル形成等支援事業' -> id 6
+ * One-off utility: swaps the ids of two specific forms (and all of their
+ * questions/responses/translations along with them), looked up by title so
+ * it works regardless of what id they currently hold — dev/staging/prod
+ * all seed independently and can end up with different ids for the same
+ * form.
  *
  * Not wired into DatabaseSeeder's default run() — run manually once:
  *   php artisan db:seed --class=SwapFormIdsSeeder --force
  *
- * Idempotent: if both forms already have their target id, it does nothing.
- * Refuses to act if the current ids aren't a clean two-way swap (e.g. one
- * of the target ids is already used by some unrelated third form).
+ * Running it twice swaps them back, same as swapping any two values twice —
+ * only run it once per environment.
  */
 class SwapFormIdsSeeder extends Seeder
 {
-    private const TARGETS = [
-        ['match' => 'ご来社アンケート(営業所向け)', 'like' => false, 'id' => 9],
-        ['match' => '%大規模輸出産地モデル形成等支援事業%', 'like' => true, 'id' => 6],
-    ];
+    private const TITLE_A = 'ご来社アンケート(営業所向け)';
+
+    private const TITLE_B_LIKE = '%大規模輸出産地モデル形成等支援事業%';
 
     public function run(): void
     {
-        $entries = [];
+        $formA = Form::where('title', self::TITLE_A)->first();
+        $formB = Form::where('title', 'like', self::TITLE_B_LIKE)->first();
 
-        foreach (self::TARGETS as $target) {
-            $form = $target['like']
-                ? Form::where('title', 'like', $target['match'])->first()
-                : Form::where('title', $target['match'])->first();
-
-            if (! $form) {
-                $this->command?->error("Form not found for pattern: {$target['match']}");
-
-                return;
-            }
-
-            $entries[] = ['form' => $form, 'target' => $target['id']];
-        }
-
-        [$a, $b] = $entries;
-
-        if ($a['form']->id === $a['target'] && $b['form']->id === $b['target']) {
-            $this->command?->info('Both forms already have their target id, nothing to do.');
+        if (! $formA || ! $formB) {
+            $this->command?->error('Could not find both forms. A: '.($formA ? $formA->id : 'NOT FOUND').', B: '.($formB ? $formB->id : 'NOT FOUND'));
 
             return;
         }
 
-        if (! ($a['form']->id === $b['target'] && $b['form']->id === $a['target'])) {
-            $this->command?->error(sprintf(
-                'Unexpected id layout — form "%s" is id %d (target %d), form "%s" is id %d (target %d). Refusing to guess; fix manually.',
-                str_replace("\n", ' ', $a['form']->title), $a['form']->id, $a['target'],
-                str_replace("\n", ' ', $b['form']->title), $b['form']->id, $b['target'],
-            ));
+        $idA = $formA->id;
+        $idB = $formB->id;
+
+        if ($idA === $idB) {
+            $this->command?->info("Forms already share the same id ({$idA}), nothing to do.");
 
             return;
         }
-
-        $idA = $a['form']->id;
-        $idB = $b['form']->id;
 
         $this->command?->info("Swapping form id {$idA} <-> {$idB}");
 
