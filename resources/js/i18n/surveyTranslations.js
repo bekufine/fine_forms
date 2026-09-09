@@ -69,7 +69,7 @@ export const TRANSLATIONS = {
             'この仕組みで提供される魚を、今後取り扱いたいと思いますか？',
         ],
         postUseTitle: '大規模輸出産地モデル形成等支援事業\nジャパンクオリティ・フローズン 和食輸出協議会 アンケート',
-        postUseDescription: 'この度は、商品をお試しいただき、誠にありがとうございます。\n今後の商品展開の参考にするため、ぜひ率直なご意見をお聞かせください。\n\n所要時間：約3分\n\nFine Atlas https://fineatlas.co.jp/',
+        postUseDescription: 'この度は、商品をお試しいただき、誠にありがとうございます。\n今後の商品展開の参考にするため、ぜひ率直なご意見をお聞かせください。\n\n所要時間：約3分',
         postUseQuestions: [
             '【1】基本情報',
             'レストラン名 / 企業名',
@@ -85,6 +85,7 @@ export const TRANSLATIONS = {
             'サブスク小口チルド定期便について',
             '【4】ご意見・ご要望',
             '良かった点、気になった点、今後のご要望などがあればお聞かせください。\n\n希望する魚種、サイズ、加工状態、価格帯、配送方法など、どのような内容でも構いません。',
+            'Fine Atlas https://fineatlas.co.jp/',
         ],
         locationQuestionTitle: '会場を選択してください',
         locations: {
@@ -188,7 +189,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'Do not intend to carry it at this time',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'Thank you very much for trying our products.\nTo help us plan future product offerings, we would be grateful for your honest feedback.\n\nEstimated time: about 3 minutes\n\nFine Atlas https://fineatlas.co.jp/',
+        postUseDescription: 'Thank you very much for trying our products.\nTo help us plan future product offerings, we would be grateful for your honest feedback.\n\nEstimated time: about 3 minutes',
         postUseQuestions: [
             '[1] Basic Information',
             'Restaurant Name / Company Name',
@@ -204,6 +205,7 @@ export const TRANSLATIONS = {
             'About our small-lot chilled subscription delivery service',
             '[4] Comments & Requests',
             'Please share anything you liked, anything you were concerned about, or any requests for the future.\n\nAny content is welcome — preferred fish species, size, processing state, price range, delivery method, etc.',
+            'Fine Atlas https://fineatlas.co.jp/',
         ],
         postUseOptions: {
             '赤甘鯛': 'Red tilefish (Aka-amadai)',
@@ -326,7 +328,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': '目前不打算经营',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: '感谢您试用我们的产品。\n为了今后产品规划的参考，请您畅所欲言，提出坦率的意见。\n\n所需时间：约3分钟\n\nFine Atlas https://fineatlas.co.jp/',
+        postUseDescription: '感谢您试用我们的产品。\n为了今后产品规划的参考，请您畅所欲言，提出坦率的意见。\n\n所需时间：约3分钟',
         postUseQuestions: [
             '【1】基本信息',
             '餐厅名称・公司名称',
@@ -342,6 +344,7 @@ export const TRANSLATIONS = {
             '关于小批量冷藏定期配送订阅服务',
             '【4】意见・要求',
             '如有满意之处、在意之处或今后的要求，欢迎告诉我们。\n\n希望的鱼种、规格、加工状态、价格区间、配送方式等，任何内容都欢迎填写。',
+            'Fine Atlas https://fineatlas.co.jp/',
         ],
         postUseOptions: {
             '赤甘鯛': '红甘鲷',
@@ -464,7 +467,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'လောလောဆယ် ရောင်းချရန် အစီအစဉ်မရှိပါ',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'ကုန်ပစ္စည်းများကို စမ်းသုံးကြည့်ပေးမှုအတွက် အထူးကျေးဇူးတင်ပါသည်။\nအနာဂတ် ကုန်ပစ္စည်းအစီအစဉ်များအတွက် ကိုးကားနိုင်ရန်၊ ရိုးရိုးသားသား သဘောထားများကို ကျေးဇူးပြု၍ မျှဝေပေးပါ။\n\nခန့်မှန်းချိန်：မိနစ် ၃ ခန့်\n\nFine Atlas https://fineatlas.co.jp/',
+        postUseDescription: 'ကုန်ပစ္စည်းများကို စမ်းသုံးကြည့်ပေးမှုအတွက် အထူးကျေးဇူးတင်ပါသည်။\nအနာဂတ် ကုန်ပစ္စည်းအစီအစဉ်များအတွက် ကိုးကားနိုင်ရန်၊ ရိုးရိုးသားသား သဘောထားများကို ကျေးဇူးပြု၍ မျှဝေပေးပါ။\n\nခန့်မှန်းချိန်：မိနစ် ၃ ခန့်',
         postUseQuestions: [
             '（၁）အခြေခံအချက်အလက်',
             'စားသောက်ဆိုင်အမည် / ကုမ္ပဏီအမည်',
@@ -480,6 +483,7 @@ export const TRANSLATIONS = {
             'အနည်းငယ်ပမာဏ အေးခဲ Subscription ပုံမှန်ပို့ဆောင်မှုဝန်ဆောင်မှုနှင့်ပတ်သက်၍',
             '（၄）သဘောထားမှတ်ချက်・တောင်းဆိုချက်များ',
             'ကျေနပ်သောအချက်များ၊ စိုးရိမ်စရာများ၊ နောင်တွင် တောင်းဆိုလိုသည်များ ရှိပါက ကျေးဇူးပြု၍ ပြောပြပါ။\n\nနှစ်သက်သော ငါးမျိုးစိတ်၊ အရွယ်အစား၊ ပြင်ဆင်မှုအခြေအနေ၊ စျေးနှုန်းအပိုင်းအခြား၊ ပို့ဆောင်မှုနည်းလမ်း စသည်တို့ အပါအဝင် မည်သည့်အကြောင်းအရာမဆို ကြိုဆိုပါသည်။',
+            'Fine Atlas https://fineatlas.co.jp/',
         ],
         postUseOptions: {
             '赤甘鯛': 'အနီရောင် အမာဒိုင်း ငါး',
@@ -602,7 +606,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'Hiện tại chưa có ý định kinh doanh',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'Cảm ơn quý khách đã dùng thử sản phẩm của chúng tôi.\nĐể làm tài liệu tham khảo cho việc triển khai sản phẩm trong tương lai, xin vui lòng chia sẻ ý kiến thẳng thắn của quý khách.\n\nThời gian dự kiến: khoảng 3 phút\n\nFine Atlas https://fineatlas.co.jp/',
+        postUseDescription: 'Cảm ơn quý khách đã dùng thử sản phẩm của chúng tôi.\nĐể làm tài liệu tham khảo cho việc triển khai sản phẩm trong tương lai, xin vui lòng chia sẻ ý kiến thẳng thắn của quý khách.\n\nThời gian dự kiến: khoảng 3 phút',
         postUseQuestions: [
             '[1] Thông tin cơ bản',
             'Tên nhà hàng / Tên công ty',
@@ -618,6 +622,7 @@ export const TRANSLATIONS = {
             'Về dịch vụ đăng ký giao hàng định kỳ dạng ướp lạnh số lượng nhỏ',
             '[4] Ý kiến & Yêu cầu',
             'Nếu có điểm quý khách hài lòng, điều còn băn khoăn, hoặc yêu cầu nào cho tương lai, xin vui lòng chia sẻ.\n\nBất kỳ nội dung nào cũng được hoan nghênh — loại cá mong muốn, kích cỡ, tình trạng chế biến, khoảng giá, phương thức giao hàng, v.v.',
+            'Fine Atlas https://fineatlas.co.jp/',
         ],
         postUseOptions: {
             '赤甘鯛': 'Cá tilefish đỏ (Aka-amadai)',
@@ -740,7 +745,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'වර්තමානයේ අලෙවි කිරීමට අදහස් නැත',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'අපගේ නිෂ්පාදන රස බැලීම පිළිබඳව ඉතා ස්තුතියි.\nඅනාගත නිෂ්පාදන සැලසුම් සඳහා යොමුවක් ලෙස, ඔබේ අවංක අදහස් කරුණාකර බෙදාගන්න.\n\nගතවන කාලය：මිනිත්තු 3ක් පමණ\n\nFine Atlas https://fineatlas.co.jp/',
+        postUseDescription: 'අපගේ නිෂ්පාදන රස බැලීම පිළිබඳව ඉතා ස්තුතියි.\nඅනාගත නිෂ්පාදන සැලසුම් සඳහා යොමුවක් ලෙස, ඔබේ අවංක අදහස් කරුණාකර බෙදාගන්න.\n\nගතවන කාලය：මිනිත්තු 3ක් පමණ',
         postUseQuestions: [
             '（1）මූලික තොරතුරු',
             'රෙස්ටුරන්ට් නම / සමාගමේ නම',
@@ -756,6 +761,7 @@ export const TRANSLATIONS = {
             'සුළු ප්‍රමාණයේ සිසිල් දායක නිතිපතා බෙදාහැරීමේ සේවාව පිළිබඳව',
             '（4）අදහස්・ඉල්ලීම්',
             'ඔබ සතුටු වූ කරුණු, සැලකිලිමත් වූ කරුණු, හෝ අනාගතය සඳහා ඉල්ලීම් ඇත්නම් කරුණාකර දන්වන්න。\n\nඔබ කැමති මාළු වර්ග, ප්‍රමාණය, සැකසුම් තත්ත්වය, මිල පරාසය, බෙදාහැරීමේ ක්‍රමය ආදී ඕනෑම විස්තරයක් සාදරයෙන් පිළිගනිමු。',
+            'Fine Atlas https://fineatlas.co.jp/',
         ],
         postUseOptions: {
             '赤甘鯛': 'රතු ටයිල්ෆිෂ් (Aka-amadai)',
@@ -878,7 +884,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'এই মুহূর্তে বিক্রির পরিকল্পনা নেই',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'আমাদের পণ্য চেখে দেখার জন্য আন্তরিক ধন্যবাদ।\nভবিষ্যতের পণ্য পরিকল্পনার জন্য রেফারেন্স হিসেবে, অনুগ্রহ করে আপনার সরাসরি মতামত জানান।\n\nআনুমানিক সময়：প্রায় ৩ মিনিট\n\nFine Atlas https://fineatlas.co.jp/',
+        postUseDescription: 'আমাদের পণ্য চেখে দেখার জন্য আন্তরিক ধন্যবাদ।\nভবিষ্যতের পণ্য পরিকল্পনার জন্য রেফারেন্স হিসেবে, অনুগ্রহ করে আপনার সরাসরি মতামত জানান।\n\nআনুমানিক সময়：প্রায় ৩ মিনিট',
         postUseQuestions: [
             '(১) মৌলিক তথ্য',
             'রেস্তোরাঁর নাম / প্রতিষ্ঠানের নাম',
@@ -894,6 +900,7 @@ export const TRANSLATIONS = {
             'ছোট পরিমাণে চিলড সাবস্ক্রিপশন নিয়মিত ডেলিভারি সেবা সম্পর্কে',
             '(৪) মতামত・অনুরোধ',
             'যা ভালো লেগেছে, যা নিয়ে উদ্বিগ্ন হয়েছেন, বা ভবিষ্যতের জন্য কোনো অনুরোধ থাকলে অনুগ্রহ করে জানান।\n\nপছন্দের মাছের প্রজাতি, আকার, প্রক্রিয়াকরণের অবস্থা, মূল্য পরিসীমা, ডেলিভারি পদ্ধতি ইত্যাদি যেকোনো বিষয়ে লিখতে পারেন।',
+            'Fine Atlas https://fineatlas.co.jp/',
         ],
         postUseOptions: {
             '赤甘鯛': 'লাল টাইলফিশ (Aka-amadai)',
@@ -1016,7 +1023,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'Saat ini belum berencana menjual',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'Terima kasih banyak telah mencoba produk kami.\nUntuk menjadi referensi pengembangan produk di masa mendatang, mohon berikan pendapat jujur Anda.\n\nWaktu yang dibutuhkan: sekitar 3 menit\n\nFine Atlas https://fineatlas.co.jp/',
+        postUseDescription: 'Terima kasih banyak telah mencoba produk kami.\nUntuk menjadi referensi pengembangan produk di masa mendatang, mohon berikan pendapat jujur Anda.\n\nWaktu yang dibutuhkan: sekitar 3 menit',
         postUseQuestions: [
             '(1) Informasi Dasar',
             'Nama Restoran / Nama Perusahaan',
@@ -1032,6 +1039,7 @@ export const TRANSLATIONS = {
             'Tentang layanan berlangganan pengiriman rutin dingin dalam jumlah kecil',
             '(4) Komentar & Permintaan',
             'Jika ada hal yang Anda sukai, hal yang membuat Anda khawatir, atau permintaan untuk masa mendatang, silakan sampaikan.\n\nSegala jenis masukan diterima — jenis ikan, ukuran, kondisi olahan, kisaran harga, metode pengiriman yang diinginkan, dan lainnya.',
+            'Fine Atlas https://fineatlas.co.jp/',
         ],
         postUseOptions: {
             '赤甘鯛': 'Tilefish merah (Aka-amadai)',
@@ -1154,7 +1162,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'हाल व्यापार गर्ने योजना छैन',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'हाम्रो उत्पादनहरू चाख्नुभएकोमा हार्दिक धन्यवाद।\nभविष्यको उत्पादन योजनाको सन्दर्भको लागि, कृपया आफ्नो स्पष्ट धारणा साझा गर्नुहोस्।\n\nअनुमानित समय：लगभग ३ मिनेट\n\nFine Atlas https://fineatlas.co.jp/',
+        postUseDescription: 'हाम्रो उत्पादनहरू चाख्नुभएकोमा हार्दिक धन्यवाद।\nभविष्यको उत्पादन योजनाको सन्दर्भको लागि, कृपया आफ्नो स्पष्ट धारणा साझा गर्नुहोस्।\n\nअनुमानित समय：लगभग ३ मिनेट',
         postUseQuestions: [
             '（१） आधारभूत जानकारी',
             'रेस्टुरेन्टको नाम / कम्पनीको नाम',
@@ -1170,6 +1178,7 @@ export const TRANSLATIONS = {
             'साना परिमाणको चिल्ड सदस्यता नियमित डेलिभरी सेवाको बारेमा',
             '（४） राय・अनुरोध',
             'मन परेका कुराहरू, चिन्ता लागेका कुराहरू, वा भविष्यको लागि कुनै अनुरोध भए कृपया बताउनुहोस्।\n\nमनपर्ने माछाको प्रजाति, साइज, प्रशोधन अवस्था, मूल्य दायरा, डेलिभरी विधि जस्ता कुनै पनि सामग्री स्वागत छ。',
+            'Fine Atlas https://fineatlas.co.jp/',
         ],
         postUseOptions: {
             '赤甘鯛': 'रातो टाइलफिस (Aka-amadai)',
@@ -1290,7 +1299,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'Şu anda satmayı düşünmüyorum',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'Ürünlerimizi denediğiniz için çok teşekkür ederiz.\nGelecekteki ürün planlamamıza yardımcı olmak için samimi geri bildiriminizi rica ederiz.\n\nTahmini süre: yaklaşık 3 dakika\n\nFine Atlas https://fineatlas.co.jp/',
+        postUseDescription: 'Ürünlerimizi denediğiniz için çok teşekkür ederiz.\nGelecekteki ürün planlamamıza yardımcı olmak için samimi geri bildiriminizi rica ederiz.\n\nTahmini süre: yaklaşık 3 dakika',
         postUseQuestions: [
             '[1] Temel Bilgiler',
             'Restoran Adı / Şirket Adı',
@@ -1306,6 +1315,7 @@ export const TRANSLATIONS = {
             'Küçük miktarlarda soğutulmuş abonelik düzenli teslimat hizmeti hakkında',
             '[4] Yorumlar ve Talepler',
             'Beğendiğiniz, endişe duyduğunuz veya gelecek için talepleriniz varsa lütfen paylaşın.\n\nHer türlü içerik memnuniyetle karşılanır — tercih ettiğiniz balık türü, boyutu, işleme durumu, fiyat aralığı, teslimat yöntemi vb.',
+            'Fine Atlas https://fineatlas.co.jp/',
         ],
         postUseOptions: {
             '赤甘鯛': 'Kırmızı tilefish (Aka-amadai)',
@@ -1426,7 +1436,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'Habe derzeit nicht die Absicht, es zu führen',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'Vielen Dank, dass Sie unsere Produkte probiert haben.\nUm uns bei der Planung zukünftiger Produktangebote zu helfen, wären wir für Ihr ehrliches Feedback dankbar.\n\nGeschätzte Zeit: etwa 3 Minuten\n\nFine Atlas https://fineatlas.co.jp/',
+        postUseDescription: 'Vielen Dank, dass Sie unsere Produkte probiert haben.\nUm uns bei der Planung zukünftiger Produktangebote zu helfen, wären wir für Ihr ehrliches Feedback dankbar.\n\nGeschätzte Zeit: etwa 3 Minuten',
         postUseQuestions: [
             '[1] Grundlegende Informationen',
             'Restaurantname / Firmenname',
@@ -1442,6 +1452,7 @@ export const TRANSLATIONS = {
             'Über unseren gekühlten Abonnement-Lieferservice in kleinen Mengen',
             '[4] Kommentare & Anfragen',
             'Bitte teilen Sie uns mit, was Ihnen gefallen hat, was Sie beunruhigt hat, oder etwaige Wünsche für die Zukunft.\n\nJeder Inhalt ist willkommen — bevorzugte Fischart, Größe, Verarbeitungszustand, Preisspanne, Liefermethode usw.',
+            'Fine Atlas https://fineatlas.co.jp/',
         ],
         postUseOptions: {
             '赤甘鯛': 'Roter Tilefish (Aka-amadai)',
@@ -1562,7 +1573,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'Je n\'ai pas l\'intention de le proposer pour le moment',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'Merci beaucoup d\'avoir essayé nos produits.\nAfin de nous aider à planifier nos futures offres de produits, nous vous serions reconnaissants de votre avis sincère.\n\nDurée estimée : environ 3 minutes\n\nFine Atlas https://fineatlas.co.jp/',
+        postUseDescription: 'Merci beaucoup d\'avoir essayé nos produits.\nAfin de nous aider à planifier nos futures offres de produits, nous vous serions reconnaissants de votre avis sincère.\n\nDurée estimée : environ 3 minutes',
         postUseQuestions: [
             '[1] Informations de base',
             'Nom du restaurant / de l\'entreprise',
@@ -1578,6 +1589,7 @@ export const TRANSLATIONS = {
             'À propos de notre service d\'abonnement de livraison régulière réfrigérée en petite quantité',
             '[4] Commentaires et demandes',
             'N\'hésitez pas à partager ce que vous avez aimé, ce qui vous a préoccupé, ou toute demande pour l\'avenir.\n\nTout contenu est le bienvenu — espèce de poisson préférée, taille, état de transformation, gamme de prix, méthode de livraison, etc.',
+            'Fine Atlas https://fineatlas.co.jp/',
         ],
         postUseOptions: {
             '赤甘鯛': 'Tilefish rouge (Aka-amadai)',
@@ -1698,7 +1710,7 @@ export const TRANSLATIONS = {
             '現時点では取り扱いたいと思わない': 'Al momento non intendo offrirlo',
         },
         postUseTitle: 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey',
-        postUseDescription: 'Grazie mille per aver provato i nostri prodotti.\nPer aiutarci a pianificare le future offerte di prodotti, vi saremmo grati per un feedback sincero.\n\nTempo stimato: circa 3 minuti\n\nFine Atlas https://fineatlas.co.jp/',
+        postUseDescription: 'Grazie mille per aver provato i nostri prodotti.\nPer aiutarci a pianificare le future offerte di prodotti, vi saremmo grati per un feedback sincero.\n\nTempo stimato: circa 3 minuti',
         postUseQuestions: [
             '[1] Informazioni di base',
             'Nome del ristorante / dell\'azienda',
@@ -1714,6 +1726,7 @@ export const TRANSLATIONS = {
             'Informazioni sul nostro servizio in abbonamento di consegna periodica refrigerata in piccole quantità',
             '[4] Commenti e richieste',
             'Se ci sono aspetti che vi sono piaciuti, che vi hanno preoccupato, o richieste per il futuro, vi preghiamo di condividerli.\n\nQualsiasi contenuto è benvenuto — specie di pesce preferita, dimensione, stato di lavorazione, fascia di prezzo, metodo di consegna, ecc.',
+            'Fine Atlas https://fineatlas.co.jp/',
         ],
         postUseOptions: {
             '赤甘鯛': 'Tilefish rosso (Aka-amadai)',

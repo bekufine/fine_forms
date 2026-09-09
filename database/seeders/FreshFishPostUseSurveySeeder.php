@@ -20,7 +20,7 @@ class FreshFishPostUseSurveySeeder extends Seeder
 
         $baseTitle = "大規模輸出産地モデル形成等支援事業\nジャパンクオリティ・フローズン 和食輸出協議会 アンケート";
         $title = "2026/09/14 {$baseTitle}";
-        $description = "この度は、商品をお試しいただき、誠にありがとうございます。\n今後の商品展開の参考にするため、ぜひ率直なご意見をお聞かせください。\n\n所要時間：約3分\n\nFine Atlas https://fineatlas.co.jp/";
+        $description = "この度は、商品をお試しいただき、誠にありがとうございます。\n今後の商品展開の参考にするため、ぜひ率直なご意見をお聞かせください。\n\n所要時間：約3分";
 
         $form = Form::where('user_id', $user->id)
             ->whereIn('title', ['新鮮魚便 ご利用後アンケート', 'JAPAN QUALITY FROZEN SEAFOOD Feedback Survey', $baseTitle, $title])
@@ -65,6 +65,8 @@ class FreshFishPostUseSurveySeeder extends Seeder
 
             ['type' => 'section', 'title' => '【4】ご意見・ご要望', 'is_required' => false, 'options' => null],
             ['type' => 'textarea', 'title' => "良かった点、気になった点、今後のご要望などがあればお聞かせください。\n\n希望する魚種、サイズ、加工状態、価格帯、配送方法など、どのような内容でも構いません。", 'is_required' => false, 'options' => null],
+
+            ['type' => 'section', 'title' => 'Fine Atlas https://fineatlas.co.jp/', 'is_required' => false, 'options' => null],
         ];
 
         foreach ($questions as $order => $question) {

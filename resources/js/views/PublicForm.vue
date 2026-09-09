@@ -85,6 +85,17 @@ function linkifyText(text) {
     );
 }
 
+// A section with no question under it (the last item, or immediately
+// followed by another section) has nothing to introduce — render it as a
+// standalone boxed notice instead of a bare section heading.
+function isStandaloneSection(index) {
+    const question = form.value?.questions?.[index];
+    if (question?.type !== 'section') return false;
+
+    const next = form.value.questions[index + 1];
+    return !next || next.type === 'section';
+}
+
 const displayDescriptionHtml = computed(() => linkifyText(displayDescription.value));
 
 const isQuickReviewForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.quickReviewTitle);
@@ -367,14 +378,17 @@ async function performSubmit() {
                 </div>
 
                 <div
-                    v-for="question in form.questions"
+                    v-for="(question, index) in form.questions"
                     :key="question.id"
-                    :class="question.type === 'section'
+                    :class="question.type === 'section' && !isStandaloneSection(index)
                         ? 'pt-6 pb-1 first:pt-0'
                         : 'bg-white border border-gray-200 rounded-lg p-8'"
                 >
                     <template v-if="question.type === 'section'">
-                        <h2 class="text-2xl font-semibold text-gray-900">{{ translateQuestionTitle(question.title) }}</h2>
+                        <h2
+                            class="text-2xl font-semibold text-gray-900 whitespace-pre-line"
+                            v-html="linkifyText(translateQuestionTitle(question.title))"
+                        ></h2>
                         <p v-if="question.description" class="text-base text-gray-500 mt-2 whitespace-pre-line">{{ question.description }}</p>
                     </template>
 
