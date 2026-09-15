@@ -102,9 +102,10 @@ const displayDescriptionHtml = computed(() => linkifyText(displayDescription.val
 
 const isQuickReviewForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.quickReviewTitle);
 const isPostUseForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.postUseTitle);
+const isAdditionalForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.additionalTitle);
 const showConfirmModal = ref(false);
 
-const availableLanguages = computed(() => (isPostUseForm.value ? POSTUSE_LANGUAGES : LANGUAGES));
+const availableLanguages = computed(() => (isPostUseForm.value || isAdditionalForm.value ? POSTUSE_LANGUAGES : LANGUAGES));
 
 const displayThanksTitle = computed(() => {
     if (normalizedTitle.value === TRANSLATIONS.ja.fishTitle) return t.value.fishThanksTitle ?? t.value.thanksTitle;
