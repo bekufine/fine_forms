@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GoogleReviewOfficeSurveySeeder::class);
         $this->call(FreshFishFreeSampleSurveySeeder::class);
         $this->call(FreshFishPostUseSurveySeeder::class);
+        $this->call(AdditionalFishFeedbackSurveySeeder::class);
         $this->call(HashimotoHonshaUserSeeder::class);
     }
 }

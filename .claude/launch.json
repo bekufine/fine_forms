@@ -2,6 +2,12 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "fine_fake_google_cloud",
+      "runtimeExecutable": "php",
+      "runtimeArgs": ["artisan", "serve", "--port=8010"],
+      "port": 8010
+    },
+    {
       "name": "planning",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["--prefix", "/Users/user/planning", "run", "dev"],

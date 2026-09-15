@@ -59,6 +59,7 @@ const displayTitle = computed(() => {
     else if (normalizedTitle.value === TRANSLATIONS.ja.quickReviewTitle) base = t.value.quickReviewTitle ?? form.value.title;
     else if (normalizedTitle.value === TRANSLATIONS.ja.fishTitle) base = t.value.fishTitle ?? form.value.title;
     else if (normalizedTitle.value === TRANSLATIONS.ja.postUseTitle) base = t.value.postUseTitle ?? form.value.title;
+    else if (normalizedTitle.value === TRANSLATIONS.ja.additionalTitle) base = t.value.additionalTitle ?? form.value.title;
     else return form.value.title;
     return leadingDate.value + base;
 });
@@ -70,6 +71,7 @@ const displayDescription = computed(() => {
     if (form.value.description === TRANSLATIONS.ja.quickReviewDescription) return t.value.quickReviewDescription ?? form.value.description;
     if (form.value.description === TRANSLATIONS.ja.fishDescription) return t.value.fishDescription ?? form.value.description;
     if (form.value.description === TRANSLATIONS.ja.postUseDescription) return t.value.postUseDescription ?? form.value.description;
+    if (form.value.description === TRANSLATIONS.ja.additionalDescription) return t.value.additionalDescription ?? form.value.description;
     return form.value.description;
 });
 
@@ -145,7 +147,10 @@ function translateQuestionTitle(jaTitle) {
     if (index !== -1) return t.value.fishQuestions?.[index] ?? jaTitle;
 
     index = TRANSLATIONS.ja.postUseQuestions.indexOf(jaTitle);
-    return index !== -1 ? (t.value.postUseQuestions?.[index] ?? jaTitle) : jaTitle;
+    if (index !== -1) return t.value.postUseQuestions?.[index] ?? jaTitle;
+
+    index = TRANSLATIONS.ja.additionalQuestions.indexOf(jaTitle);
+    return index !== -1 ? (t.value.additionalQuestions?.[index] ?? jaTitle) : jaTitle;
 }
 
 function translateOption(jaOption) {
@@ -158,7 +163,7 @@ function translateOption(jaOption) {
     index = JA_SATISFACTION_SCALE.indexOf(jaOption);
     if (index !== -1) return t.value.satisfactionScale[index] ?? jaOption;
 
-    return t.value.locations?.[jaOption] ?? t.value.fishOptions?.[jaOption] ?? t.value.postUseOptions?.[jaOption] ?? jaOption;
+    return t.value.locations?.[jaOption] ?? t.value.fishOptions?.[jaOption] ?? t.value.postUseOptions?.[jaOption] ?? t.value.additionalOptions?.[jaOption] ?? jaOption;
 }
 
 async function fetchForm() {
