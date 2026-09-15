@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onMounted, onUnmounted, reactive, ref, watchEffect } from 'vue';
 import http from '../api/http';
-import { DEFAULT_LOCALE, JA_CLARITY_SCALE, JA_SATISFACTION_SCALE, JA_SCALE, LANGUAGES, POSTUSE_LANGUAGES, TRANSLATIONS } from '../i18n/surveyTranslations';
+import { ADDITIONAL_LANGUAGES, DEFAULT_LOCALE, JA_CLARITY_SCALE, JA_SATISFACTION_SCALE, JA_SCALE, LANGUAGES, POSTUSE_LANGUAGES, TRANSLATIONS } from '../i18n/surveyTranslations';
 import { FORM_REVIEW_LINKS, LOCATION_REVIEW_LINKS } from '../config/locationReviewLinks';
 
 const props = defineProps({
@@ -105,7 +105,11 @@ const isPostUseForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.p
 const isAdditionalForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.additionalTitle);
 const showConfirmModal = ref(false);
 
-const availableLanguages = computed(() => (isPostUseForm.value || isAdditionalForm.value ? POSTUSE_LANGUAGES : LANGUAGES));
+const availableLanguages = computed(() => {
+    if (isPostUseForm.value) return POSTUSE_LANGUAGES;
+    if (isAdditionalForm.value) return ADDITIONAL_LANGUAGES;
+    return LANGUAGES;
+});
 
 const displayThanksTitle = computed(() => {
     if (normalizedTitle.value === TRANSLATIONS.ja.fishTitle) return t.value.fishThanksTitle ?? t.value.thanksTitle;
