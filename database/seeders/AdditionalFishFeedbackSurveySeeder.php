@@ -19,7 +19,7 @@ class AdditionalFishFeedbackSurveySeeder extends Seeder
         );
 
         $title = '追加アンケートのお願い';
-        $description = "9月14日のイベントへのご参加と、アンケートへのご回答、誠にありがとうございました。\n\nお持ち帰りいただいた魚を、ご自身のお店で加工・調理されたご感想も、ぜひお聞かせください。\n皆さまのお声を励みに、今後の商品づくりやサービスの改善に生かしてまいります。\n\nご協力のほど、よろしくお願いいたします。";
+        $description = "9月14日のイベントへのご参加と、アンケートへのご回答、誠にありがとうございました。\n\n今後のサービスづくりの参考に、魚の定期便について、皆さまのご意見をお聞かせください。\n\nお答えいただける項目のみで結構です。\nご協力のほど、よろしくお願いいたします。";
 
         $form = Form::where('user_id', $user->id)
             ->whereIn('title', [$title])
@@ -41,28 +41,17 @@ class AdditionalFishFeedbackSurveySeeder extends Seeder
         }
 
         $questions = [
-            ['type' => 'checkbox', 'title' => '① 価格が合えば、お店で使ってみたい魚を教えてください。（複数選択可）', 'is_required' => false, 'options' => [
-                '【天然】甘鯛', '【天然】のどぐろ', '【天然】剣先イカ', '【天然】真穴子', '【天然】煮穴子',
-                '【養殖】タイ', '【養殖】シマアジ', '【養殖】ヒラメ',
-                '特になし',
+            ['type' => 'section', 'title' => '① ロサンゼルス（LA）で、解凍した魚を冷蔵でお届けする定期便（サブスク）が始まるとしたら、魚の種類数・量・価格・配達頻度について、ご意見をお聞かせください。', 'is_required' => false, 'options' => null],
+            ['type' => 'radio', 'title' => '【1箱あたりの魚は何種類がよいと思いますか？】', 'is_required' => false, 'options' => ['5種類', '6種類', '7種類', '8種類', 'その他']],
+            ['type' => 'text', 'title' => '【1箱あたりの総重量はどのくらいがよいと思いますか？】（数値と単位をご記入ください　例：3kg／5ポンド）', 'is_required' => false, 'options' => null],
+            ['type' => 'radio', 'title' => '【1箱あたりの価格はいくらがよいと思いますか？】（米ドル）', 'is_required' => false, 'options' => ['100ドル', '200ドル', '300ドル', '400ドル', 'その他']],
+            ['type' => 'radio', 'title' => '【配達頻度はどのくらいがよいと思いますか？】', 'is_required' => false, 'options' => ['週1回', '週2回', '週3回', 'その他']],
+
+            ['type' => 'checkbox', 'title' => '② セットに入っているとよいと思う魚を教えてください。（複数選択可）', 'is_required' => false, 'options' => [
+                '赤甘鯛', 'のどぐろ', '剣先イカ', 'マグロ', 'ブリ', 'ハマチ', 'カツオ', '真穴子', 'うなぎ', 'ハモ', 'アジ', 'サバ', 'タイ', 'シマアジ', 'ヒラメ', 'タコ', 'その他',
             ]],
 
-            ['type' => 'checkbox', 'title' => '② その他、興味のある魚を教えてください。（複数選択可）', 'is_required' => false, 'options' => [
-                'アジ', 'サバ', 'キダイ', 'カツオ', 'ブリ', 'マグロ', 'ハマチ', 'クエ', '鮎', 'うなぎ', 'ハモ', 'その他',
-            ]],
-
-            ['type' => 'section', 'title' => '③ お持ち帰りいただいた魚で、どのような料理を作りましたか？ ご感想もお聞かせください。', 'is_required' => false, 'options' => null],
-            ['type' => 'text', 'title' => '使用した魚', 'is_required' => false, 'options' => null],
-            ['type' => 'text', 'title' => '作った料理', 'is_required' => false, 'options' => null],
-            ['type' => 'textarea', 'title' => 'ご感想（味・食感・扱いやすさなど）', 'is_required' => false, 'options' => null],
-
-            ['type' => 'section', 'title' => '④ サブスク定期便をご利用になる場合、ご希望を教えてください。', 'is_required' => false, 'options' => null],
-            ['type' => 'radio', 'title' => '1箱に入れる魚の種類数', 'is_required' => false, 'options' => ['5種類', '6種類', '7種類', '8種類', 'その他']],
-            ['type' => 'text', 'title' => '1箱あたりの希望総重量（数値と単位をご記入ください　例：3kg／5ポンド）', 'is_required' => false, 'options' => null],
-            ['type' => 'radio', 'title' => '鮮魚ボックス1箱あたりの希望価格（米ドル）', 'is_required' => false, 'options' => ['100ドル', '200ドル', '300ドル', '400ドル', 'その他']],
-            ['type' => 'radio', 'title' => '配達頻度', 'is_required' => false, 'options' => ['週1回', '週2回', '週3回', 'その他']],
-
-            ['type' => 'textarea', 'title' => '⑤ その他、ご意見・ご要望がございましたら、自由にお聞かせください。', 'is_required' => false, 'options' => null],
+            ['type' => 'textarea', 'title' => '③ その他、ご意見・ご要望がございましたら、自由にお聞かせください。', 'is_required' => false, 'options' => null],
 
             ['type' => 'text', 'title' => '店舗名', 'is_required' => false, 'options' => null],
             ['type' => 'text', 'title' => 'お名前', 'is_required' => false, 'options' => null],

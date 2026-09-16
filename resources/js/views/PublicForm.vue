@@ -115,12 +115,14 @@ const displayThanksTitle = computed(() => {
     if (normalizedTitle.value === TRANSLATIONS.ja.fishTitle) return t.value.fishThanksTitle ?? t.value.thanksTitle;
     if (isPostUseForm.value) return t.value.postUseThanksTitle ?? t.value.thanksTitle;
     if (isQuickReviewForm.value) return t.value.quickReviewThanksTitle ?? '';
+    if (isAdditionalForm.value) return t.value.additionalThanksTitle ?? t.value.thanksTitle;
     return t.value.thanksTitle;
 });
 
 const displayThanksBody = computed(() => {
     if (isQuickReviewForm.value) return t.value.quickReviewThanksBody ?? '';
     if (isPostUseForm.value) return t.value.postUseThanksBody ?? '';
+    if (isAdditionalForm.value) return t.value.additionalThanksBody ?? '';
     return t.value.thanksBody;
 });
 
@@ -168,7 +170,12 @@ function translateOption(jaOption) {
     index = JA_SATISFACTION_SCALE.indexOf(jaOption);
     if (index !== -1) return t.value.satisfactionScale[index] ?? jaOption;
 
-    return t.value.locations?.[jaOption] ?? t.value.fishOptions?.[jaOption] ?? t.value.postUseOptions?.[jaOption] ?? t.value.additionalOptions?.[jaOption] ?? jaOption;
+    // Each form has its own option namespace; look up only the map for the
+    // form being displayed so option text can't collide across forms
+    // (e.g. two forms both offering "赤甘鯛" with different translations).
+    if (isAdditionalForm.value) return t.value.additionalOptions?.[jaOption] ?? jaOption;
+    if (isPostUseForm.value) return t.value.postUseOptions?.[jaOption] ?? jaOption;
+    return t.value.locations?.[jaOption] ?? t.value.fishOptions?.[jaOption] ?? jaOption;
 }
 
 async function fetchForm() {
