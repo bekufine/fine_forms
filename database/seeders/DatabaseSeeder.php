@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FreshFishFreeSampleSurveySeeder::class);
         $this->call(FreshFishPostUseSurveySeeder::class);
         $this->call(AdditionalFishFeedbackSurveySeeder::class);
+        $this->call(PartTimeStaffCareerSurveySeeder::class);
         $this->call(HashimotoHonshaUserSeeder::class);
     }
 }
