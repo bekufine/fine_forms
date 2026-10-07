@@ -41,31 +41,13 @@ class PartTimeStaffCareerSurveySeeder extends Seeder
         }
 
         $questions = [
-            ['type' => 'text', 'title' => '1. 名前', 'is_required' => true, 'options' => null],
+            ['type' => 'section', 'title' => '会社', 'is_required' => false, 'options' => null],
 
-            ['type' => 'radio', 'title' => '2. 今後の進路について教えてください。', 'is_required' => false, 'options' => [
-                '就職を希望している', '進学を希望している', '就職か進学か検討中', 'まだ決めていない', 'その他',
-            ]],
+            ['type' => 'text', 'title' => '第一希望', 'is_required' => true, 'options' => null],
 
-            ['type' => 'section', 'title' => "3. 就職を希望している方にお聞きします。\n希望している業界や会社名があれば教えてください。\n※まだ決まっていない場合は「未定」で構いません。", 'is_required' => false, 'options' => null],
+            ['type' => 'text', 'title' => '第二希望', 'is_required' => false, 'options' => null],
 
-            ['type' => 'text', 'title' => '業界', 'is_required' => false, 'options' => null],
-
-            ['type' => 'text', 'title' => '会社名', 'is_required' => false, 'options' => null],
-
-            ['type' => 'checkbox', 'title' => '4. 興味のある業界を教えてください。（複数選択可）', 'is_required' => false, 'options' => [
-                'ホテル・観光', '飲食', 'ブライダル', '人材', 'IT・Web', '広告・マーケティング', '美容・アパレル', '医療・福祉', '教育', '金融・不動産', 'メーカー', '公務員', 'その他', 'まだ分からない',
-            ]],
-
-            ['type' => 'checkbox', 'title' => '5. 興味のある仕事内容を教えてください。（複数選択可）', 'is_required' => false, 'options' => [
-                '接客・サービス', '営業', '企画', 'マーケティング', '事務', '人事・採用', 'マネジメント', 'IT・エンジニア', 'デザイン・クリエイティブ', '専門職', 'その他', 'まだ分からない',
-            ]],
-
-            ['type' => 'checkbox', 'title' => '6. 将来の仕事を選ぶ際に重視したいものを3つまで選んでください。', 'is_required' => false, 'options' => [
-                '給与', '休日・働きやすさ', '勤務地', '仕事内容', 'やりがい', '成長できる環境', '安定性', '会社の雰囲気・人間関係', '福利厚生', 'キャリアアップ', '有名な会社・ブランド', '好きなことを仕事にできる', '社会貢献', 'その他',
-            ]],
-
-            ['type' => 'textarea', 'title' => "7. 自由記載\n将来やってみたいこと、目指している仕事、進路について考えていることなどがあれば自由に記入してください。", 'is_required' => false, 'options' => null],
+            ['type' => 'text', 'title' => '第三希望', 'is_required' => false, 'options' => null],
         ];
 
         foreach ($questions as $order => $question) {
