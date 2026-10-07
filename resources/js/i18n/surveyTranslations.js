@@ -128,6 +128,9 @@ export const TRANSLATIONS = {
         thanksTitle: 'アンケートにご協力いただき、誠にありがとうございました。',
         fishThanksTitle: 'アンケートご協力ありがとうございます',
         thanksBody: 'お寄せいただいたご意見は、今後の来社対応や事務所環境の改善に活用させていただきます。',
+        careerTitle: 'アルバイトスタッフ 進路アンケート',
+        careerThanksTitle: 'ご協力ありがとうございました。',
+        careerThanksBody: 'いただいた内容は、今後の進路サポートの参考にさせていただきます。',
         reviewInviteTitle: 'Googleマップへの口コミ投稿のお願い',
         reviewInviteBody: [
             '差し支えなければ、今回のご来社について、率直なご感想をGoogleマップにもお寄せいただけますと幸いです。',
@@ -322,6 +325,8 @@ export const TRANSLATIONS = {
         thanksTitle: 'Thank you very much for completing our survey.',
         fishThanksTitle: 'Thank you for your cooperation with our survey.',
         thanksBody: 'Your feedback will be used to improve how we welcome visitors and our office environment going forward.',
+        careerThanksTitle: 'Thank you for your cooperation.',
+        careerThanksBody: 'Your responses will be used as a reference for supporting your career plans going forward.',
         reviewInviteTitle: 'Please consider leaving a review on Google Maps',
         reviewInviteBody: [
             "If you don't mind, we would greatly appreciate it if you could also share your honest impressions of today's visit on Google Maps.",
@@ -461,6 +466,8 @@ export const TRANSLATIONS = {
         thanksTitle: '非常感谢您填写本次问卷。',
         fishThanksTitle: '感谢您参与本次问卷调查。',
         thanksBody: '您提供的意见将用于改善今后的接待方式及办公室环境。',
+        careerThanksTitle: '感谢您的协助。',
+        careerThanksBody: '您提供的内容将用作今后职业规划支持的参考。',
         reviewInviteTitle: '邀请您在 Google 地图上发表评价',
         reviewInviteBody: [
             '如果您不介意，希望您也能在 Google 地图上分享此次来访的真实感受。',
@@ -600,6 +607,8 @@ export const TRANSLATIONS = {
         thanksTitle: 'စစ်တမ်းကို ဖြေဆိုပေးမှုအတွက် အထူးကျေးဇူးတင်ပါသည်။',
         fishThanksTitle: 'စစ်တမ်းတွင် ပူးပေါင်းဆောင်ရွက်ပေးမှုအတွက် ကျေးဇူးတင်ပါသည်။',
         thanksBody: 'သင့်အကြံပြုချက်များကို နောင်လာမည့် ဧည့်ခံမှုနှင့် ရုံးပတ်ဝန်းကျင် တိုးတက်ကောင်းမွန်ရန် အသုံးပြုပါမည်။',
+        careerThanksTitle: 'ပူးပေါင်းဆောင်ရွက်ပေးမှုအတွက် ကျေးဇူးတင်ပါသည်။',
+        careerThanksBody: 'ဖြေဆိုပေးထားသည့် အကြောင်းအရာများကို နောင်တွင် အသက်မွေးဝမ်းကြောင်းလမ်းကြောင်း ပံ့ပိုးမှုအတွက် အကိုးအကားအဖြစ် အသုံးပြုပါမည်။',
         reviewInviteTitle: 'Google Maps တွင် သုံးသပ်ချက်ရေးရန် ဖိတ်ခေါ်ခြင်း',
         reviewInviteBody: [
             'အခက်အခဲမရှိပါက၊ ယနေ့လာရောက်မှုနှင့်ပတ်သက်၍ သင့်ရိုးသားသော ခံစားချက်ကို Google Maps တွင်လည်း မျှဝေပေးပါရန် မေတ္တာရပ်ခံအပ်ပါသည်။',
@@ -739,6 +748,8 @@ export const TRANSLATIONS = {
         thanksTitle: 'Chân thành cảm ơn quý khách đã hoàn thành khảo sát.',
         fishThanksTitle: 'Cảm ơn quý khách đã hợp tác thực hiện khảo sát.',
         thanksBody: 'Những ý kiến quý khách chia sẻ sẽ được chúng tôi sử dụng để cải thiện việc tiếp đón và môi trường văn phòng trong thời gian tới.',
+        careerThanksTitle: 'Cảm ơn bạn đã hợp tác.',
+        careerThanksBody: 'Những nội dung bạn cung cấp sẽ được sử dụng làm tham khảo cho việc hỗ trợ định hướng nghề nghiệp trong thời gian tới.',
         reviewInviteTitle: 'Kính mong quý khách đăng đánh giá trên Google Maps',
         reviewInviteBody: [
             'Nếu không có gì bất tiện, kính mong quý khách cũng chia sẻ cảm nhận thẳng thắn về lần đến thăm này trên Google Maps.',
@@ -878,6 +889,8 @@ export const TRANSLATIONS = {
         thanksTitle: 'සමීක්ෂණයට සහභාගී වීම පිළිබඳ අපගේ හෘදයාංගම ස්තුතිය.',
         fishThanksTitle: 'සමීක්ෂණයට ඔබගේ සහයෝගය ලබා දීම පිළිබඳ ස්තුතියි.',
         thanksBody: 'ඔබ ලබා දුන් අදහස් අනාගත පැමිණීම් සත්කාරය සහ කාර්යාල පරිසරය දියුණු කිරීමට යොදා ගනු ලැබේ.',
+        careerThanksTitle: 'ඔබගේ සහයෝගයට ස්තුතියි.',
+        careerThanksBody: 'ඔබ ලබා දුන් තොරතුරු ඉදිරියේදී වෘත්තීය මාර්ග සහාය සඳහා යොමු කර ගනු ලැබේ.',
         reviewInviteTitle: 'Google සිතියම්වල සමාලෝචනයක් තැබීමට ආරාධනාවකි',
         reviewInviteBody: [
             'අපහසුතාවයක් නොවේ නම්, අද පැමිණීම පිළිබඳ ඔබේ අවංක හැඟීම් Google සිතියම්වලද share කිරීමට ඔබට ආරාධනා කරමු.',
@@ -1017,6 +1030,8 @@ export const TRANSLATIONS = {
         thanksTitle: 'জরিপে অংশগ্রহণের জন্য আপনাকে আন্তরিক ধন্যবাদ।',
         fishThanksTitle: 'জরিপে আপনার সহযোগিতার জন্য ধন্যবাদ।',
         thanksBody: 'আপনার মতামত ভবিষ্যতে অভ্যর্থনা ও অফিসের পরিবেশ উন্নত করতে ব্যবহার করা হবে।',
+        careerThanksTitle: 'আপনার সহযোগিতার জন্য ধন্যবাদ।',
+        careerThanksBody: 'আপনার দেওয়া তথ্য ভবিষ্যতে ক্যারিয়ার সহায়তার জন্য ব্যবহার করা হবে।',
         reviewInviteTitle: 'Google মানচিত্রে রিভিউ দেওয়ার অনুরোধ',
         reviewInviteBody: [
             'আপত্তি না থাকলে, আজকের পরিদর্শন সম্পর্কে আপনার সরাসরি অনুভূতি Google মানচিত্রেও শেয়ার করলে আমরা কৃতজ্ঞ থাকব।',
@@ -1156,6 +1171,8 @@ export const TRANSLATIONS = {
         thanksTitle: 'Terima kasih banyak atas partisipasi Anda dalam survei ini.',
         fishThanksTitle: 'Terima kasih atas kerja sama Anda dalam survei ini.',
         thanksBody: 'Masukan yang Anda berikan akan digunakan untuk meningkatkan penyambutan tamu dan lingkungan kantor di masa mendatang.',
+        careerThanksTitle: 'Terima kasih atas kerja samanya.',
+        careerThanksBody: 'Jawaban yang Anda berikan akan kami gunakan sebagai bahan pertimbangan untuk dukungan jalur karier ke depan.',
         reviewInviteTitle: 'Permohonan untuk memberikan ulasan di Google Maps',
         reviewInviteBody: [
             'Jika tidak keberatan, kami akan sangat senang jika Anda juga berkenan membagikan kesan jujur Anda tentang kunjungan hari ini di Google Maps.',
@@ -1295,6 +1312,8 @@ export const TRANSLATIONS = {
         thanksTitle: 'सर्वेक्षणमा सहभागी हुनुभएकोमा हार्दिक धन्यवाद।',
         fishThanksTitle: 'सर्वेक्षणमा तपाईंको सहयोगका लागि धन्यवाद।',
         thanksBody: 'तपाईंले दिनुभएको प्रतिक्रिया भविष्यको स्वागत सत्कार र कार्यालय वातावरण सुधार गर्न प्रयोग गरिनेछ।',
+        careerThanksTitle: 'तपाईंको सहयोगका लागि धन्यवाद।',
+        careerThanksBody: 'तपाईंले दिनुभएको जानकारी भविष्यमा करियर सहयोगका लागि प्रयोग गरिनेछ।',
         reviewInviteTitle: 'Google Maps मा समीक्षा लेख्नको लागि अनुरोध',
         reviewInviteBody: [
             'असुविधा नभए, आजको भ्रमणको बारेमा तपाईंको ईमानदार धारणा Google Maps मा पनि साझा गर्नुभयो भने हामी अत्यन्त कृतज्ञ हुनेछौं।',

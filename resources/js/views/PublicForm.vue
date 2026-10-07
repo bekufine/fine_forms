@@ -103,6 +103,7 @@ const displayDescriptionHtml = computed(() => linkifyText(displayDescription.val
 const isQuickReviewForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.quickReviewTitle);
 const isPostUseForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.postUseTitle);
 const isAdditionalForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.additionalTitle);
+const isCareerForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.careerTitle);
 const showConfirmModal = ref(false);
 
 const availableLanguages = computed(() => {
@@ -116,6 +117,7 @@ const displayThanksTitle = computed(() => {
     if (isPostUseForm.value) return t.value.postUseThanksTitle ?? t.value.thanksTitle;
     if (isQuickReviewForm.value) return t.value.quickReviewThanksTitle ?? '';
     if (isAdditionalForm.value) return t.value.additionalThanksTitle ?? t.value.thanksTitle;
+    if (isCareerForm.value) return t.value.careerThanksTitle ?? t.value.thanksTitle;
     return t.value.thanksTitle;
 });
 
@@ -123,6 +125,7 @@ const displayThanksBody = computed(() => {
     if (isQuickReviewForm.value) return t.value.quickReviewThanksBody ?? '';
     if (isPostUseForm.value) return t.value.postUseThanksBody ?? '';
     if (isAdditionalForm.value) return t.value.additionalThanksBody ?? '';
+    if (isCareerForm.value) return t.value.careerThanksBody ?? t.value.thanksBody;
     return t.value.thanksBody;
 });
 
