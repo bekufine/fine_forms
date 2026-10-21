@@ -23,6 +23,31 @@ const QUESTION_TYPES = [
 
 const hasOptions = computed(() => ['radio', 'checkbox', 'select'].includes(props.question.type));
 const isSection = computed(() => props.question.type === 'section');
+const isCheckbox = computed(() => props.question.type === 'checkbox');
+const optionCount = computed(() => (props.question.options ?? []).length);
+const maxSelectionsCap = computed(() => Math.max(optionCount.value, 1));
+
+// Пустое поле означает «без ограничения», иначе держим значение
+// в диапазоне от 1 до числа вариантов.
+function updateMaxSelections(raw) {
+    const value = String(raw).trim();
+
+    if (value === '') {
+        update({ max_selections: null });
+
+        return;
+    }
+
+    const parsed = Number.parseInt(value, 10);
+
+    if (Number.isNaN(parsed)) {
+        update({ max_selections: null });
+
+        return;
+    }
+
+    update({ max_selections: Math.min(Math.max(parsed, 1), maxSelectionsCap.value) });
+}
 
 function update(patch) {
     emit('update', patch);
@@ -56,6 +81,10 @@ function onTypeChange(event) {
     if (type === 'section') {
         patch.is_required = false;
         patch.options = null;
+    }
+
+    if (type !== 'checkbox') {
+        patch.max_selections = null;
     }
 
     update(patch);
@@ -134,6 +163,20 @@ function onTypeChange(event) {
                     >
                         + 選択肢を追加
                     </button>
+
+                    <label v-if="isCheckbox" class="flex items-center gap-2 text-base text-gray-600 pt-1">
+                        選択できる数の上限
+                        <input
+                            :value="question.max_selections ?? ''"
+                            type="number"
+                            min="1"
+                            :max="maxSelectionsCap"
+                            placeholder="制限なし"
+                            class="w-28 text-base border border-gray-300 rounded-md px-3 py-1.5"
+                            @change="updateMaxSelections($event.target.value)"
+                        >
+                        <span class="text-gray-400">空欄なら制限なし</span>
+                    </label>
                 </div>
             </div>
 

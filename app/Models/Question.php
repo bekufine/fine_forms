@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['type', 'title', 'description', 'is_required', 'order', 'options', 'is_archived'])]
+#[Fillable(['type', 'title', 'description', 'is_required', 'order', 'options', 'max_selections', 'is_archived'])]
 class Question extends Model
 {
     use HasFactory;
@@ -21,6 +21,7 @@ class Question extends Model
             'is_archived' => 'boolean',
             'order' => 'integer',
             'options' => 'array',
+            'max_selections' => 'integer',
         ];
     }
 

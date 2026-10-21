@@ -18,6 +18,7 @@ class QuestionResource extends JsonResource
             'is_required' => $this->is_required,
             'order' => $this->order,
             'options' => $this->options,
+            'max_selections' => $this->max_selections,
             'is_archived' => $this->is_archived,
         ];
     }

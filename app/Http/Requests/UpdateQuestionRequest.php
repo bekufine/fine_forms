@@ -24,6 +24,7 @@ class UpdateQuestionRequest extends FormRequest
             'order' => ['sometimes', 'integer', 'min:0'],
             'options' => [$optionsRequired ? 'required' : 'nullable', 'array'],
             'options.*' => ['string'],
+            'max_selections' => ['sometimes', 'nullable', 'integer', 'min:1', 'max:255'],
             'is_archived' => ['sometimes', 'boolean'],
         ];
     }

@@ -76,6 +76,7 @@ class FormController extends Controller
                     'is_required' => $question->is_required,
                     'order' => $question->order,
                     'options' => $question->options,
+                    'max_selections' => $question->max_selections,
                 ]);
             }
 
@@ -115,6 +116,7 @@ class FormController extends Controller
                     'order' => $question->order,
                     'options' => $question->options,
                     'display_options' => $questionTranslation['options'] ?? $question->options,
+                    'max_selections' => $question->max_selections,
                     'is_archived' => $question->is_archived,
                 ];
             }),

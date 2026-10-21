@@ -21,6 +21,7 @@ class StoreQuestionRequest extends FormRequest
             'order' => ['integer', 'min:0'],
             'options' => ['nullable', 'array', 'required_if:type,radio,checkbox,select'],
             'options.*' => ['string'],
+            'max_selections' => ['nullable', 'integer', 'min:1', 'max:255'],
         ];
     }
 }

@@ -104,6 +104,22 @@ const isQuickReviewForm = computed(() => normalizedTitle.value === TRANSLATIONS.
 const isPostUseForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.postUseTitle);
 const isAdditionalForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.additionalTitle);
 const isCareerForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.careerTitle);
+
+// Предел числа отметок задаётся у самого вопроса в конструкторе форм.
+// null или 0 — без ограничения.
+function checkboxLimitOf(question) {
+    const limit = question?.max_selections;
+
+    return typeof limit === 'number' && limit > 0 ? limit : null;
+}
+
+function isCheckboxDisabled(question, option) {
+    const limit = checkboxLimitOf(question);
+    if (limit === null) return false;
+    const current = answers[question.id] ?? [];
+
+    return current.length >= limit && !current.includes(option);
+}
 const showConfirmModal = ref(false);
 
 const availableLanguages = computed(() => {
@@ -247,8 +263,11 @@ function validate() {
     return valid;
 }
 
-function toggleCheckbox(questionId, option, checked) {
+function toggleCheckbox(question, option, checked) {
+    const questionId = question.id;
     const current = answers[questionId] ?? [];
+    const limit = checkboxLimitOf(question);
+    if (checked && limit !== null && current.length >= limit) return;
     answers[questionId] = checked
         ? [...current, option]
         : current.filter((value) => value !== option);
@@ -460,15 +479,20 @@ async function performSubmit() {
                     </div>
 
                     <div v-else-if="question.type === 'checkbox'" class="space-y-3">
+                        <p v-if="checkboxLimitOf(question)" class="text-base text-gray-500 -mt-2">
+                            {{ (answers[question.id] ?? []).length }} / {{ checkboxLimitOf(question) }}
+                        </p>
                         <label
                             v-for="option in question.options"
                             :key="option"
-                            class="flex items-center gap-3 text-lg text-gray-700"
+                            class="flex items-center gap-3 text-lg"
+                            :class="isCheckboxDisabled(question, option) ? 'text-gray-400' : 'text-gray-700'"
                         >
                             <input
                                 type="checkbox"
                                 :checked="(answers[question.id] ?? []).includes(option)"
-                                @change="toggleCheckbox(question.id, option, $event.target.checked)"
+                                :disabled="isCheckboxDisabled(question, option)"
+                                @change="toggleCheckbox(question, option, $event.target.checked)"
                                 class="w-5 h-5"
                             >
                             {{ translateOption(option) }}

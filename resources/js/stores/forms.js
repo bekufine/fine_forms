@@ -104,6 +104,7 @@ export const useFormsStore = defineStore('forms', {
                 description: source.description,
                 is_required: source.is_required,
                 options: source.options,
+                max_selections: source.max_selections,
                 order: sourceIndex + 1,
             });
 
@@ -131,6 +132,7 @@ export const useFormsStore = defineStore('forms', {
                         description: question.description,
                         is_required: question.is_required,
                         options: question.options,
+                        max_selections: question.max_selections ?? null,
                     });
                     this.saveStatus = 'saved';
                 } catch (error) {

@@ -39,6 +39,11 @@ class QuestionController extends Controller
             $data['options'] = null;
         }
 
+        // Предел отметок имеет смысл только для множественного выбора.
+        if ($data['type'] !== 'checkbox') {
+            $data['max_selections'] = null;
+        }
+
         $question = $form->questions()->create([
             ...$data,
             'order' => $order,
@@ -55,6 +60,10 @@ class QuestionController extends Controller
         if (($data['type'] ?? $question->type) === 'section') {
             $data['is_required'] = false;
             $data['options'] = null;
+        }
+
+        if (($data['type'] ?? $question->type) !== 'checkbox') {
+            $data['max_selections'] = null;
         }
 
         $question->update($data);
