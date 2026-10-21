@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted, reactive, ref, watchEffect } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watchEffect } from 'vue';
 import http from '../api/http';
 import { ADDITIONAL_LANGUAGES, DEFAULT_LOCALE, JA_CLARITY_SCALE, JA_SATISFACTION_SCALE, JA_SCALE, LANGUAGES, POSTUSE_LANGUAGES, TRANSLATIONS } from '../i18n/surveyTranslations';
 import { FORM_REVIEW_LINKS, LOCATION_REVIEW_LINKS } from '../config/locationReviewLinks';
@@ -21,6 +21,7 @@ const errors = reactive({});
 const submitting = ref(false);
 const submitted = ref(false);
 const submitError = ref('');
+const validationError = ref('');
 
 const hasStoredLocale = localStorage.getItem('surveyLocale') !== null;
 const locale = ref(localStorage.getItem('surveyLocale') || DEFAULT_LOCALE);
@@ -247,7 +248,7 @@ function isEmpty(value) {
 }
 
 function validate() {
-    let valid = true;
+    let firstInvalidId = null;
 
     for (const question of form.value.questions) {
         if (question.type === 'section') continue;
@@ -256,11 +257,29 @@ function validate() {
 
         if (question.is_required && isEmpty(answers[question.id])) {
             errors[question.id] = t.value.required;
-            valid = false;
+            firstInvalidId ??= question.id;
         }
     }
 
-    return valid;
+    validationError.value = firstInvalidId === null ? '' : (t.value.requiredSummary ?? t.value.required);
+
+    return firstInvalidId === null;
+}
+
+// Незаполненное поле может оказаться далеко вверху: без прокрутки
+// нажатие на «отправить» выглядит так, будто ничего не произошло.
+function focusFirstInvalid() {
+    const invalidId = form.value.questions
+        .filter((question) => question.type !== 'section')
+        .find((question) => errors[question.id])?.id;
+
+    if (invalidId === undefined) return;
+
+    const block = document.getElementById(`question-${invalidId}`);
+    if (!block) return;
+
+    block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    block.querySelector('input, textarea, select')?.focus({ preventScroll: true });
 }
 
 function toggleCheckbox(question, option, checked) {
@@ -314,7 +333,11 @@ const reviewItems = computed(() => {
 function submit() {
     submitError.value = '';
 
-    if (!validate()) return;
+    if (!validate()) {
+        nextTick(focusFirstInvalid);
+
+        return;
+    }
 
     if (isPostUseForm.value) {
         showConfirmModal.value = true;
@@ -418,6 +441,7 @@ async function performSubmit() {
 
                 <div
                     v-for="(question, index) in form.questions"
+                    :id="`question-${question.id}`"
                     :key="question.id"
                     :class="question.type === 'section' && !isStandaloneSection(index)
                         ? 'pt-6 pb-1 first:pt-0'
@@ -550,6 +574,10 @@ async function performSubmit() {
                     <p v-if="errors[question.id]" class="text-base text-red-600 mt-3">{{ errors[question.id] }}</p>
                     </template>
                 </div>
+
+                <p v-if="validationError" class="text-base text-red-600 bg-red-50 border border-red-200 rounded-md px-4 py-3">
+                    {{ validationError }}
+                </p>
 
                 <p v-if="submitError" class="text-base text-red-600">{{ submitError }}</p>
 
