@@ -112,6 +112,7 @@ class FormController extends Controller
                     'type' => $question->type,
                     'title' => $question->title,
                     'display_title' => $questionTranslation['title'] ?? $question->title,
+                    'description' => $question->description,
                     'is_required' => $question->is_required,
                     'order' => $question->order,
                     'options' => $question->options,
