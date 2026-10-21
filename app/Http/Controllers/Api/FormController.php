@@ -73,6 +73,8 @@ class FormController extends Controller
                 $copy->questions()->create([
                     'type' => $question->type,
                     'title' => $question->title,
+                    'description' => $question->description,
+                    'description_color' => $question->description_color,
                     'is_required' => $question->is_required,
                     'order' => $question->order,
                     'options' => $question->options,
@@ -113,6 +115,7 @@ class FormController extends Controller
                     'title' => $question->title,
                     'display_title' => $questionTranslation['title'] ?? $question->title,
                     'description' => $question->description,
+                    'description_color' => $question->description_color,
                     'is_required' => $question->is_required,
                     'order' => $question->order,
                     'options' => $question->options,

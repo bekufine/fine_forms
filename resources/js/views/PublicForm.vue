@@ -108,6 +108,16 @@ const isCareerForm = computed(() => normalizedTitle.value === TRANSLATIONS.ja.ca
 
 // Предел числа отметок задаётся у самого вопроса в конструкторе форм.
 // null или 0 — без ограничения.
+// Классы перечислены литералами, иначе Tailwind их не соберёт.
+const DESCRIPTION_COLOR_CLASSES = {
+    red: 'text-red-600',
+    blue: 'text-blue-600',
+};
+
+function descriptionColorClass(question) {
+    return DESCRIPTION_COLOR_CLASSES[question?.description_color] ?? 'text-gray-500';
+}
+
 function checkboxLimitOf(question) {
     const limit = question?.max_selections;
 
@@ -452,7 +462,7 @@ async function performSubmit() {
                             class="text-2xl font-semibold text-gray-900 whitespace-pre-line"
                             v-html="linkifyText(translateQuestionTitle(question.title))"
                         ></h2>
-                        <p v-if="question.description" class="text-base text-gray-500 mt-2 whitespace-pre-line">{{ question.description }}</p>
+                        <p v-if="question.description" :class="descriptionColorClass(question)" class="text-base mt-2 whitespace-pre-line">{{ question.description }}</p>
                     </template>
 
                     <template v-else>
@@ -461,7 +471,7 @@ async function performSubmit() {
                             {{ translateQuestionTitle(question.title) }}
                             <span v-if="question.is_required" class="text-red-500">*</span>
                         </label>
-                        <p v-if="question.description" class="text-base text-gray-500 mt-1 whitespace-pre-line">{{ question.description }}</p>
+                        <p v-if="question.description" :class="descriptionColorClass(question)" class="text-base mt-1 whitespace-pre-line">{{ question.description }}</p>
                     </div>
 
                     <input

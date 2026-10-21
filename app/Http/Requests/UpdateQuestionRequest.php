@@ -20,6 +20,7 @@ class UpdateQuestionRequest extends FormRequest
             'type' => ['sometimes', 'required', 'in:text,textarea,radio,checkbox,select,scale,date,section'],
             'title' => ['sometimes', 'required', 'string', 'max:255'],
             'description' => ['sometimes', 'nullable', 'string'],
+            'description_color' => ['sometimes', 'nullable', 'in:red,blue'],
             'is_required' => ['sometimes', 'boolean'],
             'order' => ['sometimes', 'integer', 'min:0'],
             'options' => [$optionsRequired ? 'required' : 'nullable', 'array'],

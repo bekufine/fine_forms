@@ -17,6 +17,7 @@ class StoreQuestionRequest extends FormRequest
             'type' => ['required', 'in:text,textarea,radio,checkbox,select,scale,date,section'],
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
+            'description_color' => ['nullable', 'in:red,blue'],
             'is_required' => ['boolean'],
             'order' => ['integer', 'min:0'],
             'options' => ['nullable', 'array', 'required_if:type,radio,checkbox,select'],

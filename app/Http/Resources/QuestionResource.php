@@ -15,6 +15,7 @@ class QuestionResource extends JsonResource
             'type' => $this->type,
             'title' => $this->title,
             'description' => $this->description,
+            'description_color' => $this->description_color,
             'is_required' => $this->is_required,
             'order' => $this->order,
             'options' => $this->options,

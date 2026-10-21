@@ -24,6 +24,18 @@ const QUESTION_TYPES = [
 const hasOptions = computed(() => ['radio', 'checkbox', 'select'].includes(props.question.type));
 const isSection = computed(() => props.question.type === 'section');
 const isCheckbox = computed(() => props.question.type === 'checkbox');
+
+// Цвета описания: значение null — обычный серый текст.
+const DESCRIPTION_COLORS = [
+    { value: '', label: '標準（グレー）' },
+    { value: 'red', label: '赤' },
+    { value: 'blue', label: '青' },
+];
+const hasDescription = computed(() => (props.question.description ?? '').trim() !== '');
+
+function updateDescriptionColor(value) {
+    update({ description_color: value === '' ? null : value });
+}
 const optionCount = computed(() => (props.question.options ?? []).length);
 const maxSelectionsCap = computed(() => Math.max(optionCount.value, 1));
 
@@ -112,6 +124,19 @@ function onTypeChange(event) {
                     class="w-full text-base text-gray-500 border-b border-gray-200 focus:border-gray-400 outline-none py-1.5 resize-none"
                     @input="update({ description: $event.target.value })"
                 ></textarea>
+
+                <label v-if="hasDescription" class="flex items-center gap-2 text-base text-gray-600">
+                    説明の色
+                    <select
+                        :value="question.description_color ?? ''"
+                        class="text-base border border-gray-300 rounded-md px-3 py-1.5"
+                        @change="updateDescriptionColor($event.target.value)"
+                    >
+                        <option v-for="color in DESCRIPTION_COLORS" :key="color.value" :value="color.value">
+                            {{ color.label }}
+                        </option>
+                    </select>
+                </label>
 
                 <div class="flex flex-wrap items-center gap-4">
                     <select
