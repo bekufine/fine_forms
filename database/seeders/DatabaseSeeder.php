@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FreshFishPostUseSurveySeeder::class);
         $this->call(AdditionalFishFeedbackSurveySeeder::class);
         $this->call(PartTimeStaffCareerSurveySeeder::class);
+        $this->call(RestaurantManagerConcernsSurveySeeder::class);
         $this->call(HashimotoHonshaUserSeeder::class);
     }
 }
